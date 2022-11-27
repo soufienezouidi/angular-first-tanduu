@@ -1,0 +1,122 @@
+<!-- Breadcrumb -->
+
+<!-- /Breadcrumb -->
+<!-- Blogs -->
+<section class="latest-blog">
+  <div class="container">
+    <div class="section-header-three text-center">
+      <h2>Services provided by partner</h2>
+      <p class="sub-title">
+        You will find a list of serviced provided with a specified partner
+      </p>
+    </div>
+    <div class="card" *ngIf="company">
+      <div class="card-body">
+        <div class="doctor-widget">
+          <div class="doc-info-left">
+            <div class="doctor-img">
+              <img
+                src="assets/img/doctors/doctor-thumb-02.jpg"
+                class="img-fluid"
+                alt="User Image"
+              />
+            </div>
+            <div class="doc-info-cont">
+              <h4 class="title">
+                <a>{{ company.company_name }}</a>
+                <i
+                  style="margin-left: 3px; color: #28a745"
+                  class="fas fa-check-circle verified"
+                  *ngIf="company.is_pro"
+                ></i>
+              </h4>
+
+              <p class="doc-department">
+                {{ company.main_category }}
+              </p>
+              <div class="rating">
+                <i
+                  class="fas fa-star filled"
+                  *ngFor="
+                    let in of counter(company.average_rating);
+                    let i = index
+                  "
+                ></i>
+              </div>
+              <div class="clinic-details">
+                <p class="doc-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ company.street_number }} {{ company.street }} ,
+                  {{ company.state }} {{ company.ciry }} {{ company.country }}
+                  {{ company.zip_code }}
+                  <a href="javascript:void(0);">Get Directions</a>
+                </p>
+              </div>
+              <div class="clinic-services" *ngIf="customer">
+                <span *ngFor="let hashs of company.hashtags">{{
+                  hashs.value
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-info-right">
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded"
+                ><i class="fa fa-phone fa-1x mr-2"></i>Show number</a
+              >
+            </div>
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded">
+                <i class="fa fa-envelope fa-1x mr-2"></i>Send mail</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-4" *ngFor="let item of services">
+        <div class="blog-wrap">
+          <div class="blog-wrap-body">
+            <div style="min-height: 62px">
+              <p
+                style="
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  display: -webkit-box;
+                  line-height: 16px;
+                  max-height: 50px;
+                  -webkit-line-clamp: 3;
+                  -webkit-box-orient: vertical;
+                  word-break: break-word;
+                "
+              >
+                {{ item.description }}
+              </p>
+            </div>
+
+            <div class="blog-footer">
+              <div class="row row-sm align-items-center">
+                <div class="col-6 text-left">
+                  <a
+                    class="read-txt"
+                    tabindex="0"
+                    (click)="gotoauftragdetails(item)"
+                    >See details <i class="fas fa-long-arrow-alt-right"></i
+                  ></a>
+                </div>
+                <div class="col-6 text-right">
+                  <a href="javascript:void(0);" class="cal-txt" tabindex="0"
+                    ><i class="far fa-calendar-alt"></i>
+                    {{ item.createdAt | date: "d-M-yyyy" }}</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Blogs -->

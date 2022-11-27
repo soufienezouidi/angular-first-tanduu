@@ -1,0 +1,717 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Create Request</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item active">orders / create request</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <form name="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>Order address and customer details</h5>
+            </div>
+            <div class="card-body">
+              <div class="row" id="address_field_search">
+                <div class="col-md-12">
+
+                  <div class="form-group mb-3">
+                    <label class="form-label">Full address <span class="label-required">*</span>
+                    </label>
+                    <div>
+                      <input
+                        [class]="f.submitted && address.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                        id="address_order" name="address" placeholder="Enter a location" type="text" ngModel required
+                        #address="ngModel">
+                      <span class="error-message" *ngIf="f.submitted && address.invalid">Address field is required <i
+                          class="fa fa-exclamation-circle"></i></span>
+                      <span id="txt_full_address"></span>
+                      <span class="edit-address" style="margin-left: 10px; display: none;"><i class="far fa-edit"
+                          style="cursor: pointer;"></i>
+                      </span>
+                      <span id="errorAddress" style="display: none; color: red;">You have entered an invalid address.
+                        please check it.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="search_section_edit">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">Street <span class="label-required">*</span></label>
+                          <input type="text" id="street_order" name="street" placeholder="Street"
+                            [class]="f.submitted && street.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                            ngModel required #street="ngModel">
+                          <span class="error-message" *ngIf="f.submitted && street.invalid">Street field is required <i
+                              class="fa fa-exclamation-circle"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">Street N°</label>
+                          <input type="text" id="street_nb_order" name="street_nb" class="form-control"
+                            placeholder="Street Number" ngModel required #street_nb="ngModel">
+                          <input type="checkbox" id="street_nb_checkbox" (change)="changeStatusCheckbox()"> No
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">Additive</label>
+                          <input type="text" id="additive_order" name="additive_order" placeholder="a, b, c"
+                            id="additive" class="form-control" class='form-control' ngModel #additive_order="ngModel">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">Appartm N°</label>
+                          <input type="text" id="appartm_order" name="appartment" placeholder="Appartment N°"
+                            class="form-control" ngModel #appartment="ngModel">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">Zip code <span class="label-required">*</span></label>
+                          <input type="text" name="zip_code" id="zip_code" placeholder="zip code"
+                            [class]="f.submitted && zip_code.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                            ngModel required #zip_code="ngModel">
+                          <span class="error-message" *ngIf="f.submitted && zip_code.invalid">Zip code field is required
+                            <i class="fa fa-exclamation-circle"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">City <span class="label-required">*</span></label>
+                          <input type="text" id="city" name="city" placeholder="city"
+                            [class]="f.submitted && city.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                            ngModel required #city="ngModel">
+                          <span class="error-message" *ngIf="f.submitted && city.invalid">City field is required
+                            <i class="fa fa-exclamation-circle"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">State <span class="label-required">*</span></label>
+                          <input type="text" id="state" placeholder="state"
+                            [class]="f.submitted && state.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                            ngModel required #state="ngModel">
+                          <span class="error-message" *ngIf="f.submitted && state.invalid">State field is required
+                            <i class="fa fa-exclamation-circle"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="form-label">Country <span class="label-required">*</span></label>
+                          <input type="text" id="country" name="country" placeholder="country"
+                            [class]="f.submitted && country.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                            ngModel required #country="ngModel">
+                          <span class="error-message" *ngIf="f.submitted && country.invalid">Country field is required
+                            <i class="fa fa-exclamation-circle"></i>
+                          </span>
+                          <input type="hidden" id="longitude_order" placeholder="longitude"
+                            class="form-control form-required">
+                          <input type="hidden" id="latitude_order" placeholder="latitude"
+                            class="form-control form-required">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-9">
+                      </div>
+                      <div class="col-md-3">
+                        <button class="btn btn-primary btn-sm" hidden (click)="saveAddressInfo()"
+                          style="float: right !important;">Save <i class="fa fa-save"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="row" id="btn_new_service" style="display:  none;">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <button type="button" id="span_add_new_service" class="btn btn-primary btn-sm text-float"
+                          onclick="add_new_service()" style="display: inline; cursor: pointer;margin-bottom: 10px">add
+                          new
+                          service <i class="fa fa-plus-square"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" id="input_search_service">
+                    <div class="col-lg-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="form-label">Describe your problem <span
+                                class="label-required">*</span></label>
+                            <input type="text" id="key_words" placeholder="search service"
+                              (keyup)="searchEngineFunction()" (blur)="hideSuggestion()"
+                              class="form-control form-required">
+                            <div class="red error-selected" *ngIf="!successSelected">this service was already selected
+                              <i class="fa fa-warning"></i>
+                            </div>
+                            <div class="autocom-box" *ngIf="showSuggestion">
+                            </div>
+                            <ul id="box_result" class="list-group">
+                              <li class="list-group-item sample-items" *ngFor="let item of result_search"
+                                (click)="selectService(item.id, item.name)">{{item.name}}
+                              </li>
+                            </ul>
+                            <div class="separator"></div>
+                            <ul class="list-group" *ngIf="showSeletedSource">
+                              <li class="list-group-item bold">Services selected</li>
+                              <li class="list-group-item selected-items" *ngFor="let item of arraySelectedServices">
+                                <input type="checkbox" value="{{item.id}}" name="services[]" class="services-chk"
+                                  ngModel #services="ngModel">
+                                {{item.name}} <i class="fa fa-trash red fa-icon-size"
+                                  (click)="removeSelectedService(item.id)"></i>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-label">Additional description <span class="label-required">*</span></label>
+                        <input type="text" id="description" name="description" placeholder="addtional description"
+                          [class]="f.submitted && description.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                          ngModel required #description="ngModel">
+                        <span class="error-message" *ngIf="f.submitted && description.invalid">Description field is
+                          required <i class="fa fa-exclamation-circle"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-label">Name / phone Email <span class="label-required">*</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="edit_information_section">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="form-label">Last name <span class="label-required">*</span></label>
+                          <input type="text" id="l_name_customer" name="lname" placeholder="last name"
+                            [class]="f.submitted && lname.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                            ngModel required #lname="ngModel">
+                          <span class="error-message" *ngIf="f.submitted && lname.invalid">Last name is required <i
+                              class="fa fa-exclamation-circle"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="form-label">First name</label>
+                          <input type="text" id="f_name_customer" name="fname" placeholder="first name"
+                            class="form-control" ngModel #fname="ngModel">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="form-label">Comapny</label>
+                          <input type="text" id="company_order" name="company_customer" placeholder="company"
+                            class="form-control" ngModel #company_customer="ngModel">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="form-label">Phone <span class="label-required">*</span></label>
+                          <input type="text" id="phone_order" name="phone" placeholder="phone"
+                            [class]="f.submitted && phone.invalid ? 'form-control is-invalid' : 'form-control form-required' "
+                            ngModel required #phone="ngModel">
+                          <input type="checkbox" name="share_phone" id="share_phone" value="1" ngModel
+                            #share_phone="ngModel">
+                          <label for="hide_phone" style="margin-left: 5px;">
+                            share phone number
+                          </label>
+                          <br>
+                          <span class="error-message" *ngIf="f.submitted && phone.invalid">Phone field is
+                            required <i class="fa fa-exclamation-circle"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="form-label">Mobile</label>
+                          <input type="text" id="mobile_customer" name="mobile_customer" placeholder="mobile"
+                            class="form-control" ngModel #mobile_customer="ngModel">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="form-label">Email <span class="label-required">*</span></label>
+                      <input type="email" id="email" name="email" placeholder="email"
+                        [class]="f.submitted && email.invalid  ? 'form-control is-invalid' : 'form-control form-required' "
+                        ngModel required #email="ngModel" email="true">
+                      <span class="error-message" *ngIf="f.submitted && email.invalid">Invalid email address <i
+                          class="fa fa-exclamation-circle"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="form-label">Appointment</label>
+                      <input type="datetime-local" id="date_visit" name="appointment" placeholder="appointment"
+                        class="form-control" ngModel #appointment="ngModel">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <button type="button" hidden (click)="saveCustomerInformation(f)" class="btn btn-primary btn-sm"
+                      style="float: right !important;"><i class="fa fa-save fa-icon-size"></i> Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>Information for partners</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <cdk-accordion class="example-accordion">
+                    <cdk-accordion-item *ngFor="let item of items; let index = index;" #accordionItem="cdkAccordionItem"
+                      class="example-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
+                      [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+                      <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                        <strong>{{ item }}</strong>
+                        <span class="example-accordion-item-description">
+                          <i class="fa fa-angle-double-down" *ngIf="!accordionItem.expanded"></i>
+                          <i class="fa fa-angle-double-up" *ngIf="accordionItem.expanded"></i>
+                        </span>
+                      </div>
+                      <div class="example-accordion-item-body" role="region"
+                        [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
+                        [attr.aria-labelledby]="'accordion-header-' + index">
+                        <a href="javascript:void(0);" *ngIf="item ==='Informations'"
+                          style="color: #312783; font-size: 15px; font-weight: bold;"
+                          (click)="openAlertAddInformation()">
+                          <i class="fa fa-plus-circle"></i>
+                          Add new information
+                        </a>
+                        <div class="separator" *ngIf="item ==='Informations'"></div>
+                        <table class="table table-customize" *ngIf="item ==='Informations'">
+                          <tr *ngFor="let information of informations">
+                            <td *ngIf="information.is_deleted == 0 && informationsFound">
+                              <span id="{{'information_value'+information.id}}">
+                                <input value="{{information.id}}" name="informations[]" type="checkbox"
+                                  (change)="addInformations($event.target)" ngModel #informations="ngModel">
+                                {{information.name}} <span><i class="far fa-edit fa-icon-size"
+                                    (click)="showEditSection(information.id)"></i> <i class="fa fa-trash fa-icon-size"
+                                    (click)="showDeleteSection(information.id)" style="color: crimson"></i></span>
+                              </span>
+                              <span id="{{'edit_information_value' + information.id}}" style="display: none;">
+                                <div class="input-group input-group-sm mb-3">
+                                  <input type="text" class="form-control" aria-label="Small"
+                                    value="{{information.name}}" id="{{'updated_information'+information.id}}"
+                                    (keyup)="checkUpdatedInformation(information.id)" placeholder="edit information"
+                                    aria-describedby="inputGroup-sizing-sm">
+                                  <div class="input-group-prepend" (click)="saveEditSection(information.id)"
+                                    [class.disabled]="btnInfoUpdatedDisabled ? true: null">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">
+                                      <i class="far fa-save"></i></span>
+                                  </div>
+                                  <div class="input-group-prepend" (click)="closeEditSection(information.id)">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">
+                                      <i class="fa fa-close" style="color: crimson"></i></span>
+                                  </div>
+                                </div>
+                                <span id="errorInformation" style="color: red"
+                                  *ngIf="!successInfoUpdate">{{errorMessage}}
+                                  <i class="fa fa-exclamation-circle "></i>
+                                </span>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr *ngIf="!informationsFound">
+                            <td>
+                              No Informations Found
+                            </td>
+                          </tr>
+                          <tr *ngIf="newField">
+                            <td><input type="text" class="form-control new-information"
+                                placeholder="add new information">
+                              <span id="errorInformation" style="color: red" *ngIf="isOpened">{{errorMessage}} <i
+                                  class="fa fa-exclamation-circle "></i></span>
+                              <span id="successInformation" style="color: green" *ngIf="isSuccess">New information was
+                                added successfully <i class="fa fa-check-circle-o "></i></span>
+                            </td>
+                            <td><a href="javascript:void(0);" class="btn btn-primary btn-sm save-info"><i
+                                  class="far fa-save"></i></a>
+                              <a href="javascript:void(0);" class="btn btn-danger btn-sm close-info"
+                                (click)="closeInput()"><i class="fa fa-close"></i></a>
+                            </td>
+                          </tr>
+                        </table>
+                        <a href="javascript:void(0);" *ngIf="item ==='Sources'"
+                          style="color: #312783; font-size: 15px; font-weight: bold;" (click)="ShowInputSource()">
+                          <i class="fa fa-plus-circle"></i>
+                          Add new Source
+                        </a>
+                        <div class="separator" *ngIf="item ==='Sources'"></div>
+                        <div class="input-group" *ngIf="newSourceOpened">
+                          <input type="text" class="12345" value="66556" (keyup)="checkSourceInput()">
+                          <input type="text" class="form-control" id="new_source" (keyup)="checkSource()" />
+                          <div class="input-group-append">
+                            <span class="input-group-text"><i class="far fa-save"></i></span>
+                          </div>
+                          <div class="input-group-append" (click)="closeInputSource()">
+                            <span class="input-group-text"><i class="fa fa-close" style="color: crimson"></i></span>
+                          </div>
+                        </div>
+                        <span id="errorSource" style="color: red" *ngIf="sourceEmpty">{{errorMessage}} <i
+                            class="fa fa-exclamation-circle "></i></span>
+                        <table class="table table-customize" *ngIf="item ==='Sources'">
+                          <tr *ngFor="let src of sources">
+                            <td *ngIf="src.is_deleted == 0 && sourcesFound">
+                              <span id="{{'section_src_value'+ src.id}}">
+                                <input class="form-check-input chk-src" value="{{src.name}}" name="sources"
+                                  type="checkbox" id="source_name" aria-label="..." ngModel #sources="ngModel">
+                                {{src.name}}
+                                <span><i class="far fa-edit fa-icon-size" (click)="openInputUpdateSource(src.id)"></i>
+                                  <i class="fa fa-trash fa-icon-size" (click)="showDeleteSourceSection(src.id)"
+                                    style="color: crimson"></i></span>
+                              </span>
+                              <span id="{{'edit_src_value' + src.id}}" style="display: none;">
+                                <div class="input-group input-group-sm mb-3">
+                                  <input type="text" class="form-control" aria-label="Small" value="{{src.name}}"
+                                    id="{{'updated_src'+src.id}}" (keyup)="checkUpdatedSource(src.id)"
+                                    placeholder="edit source" aria-describedby="inputGroup-sizing-sm">
+                                  <div class="input-group-prepend" (click)="saveEditSourceSection(src.id)"
+                                    [class.disabled]="btnSrcUpdatedDisabled ? true: null">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">
+                                      <i class="far fa-save"></i></span>
+                                  </div>
+                                  <div class="input-group-prepend" (click)="closeEditSourceSection(src.id)">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">
+                                      <i class="fa fa-close" style="color: crimson"></i></span>
+                                  </div>
+                                </div>
+                                <span id="errorSource" style="color: red" *ngIf="!successSrcoUpdate">{{errorMessage}}
+                                  <i class="fa fa-exclamation-circle "></i>
+                                </span>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr *ngIf="!sourcesFound">
+                            <td>
+                              No sources Found
+                            </td>
+                          </tr>
+                        </table>
+                        <div class="invoice-tab" *ngIf="item === 'Different billing address'">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <input class="form-check-input" id="client_address" (change)="openInvoiceSectionData()"
+                                name="enabled_address" type="checkbox" value="1"> Invoice information
+                            </div>
+                          </div>
+                          <div class="separator"></div>
+                          <div id="next_info_customer" style="display: none">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div id="text_full_name" class="text-float"></div>
+                              </div>
+                            </div>
+                            <div id="edit-personal-details">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label class="form-label">Last name <span
+                                            class="label-required">*</span></label>
+                                        <input type="text" id="l_name_invoice" name="l_name_invoice"
+                                          placeholder="last name" class="form-control form-required">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label class="form-label">First name</label>
+                                        <input type="text" id="f_name_invoice" name="f_name_invoice"
+                                          placeholder="first name" class="form-control">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label class="form-label">Comapny <span class="label-required">*</span></label>
+                                        <input type="text" id="company_invoice" name="company_invoice"
+                                          placeholder="company" class="form-control">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div id="next_info_address">
+                              <div class="row" id="address_field_search">
+                                <div class="col-md-12">
+                                  <div class="form-group mb-3">
+                                    <label class="form-label">Full address <span class="label-required">*</span></label>
+                                    <div>
+                                      <input class="form-control form-required" id="address_order_invoice"
+                                        name="address" placeholder="Enter a location" type="text">
+                                    </div>
+                                    <div id="txt_full_address" class="text-float"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div id="search_section_edit">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">Street <span class="label-required">*</span></label>
+                                          <input type="text" id="street_order_invoice" name="street"
+                                            placeholder="Street" class="form-control form-required">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">Street N°</label>
+                                          <input type="text" id="street_nb_order_invoice" name="street_nb"
+                                            placeholder="Street Number" class="form-control">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">Additive <span
+                                              class="label-required">*</span></label>
+                                          <input type="text" id="additive_order_invoice" name="additive_order"
+                                            placeholder="a, b, c" class="form-control">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">Appartm N°</label>
+                                          <input type="text" id="appartm_order_invoice" name="appartment"
+                                            placeholder="Appartment N°" class="form-control">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">Zip code <span
+                                              class="label-required">*</span></label>
+                                          <input type="text" id="zip_code_invoice" placeholder="zip code"
+                                            class="form-control form-required">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">City <span class="label-required">*</span></label>
+                                          <input type="text" id="city_invoice" placeholder="city"
+                                            class="form-control form-required">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">State <span class="label-required">*</span></label>
+                                          <input type="text" id="state_invoice" placeholder="state"
+                                            class="form-control form-required">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label class="form-label">Country <span
+                                              class="label-required">*</span></label>
+                                          <input type="text" id="country_invoice" placeholder="country"
+                                            class="form-control form-required">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div id="contact_informations">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div id="text_full_contact" class="text-float"></div>
+                                </div>
+                              </div>
+                              <div class="row" id="inv_info2">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label required">Mobile</label>
+                                    <div>
+                                      <input class="form-control form-required" id="mobile_customer_invoice"
+                                        name="mobile_obj" placeholder="mobile" type="text">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label">Office</label>
+                                    <div>
+                                      <input class="form-control form-required" id="landline_invoice" name="phone_obj"
+                                        placeholder="phone" type="text">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" id="inv_info3">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label required">Email</label>
+                                    <div>
+                                      <input class="form-control form-required" id="email_customer_invoice"
+                                        name="email_obj" placeholder="email" type="email">
+                                    </div>
+                                    <div id="message_error_invoice_mail" class="text-float" style="color:red"></div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label required">Fax</label>
+                                    <div>
+                                      <input class="form-control" id="fax_customer" name="fax_obj" placeholder="Fax"
+                                        type="text">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </cdk-accordion-item>
+                  </cdk-accordion>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body" id="card-scroll">
+              <span class="title-possible-members">Possible members:</span>
+              <div class="separator"></div>
+              <table class="table" id="possible_list_partner">
+                <thead style="display: none">
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let member of members">
+                    <td>
+                      <div id="photo">
+                        <span id="select-chk">
+                          <input type="checkbox" (change)="addPartners($event.target)" class="select-partners"
+                            name="partners[]" value="{{member.id}}" ngModel #partners="ngModel">
+                        </span>
+                        <img style="vertical-align:middle" src="assets/img/users/user.png" alt="" width="25"
+                          height="25">
+                        <span style="vertical-align:middle">
+                          {{member.member.company_name}} | {{member.provision}} % | <span
+                            class="badge bagde-sm badge-secondary">2
+                            orders</span> |
+                          <i class="fa fa-calendar"></i>
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="separator"></div>
+              <span class="title-full-members">Full members:</span>
+              <div class="separator"></div>
+              <input type="text" class="form-control" id="custom_search" placeholder="search member">
+              <div class="separator"></div>
+              <table class="display" id="full_list_partner" style="width: 100%">
+                <thead style="display: none">
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let c of typesOfShoes">
+                    <td>
+                      <div id="photo">
+                        <span id="select-chk">
+                          <input type="checkbox">
+                        </span>
+                        <img style="vertical-align:middle" src="assets/img/users/user.png" alt="" width="25"
+                          height="25">
+                        <span style="vertical-align:middle">
+                          soufiene zouidi | 50% | <span class="badge bagde-sm badge-secondary">2 orders</span> | <i
+                            class="fa fa-calendar"></i><br>
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="separator">
+                <button class="btn btn-sm btn-primary btn-block" width="100%"><i class="fa fa-send"></i>
+                  send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-primary btn-block" width="100%"><i class="fa fa-send"></i>
+        send</button>
+    </form>
+  </div>
+</div>

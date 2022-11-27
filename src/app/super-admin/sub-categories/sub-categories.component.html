@@ -1,0 +1,689 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container" style="max-width: 1500px !important">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-6 col-auto">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/tanduu-admin/categories'">     {{ current_categ.name }}</a>
+            </li>
+            <li class="breadcrumb-item active" *ngIf="current_categ">
+              Sub Categories
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="row">
+      <div class="col-sm-6 col float-right mt-2" style="margin-bottom: 10px">
+        <a
+          class="btn btn-primary"
+          href="javascript:void(0);"
+          (click)="addnewsubcategory()"
+          ><i class="fe fe-plus"></i> Add new subcategory Category</a
+        >
+        <a
+          class="btn bg-danger-light"
+          href="javascript:void(0);"
+          style="margin-left: 10px"
+          ><i class="fa fa-close"></i> Disable all</a
+        >
+        <a
+          class="btn bg-success-light"
+          href="javascript:void(0);"
+          style="margin-left: 10px"
+          ><i class="fa fa-check"></i>Enable all</a
+        >
+      </div>
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body pt-0">
+            <!-- Tab Menu -->
+            <nav class="user-tabs mb-4">
+              <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    href="#doc_overview"
+                    data-toggle="tab"
+                    >Active sub categories</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#doc_locations" data-toggle="tab"
+                    >disabled sub categories</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#doc_reviews" data-toggle="tab"
+                    >Pending sub categories</a
+                  >
+                </li>
+              </ul>
+            </nav>
+            <!-- /Tab Menu -->
+
+            <!-- Tab Content -->
+            <div class="tab-content pt-0">
+              <!-- Overview Content -->
+              <div
+                role="tabpanel"
+                id="doc_overview"
+                class="tab-pane fade show active"
+              >
+                <!-- Tab Content
+                <div class="card search-widget">
+                  <div class="card-body">
+                    <form class="search-form">
+                      <div class="input-group">
+                        <input
+                          (input)="filtera($event.target.value)"
+                          type="text"
+                          placeholder="Search..."
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div> -->
+                <div class="row blog-grid-row">
+                  <div
+                    class="col-md-6 col-xl-3 col-sm-12"
+                    *ngFor="let blog of subcatega"
+                  >
+                    <!-- Blog Post -->
+                    <div class="blog grid-blog">
+                      <div class="blog-image">
+                        <a href="javascript:void(0)"
+                          ><img
+                            class="img-fluid"
+                            src="https://api.aroundorder.com:1337/sub_categories/{{
+                              blog.id
+                            }}.png"
+                            alt="Post Image"
+                            style="width: 100%; height: 200px"
+                        /></a>
+                      </div>
+                      <div class="blog-content">
+                        <h3 class="blog-title">
+                          <a href="javascript:void(0)">{{
+                            blog.languages.name_en
+                          }}</a>
+                        </h3>
+                      </div>
+                      <div class="row pt-3">
+                        <div class="col">
+                          <a
+                            class="btn btn-primary"
+                            style="max-width: 50%"
+                            data-toggle="modal"
+                            href="javascript:void(0)"
+                            (click)="editModal(edittemplate, blog)"
+                            ><i class="fe fe-pencil"></i> edit</a
+                          >
+                          <a
+                            class="btn bg-success-light"
+                            style="max-width: 50%"
+                            (click)="editphotoz(blog)"
+                            ><i class="fa fa-upload"></i> edit photo</a
+                          >
+                        </div>
+                      </div>
+                      <div class="row pt-3">
+                        <div class="col">
+                          <a
+                            class="btn bg-success-light"
+                            style="max-width: 50%"
+                            (click)="gotosubservices(blog)"
+                            ><i class="fa fa-plus"></i> service</a
+                          >
+                          <a
+                            class="btn bg-danger-light"
+                            style="max-width: 50%"
+                            (click)="disablsubcategory(blog)"
+                            ><i class="far fa-trash-alt"></i>Disable</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Blog Post -->
+                  </div>
+                </div>
+              </div>
+              <!-- /Overview Content -->
+
+              <!-- Locations Content -->
+              <div role="tabpanel" id="doc_locations" class="tab-pane fade">
+                <!-- Location List 
+                <div class="card search-widget">
+                  <div class="card-body">
+                    <form class="search-form">
+                      <div class="input-group">
+                        <input
+                          (input)="filterd($event.target.value)"
+                          type="text"
+                          placeholder="Search..."
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>-->
+                <div class="row blog-grid-row">
+                  <div
+                    class="col-md-6 col-xl-3 col-sm-12"
+                    *ngFor="let blog of subcategd"
+                  >
+                    <!-- Blog Post -->
+                    <div class="blog grid-blog">
+                      <div class="blog-image">
+                        <a
+                          ><img
+                            class="img-fluid"
+                            src="https://api.aroundorder.com:1337/sub_categories/{{
+                              blog.id
+                            }}.png"
+                            alt="Post Image"
+                            style="width: 100%; height: 250px"
+                        /></a>
+                      </div>
+                      <div class="blog-content">
+                        <h3 class="blog-title">
+                          <a>{{ blog.name }}</a>
+                        </h3>
+                      </div>
+                      <div class="row pt-3">
+                        <div class="col">
+                          <a
+                            class="btn btn-primary"
+                            style="max-width: 50%"
+                            (click)="editModal(edittemplate, blog)"
+                            ><i class="fe fe-pencil"></i> edit</a
+                          >
+                          <a
+                            class="btn bg-success-light"
+                            style="max-width: 50%"
+                            (click)="editphotoz(blog)"
+                            ><i class="fa fa-upload"></i> edit photo</a
+                          >
+                        </div>
+                      </div>
+                      <div class="row pt-3">
+                        <div class="col">
+                          <a
+                            class="btn bg-success-light"
+                            style="max-width: 50%"
+                            (click)="gotosubservices(blog)"
+                            ><i class="fa fa-plus"></i> service</a
+                          >
+                          <a
+                            class="btn bg-primary-light"
+                            style="max-width: 50%"
+                            (click)="enablesubcategory(blog)"
+                            ><i class="fas fa-check"></i>enable</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Blog Post -->
+                  </div>
+                </div>
+                <!-- /Location List -->
+              </div>
+              <!-- /Locations Content -->
+
+              <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+                <!-- 
+                <div class="card search-widget">
+                  <div class="card-body">
+                    <form class="search-form">
+                      <div class="input-group">
+                        <input
+                          (input)="filterp($event.target.value)"
+                          type="text"
+                          placeholder="Search..."
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>/Locations Content -->
+                <div class="row blog-grid-row">
+                  <div
+                    class="col-md-6 col-xl-3 col-sm-12"
+                    *ngFor="let blog of subcategp"
+                  >
+                    <div class="blog grid-blog">
+                      <div class="blog-image">
+                        <a
+                          ><img
+                            class="img-fluid"
+                            src="https://api.aroundorder.com:1337/sub_categories/{{
+                              blog.id
+                            }}.jpg"
+                            alt="Post Image"
+                            style="width: 100%; height: 250px"
+                        /></a>
+                      </div>
+                      <div class="blog-content">
+                        <h3 class="blog-title">
+                          <a>{{ blog.name }}</a>
+                        </h3>
+                      </div>
+                      <div class="row pt-3">
+                        <a
+                          class="btn btn-sm bg-success-light"
+                          data-toggle="modal"
+                        ></a>
+                        <div class="col">
+                          <a
+                            class="btn btn-primary"
+                            style="max-width: 50%"
+                            data-toggle="modal"
+                            (click)="editModal(edittemplate, blog)"
+                            ><i class="fe fe-pencil"></i> edit</a
+                          >
+                          <a
+                            class="btn bg-success-light"
+                            style="max-width: 50%"
+                            (click)="editphotoz(blog)"
+                            ><i class="fa fa-upload"></i> edit photo</a
+                          >
+                        </div>
+                      </div>
+                      <div class="row pt-3">
+                        <div class="col">
+                          <a
+                            class="btn bg-success-light"
+                            style="max-width: 50%"
+                            (click)="gotosubservices(blog)"
+                            ><i class="fa fa-plus"></i> sub-service</a
+                          >
+                          <a class="btn bg-primary-light" style="max-width: 50%"
+                            ><i class="far fa-check"></i>Accept</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="datatable table table-hover table-center mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name fr</th>
+                    <th>Name eng</th>
+                    <th>Name de</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <h2 class="table-avatar">NAME FR</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME ENG</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME DE</h2>
+                    </td>
+                    <td class="text-right">
+                      <div class="actions">
+                        <a
+                          class="btn btn-sm bg-primary-light"
+                          data-some-value="some value"
+                        >
+                          <i class="fa fa-upload"></i> add photo
+                        </a>
+                        <a
+                          class="btn btn-sm bg-success-light"
+                          (click)="showmodaladdsub()"
+                        >
+                          <i class="fe fe-plus"></i> Add sub-categ
+                        </a>
+                        <a
+                          (click)="disablecateg()"
+                          class="btn btn-sm bg-danger-light"
+                        >
+                          <i class="fe fe-close"></i> Disbale
+                        </a>
+                        <a
+                          (click)="enablecateg()"
+                          class="btn btn-sm bg-warning-light"
+                        >
+                          <i class="fe fe-check"></i> Accept
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <h2 class="table-avatar">NAME FR</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME ENG</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME DE</h2>
+                    </td>
+                    <td class="text-right">
+                      <div class="actions">
+                        <a
+                          class="btn btn-sm bg-primary-light"
+                          data-some-value="some value"
+                          (click)="uploadimageforcategory()"
+                        >
+                          <i class="fa fa-upload"></i> add photo
+                        </a>
+                        <a
+                          class="btn btn-sm bg-success-light"
+                          (click)="showmodaladdsub()"
+                        >
+                          <i class="fe fe-plus"></i> Add sub-categ
+                        </a>
+                        <a
+                          (click)="disablecateg()"
+                          class="btn btn-sm bg-danger-light"
+                        >
+                          <i class="fe fe-close"></i> Disbale
+                        </a>
+                        <a
+                          (click)="enablecateg()"
+                          class="btn btn-sm bg-warning-light"
+                        >
+                          <i class="fe fe-check"></i> Accept
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content container-fluid">
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. ium"
+      #input
+    />
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+      multiTemplateDataRows
+      matSort
+      matSortDisableClear
+      matSortDisableClear
+    >
+
+      <ng-container matColumnDef="position">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by number"
+        >
+          No.
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by name"
+        >
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="weight">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by weight"
+        >
+          Weight
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="symbol">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by symbol"
+        >
+          Symbol
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplay.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-diagram">
+              <div class="example-element-position">{{ element.position }}</div>
+              <div class="example-element-symbol">{{ element.symbol }}</div>
+              <div class="example-element-name">{{ element.name }}</div>
+              <div class="example-element-weight">{{ element.weight }}</div>
+            </div>
+            <div class="example-element-description">
+              {{ element.description }}
+              <span class="example-element-description-attribution">
+                -- Wikipedia
+              </span>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplay"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+  </div>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>Reviews Content -->
+    </div>
+  </div>
+  <ng-template #edittemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Edit Product</h4>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+      <form>
+        <div class="row form-row">
+          <div class="col-12 col-sm-12">
+            <div class="form-group">
+              <label> Name francais</label>
+              <input
+                type="text"
+                class="form-control"
+                name="speciazeality"
+                [(ngModel)]="subtoedit.languages.name_fr"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row form-row">
+          <div class="col-12 col-sm-12">
+            <div class="form-group">
+              <label>Name englais</label>
+              <input
+                type="text"
+                class="form-control"
+                name="speciqsdqsdazeality"
+                [(ngModel)]="subtoedit.languages.name_en"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row form-row">
+          <div class="col-12 col-sm-12">
+            <div class="form-group">
+              <label>Name Allmand</label>
+              <input
+                type="text"
+                class="form-control"
+                name="speciazeqsdqsdality"
+                [(ngModel)]="subtoedit.languages.name_de"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+      <div style="margin-top: 25px">
+        <button
+          type="button"
+          class="btn btn-success si_accept_confirm"
+          id="btn-yes"
+          (click)="updatesubinfos()"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger si_accept_cancel"
+          (click)="decline()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<ng-template #editphoto>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit Product</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Upload File</label>
+          <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+          <div>
+            <img
+              [src]="urlimgcategory"
+              *ngIf="urlimgcategory"
+              style="width: 300px; margin-left: 25%; margin-bottom: 10px"
+            />
+          </div>
+          <input
+            type="file"
+            class="form-control"
+            (change)="selectFilecategory($event)"
+          />
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="updatephoto()"
+      >
+        Update
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,92 @@
+<header class="header header-trans custom">
+  <nav
+    class="navbar navbar-expand-md navbar-main border-bottom"
+    style="background-color: #272b41"
+  >
+    <div class="container-fluid" style="padding-top: 25px">
+      <form class="d-md-none my-2" style="width: 100%; display: inherit">
+        <div class="input-group">
+          <input
+            type="text"
+           
+            name="header1mob"
+            [(ngModel)]="searchServiceMobHome1Header"
+            (keyup)="searchServicesmob($event.target.value)"
+            placeholder="{{
+              'header_section_plateform.header_section_plateform_17' | translate
+            }}"
+            class="form-control search-form"
+            style="max-height: 30px"
+            style="min-height: 30px"
+          />
+        </div>
+        <div class="input-group-append">
+          <button
+            type="submit"
+            class="btn btn-secondary"
+            (click)="gotoresults()"
+            style="height: 36px"
+          >
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#dropdown6"
+          aria-expanded="false"
+        >
+          <span class="navbar-toggler-icon"> <i class="fas fa-bars"></i></span>
+        </button>
+      </form>
+      <div
+        class="search-filter"
+        *ngIf="showSuggestion && isMobile"
+        style="width: 70%; margin-top: 50px"
+      >
+        <div class="autocom-box"></div>
+        <ul
+          id="box_result"
+          class="list-group-filter"
+          *ngIf="results1.length > 0"
+        >
+          <li
+            class="list-group-item sample-items"
+            *ngFor="let item of results1"
+            (click)="selectServicemob(item.id, item.name, item)"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+        
+      </div>
+
+      <div class="navbar-collapse collapse" id="dropdown6">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="" data-abc="true " style="color: white">{{
+              "header_section_plateform.header_section_plateform_4" | translate
+            }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" data-abc="true" style="color: white">{{
+              "header_section_plateform.header_section_plateform_5" | translate
+            }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" data-abc="true" style="color: white">{{
+              "become_a_jobber_page_plateform.become_a_jobber_page_plateform_12"
+                | translate
+            }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" data-abc="true" style="color: white">{{
+              "header_section_plateform.header_section_plateform_7" | translate
+            }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

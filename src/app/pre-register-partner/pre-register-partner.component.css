@@ -1,0 +1,13 @@
+.brower-box>div {
+  border-radius: 15px;
+
+  height: 100%;
+  padding: 24px;
+  background-color: white;
+}
+
+.brower-box h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2264C5;
+}

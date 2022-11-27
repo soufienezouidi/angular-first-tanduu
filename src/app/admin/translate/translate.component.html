@@ -1,0 +1,83 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Translation</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/admin/'">Tanduu</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:(0);">Translate</a></li>
+                        <li class="breadcrumb-item active">CRM & Plateform</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body custom-edit-service">
+                        <div class="row mb-5">
+                            <div class="col">
+                                <ul class="nav nav-tabs nav-tabs-solid">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" [routerLink]="'/admin/translate'">CRM & Plateform</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="'/admin/translate/crm'">CRM</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="'/admin/translate/plateform'">Plateform</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary btn-sm" *ngIf="!isClicked" (click)="editAllTexts()"><i
+                                        class="far fa-edit mr-1"></i> Edit texts</button>
+                                <button class="btn btn-primary btn-sm" *ngIf="isClicked" (click)="saveAllTexts()"><i
+                                        class="far fa-save mr-1"></i> Save texts</button>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddNewWord"
+                                    *ngIf='!isDisabled'><i class="fas fa-plus mr-1"></i> Add new text</button>
+                                <button class="btn btn-primary btn-sm" disabled *ngIf='isDisabled'><i
+                                        class="fas fa-plus mr-1"></i> Add new text</button>
+                            </div>
+                        </div>
+
+                        <!-- Texts Table -->
+                        <table class="display" id="crm_plateform">
+                            <thead>
+                                <tr>
+                                    <th>English Texts</th>
+                                    <th>Frensh Texts</th>
+                                    <th>page</th>
+                                    <th>Deutsch Texts</th>
+                                    <th>Id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                        <!-- End Table -->
+
+
+                    </div>
+                </div>
+                <!-- Add New Text To Translate -->
+
+
+
+                <!-- /Add New Text To Translate -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /Page Wrapper -->

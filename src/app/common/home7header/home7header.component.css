@@ -1,0 +1,23 @@
+.user-img>img {
+  height: 25px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 25px;
+  margin-right: 3px;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+ display: block;
+  box-sizing: border-box;
+  padding: 0 16px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  height: 40px;
+}

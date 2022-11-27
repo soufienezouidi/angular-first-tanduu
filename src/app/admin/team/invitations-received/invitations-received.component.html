@@ -1,0 +1,214 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Invitations received</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item active">team / invitations received</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="row mb-5">
+                        <div class="col">
+                            <ul class="nav nav-tabs nav-tabs-solid">
+                                <li class="nav-item">
+                                    <a class="nav-link" [routerLink]="'/admin/team/invitations-sent'">Invitations
+                                        Sent</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active"
+                                        [routerLink]="'/admin/team/invitations-received'">Invitations
+                                        received</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="card-text center">
+                        <button class="btn btn-primary btn-sm" (click)="showSendNewInvitation()"
+                            *ngIf="!isClicked">invite new
+                            member</button>
+                        <button class="btn btn-primary btn-sm" (click)="closeSendNewInvitation()"
+                            *ngIf="isClicked">close</button>
+                    </p>
+                    <div class="row" *ngIf="isClicked" style="margin-top: 10px;">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="main-wrapper login-body">
+                                        <div class="login-wrapper">
+                                            <div class="container">
+                                                <div class="loginbox">
+                                                    <div class="login-left">
+                                                        <p class="orange">Send registration link to new contractor!</p>
+                                                        <p class="white">The new contractor receives an email with a
+                                                            registration link.</p>
+                                                        <p></p>
+                                                        <p class="white"><strong>NOTE:</strong> Don't worry !!! The new
+                                                            contractor CANNOT see into your account !!!</p>
+                                                    </div>
+                                                    <div class="login-right">
+                                                        <div class="login-right-wrap">
+                                                            <h1></h1>
+                                                            <p class="account-subtitle"><strong>Invite new
+                                                                    jobber</strong></p>
+                                                            <!-- Form -->
+                                                            <div class="alert alert-danger alert-dismissible fade show"
+                                                                role="alert" *ngIf="errorInvitation">
+                                                                <strong>Error!</strong>
+                                                                <span *ngIf="messageExistError =='already accepted'">
+                                                                    This user has already joined your team </span>
+                                                                <span *ngIf="messageExistError =='already sent'"> You
+                                                                    already sent invitation to this user </span>
+                                                                <span *ngIf="messageExistError =='not found'"> The
+                                                                    account number and Email address are not associated
+                                                                    to any user </span>
+                                                                <button type="button" class="close" data-dismiss="alert"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="alert alert-success alert-dismissible fade show"
+                                                                role="alert" *ngIf="successInvitation">
+                                                                <strong>Success!</strong>
+                                                                <span> Invitation was sent sucessfully </span>
+                                                                <button type="button" class="close" data-dismiss="alert"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)"
+                                                                #f="ngForm" novalidate>
+                                                                <div class="form-group">
+                                                                    <label class="form-label required">Account
+                                                                        number</label>
+                                                                    <input type="text" name="account_number"
+                                                                        [ngClass]="f.submitted && account_number.invalid ? 'form-control is-invalid' : 'form-control form-required'"
+                                                                        id="account_number" placeholder="account number"
+                                                                        ngModel required #account_number="ngModel" />
+                                                                    <div class="red" role="alert"
+                                                                        *ngIf="f.submitted && account_number.invalid">
+                                                                        Account number is required <i
+                                                                            class="fa fa-exclamation-circle"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="form-label required">Email</label>
+                                                                    <input type="email" name="old_email"
+                                                                        [ngClass]="f.submitted && old_email.invalid ? 'form-control is-invalid' : 'form-control form-required'"
+                                                                        id="old_email" placeholder="email" ngModel
+                                                                        required #old_email="ngModel" />
+                                                                    <div class="red" role="alert"
+                                                                        *ngIf="f.submitted && old_email.invalid">
+                                                                        Email
+                                                                        is required <i
+                                                                            class="fa fa-exclamation-circle"></i></div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="form-label required">Role</label>
+                                                                    <i style="cursor: pointer; color: darkblue;"
+                                                                        class="fa fa-question-circle"></i>
+                                                                    <select class="form-control form-required" ngModel
+                                                                        required #old_role="ngModel" name="old_role">
+                                                                        <option value="">Select role</option>
+                                                                        <option value="contractor">Contractor</option>
+                                                                        <option value="viewr">Viewr</option>
+                                                                        <option value="office worker">Office Worker
+                                                                        </option>
+                                                                        <option value="worcker">Worker</option>
+                                                                    </select>
+                                                                    <div class="red" role="alert"
+                                                                        *ngIf="f.submitted && old_role.invalid">
+                                                                        Role is
+                                                                        required <i
+                                                                            class="fa fa-exclamation-circle"></i></div>
+                                                                </div>
+                                                                <div class="text-right">
+                                                                    <button class="btn btn-primary"
+                                                                        style="float: right;">Send
+                                                                        invitation</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <h6>List of invitations received</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row left-side" *ngIf="invitationsSent.length > 0">
+                            <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let item of invitationsSent">
+                                <div class="profile-widget">
+                                    <div class="doc-img">
+                                        <a href="doctor-profile.html">
+                                            <img class="img-fluid" alt="User Image"
+                                                src="https://i2.wp.com/assets.entrepreneur.com/content/3x2/2000/1602787561-CristianoRonaldo.jpg" />
+                                        </a>
+                                    </div>
+                                    <div class="pro-content">
+                                        <h3 class="title">
+                                            <a href="#">{{item.userSender.first_name}} {{item.userSender.last_name}}
+                                            </a>
+                                            <span class="badge badge-success badge-invitation" *ngIf="item.is_accepted">
+                                                <i class="fa fa-check-circle white"></i> accepted
+                                            </span>
+                                            <span class="badge badge-danger badge-invitation" *ngIf="item.is_refused">
+                                                <i class="fa fa-trash-circle i-invitation"></i> declined
+                                            </span>
+
+                                        </h3>
+                                        <ul class="available-info">
+                                            <li><i class="fas fa-envelope"></i>{{ item.userSender.email }}</li>
+                                            <li><i class="far fa-calendar"></i>{{ item.createdAt | date }}</li>
+                                        </ul>
+                                        <div class="row row-sm" *ngIf="!item.is_accepted && !item.is_refused">
+                                            <div class="col-6">
+                                                <a href="javascript:void(0)"
+                                                    (click)="acceptInvitation(item.invitation_token)"
+                                                    class="btn view-btn">accept</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a href="javascript:void(0)"
+                                                    (click)="declineInvitation(item.invitation_token)"
+                                                    class="btn decline-btn"><i class="fas fa-trash"></i>
+                                                    decline
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="invitationsSent.length < 1">
+                            <div class="col-md-12 col-lg-12 col-xl-12">
+                                <p class="card-text center">
+                                    No invitations found
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /Main Wrapper -->

@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-table mb-0">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-center mb-0">
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Appt Date</th>
+                <th>Purpose</th>
+                <th>Type</th>
+                <th class="text-center">Paid Amount</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appointment of appointments">
+                <td>
+                  <h2 class="table-avatar">
+                    <a
+                      [routerLink]="'/patients/patient-profile'"
+                      class="avatar avatar-sm mr-2"
+                      ><img
+                        class="avatar-img rounded-circle"
+                        [src]="appointment?.patients?.img"
+                        alt="User Image"
+                    /></a>
+                    <a [routerLink]="'/patients/patient-profile'"
+                      >{{ appointment?.patients?.name
+                      }}<span>{{ appointment.patients?.key }}</span></a
+                    >
+                  </h2>
+                </td>
+                <td>
+                  {{ appointment.appointment_time | date: "dd MMM yyyy"
+                  }}<span class="d-block text-info">10.00 AM</span>
+                </td>
+                <td>General</td>
+                <td>{{ appointment.type }}</td>
+                <td class="text-center">{{ appointment.amount }}</td>
+                <td class="text-right">
+                  <div class="table-action">
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm bg-info-light"
+                    >
+                      <i class="far fa-eye"></i> View
+                    </a>
+                    <a class="btn btn-sm bg-success-light">
+                      <i class="fas fa-check"></i> Accept
+                    </a>
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm bg-danger-light"
+                    >
+                      <i class="fas fa-times"></i> Cancel
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

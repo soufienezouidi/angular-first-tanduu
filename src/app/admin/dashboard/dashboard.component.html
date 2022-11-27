@@ -1,0 +1,174 @@
+<div class="page-wrapper" *ngIf="companyConnected">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">
+            {{ "dashboard_crm.dashboard_crm_1" | translate }} {{ fullName }}
+          </h3>
+          <input type="hidden" id="urll" [(ngModel)]="compurl" />
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ul>
+          <a type="button" class="btn btn-rounded btn-info" href="{{ compurl }}" target="_blank"
+            style="margin-top: 8px">
+            <i class="fas fa-eye"></i> {{ public.languages[serviceLang] }}
+          </a>
+          <button style="margin-top: 8px" type="button" class="btn btn-rounded btn-info" (click)="copylink()">
+            <i class="fas fa-copy"></i> {{ copy.languages[serviceLang] }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="container-fluid"></div>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-primary border-primary">
+                <i class="fe fe-users"></i>
+              </span>
+              <div class="dash-count">
+                <h3>0</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">
+                {{ "dashboard_crm.dashboard_crm_2" | translate }}
+              </h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary w-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-success">
+                <i class="fe fe-users"></i>
+              </span>
+              <div class="dash-count">
+                <h3>0</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">
+                {{ "dashboard_crm.dashboard_crm_3" | translate }}
+              </h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-success w-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-danger border-danger">
+                <i class="fa fa-list"></i>
+              </span>
+              <div class="dash-count">
+                <h3>0</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">
+                {{ "dashboard_crm.dashboard_crm_4" | translate }}
+              </h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-danger w-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-warning border-warning">
+                <i class="fe fe-money"></i>
+              </span>
+              <div class="dash-count">
+                <h3>0 €</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">
+                {{ "dashboard_crm.dashboard_crm_5" | translate }}
+              </h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-warning w-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Content -->
+
+<ng-template #addAddress>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{ "modals_plateform.modals_plateform_1" | translate }}
+      <i class="fa fa-question-circle" style="cursor: pointer"
+        title="{{ 'help_plateform.help_plateform_1' | translate }}"></i>
+    </h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="font-size: 13px">
+    <div class="row">
+      <div class="col-md-12">
+        <label>{{ "forms_plateform.forms_plateform_1" | translate }} ({{
+            locationmsg.languages[serviceLang]
+          }}) <span class="label-required">*</span></label>
+        <input type="text" class="form-control" id="address" placeholder="{{
+            'forms_plateform.forms_plateform_1' | translate | lowercase
+          }}" (keyup)="checkAddress()" />
+      </div>
+    </div>
+    <br />
+
+    <div class="row" style="margin-top: 12px">
+      <div class="col-md-6">
+        <label>{{ "forms_plateform.forms_plateform_4" | translate }}
+          <span class="label-required">*</span></label>
+        <input type="text" class="form-control" id="city" placeholder="{{
+            'forms_plateform.forms_plateform_4' | translate | lowercase
+          }}" />
+        <input type="hidden" class="form-control" id="latitude" placeholder="latitude" />
+        <input type="hidden" class="form-control" id="country" placeholder="latitude" />
+        <input type="hidden" class="form-control" id="state" placeholder="latitude" />
+        <input type="hidden" class="form-control" id="longitude" placeholder="longitude" />
+      </div>
+      <div class="col-md-6">
+        <label>{{ "forms_plateform.forms_plateform_5" | translate }}</label>
+        <input type="text" class="form-control" id="zip_code" placeholder="{{
+            'forms_plateform.forms_plateform_5' | translate | lowercase
+          }}" />
+      </div>
+    </div>
+
+    <div style="margin-top: 25px">
+      <button type="button" class="btn btn-primary btn-sm btn-block" (click)="goToSearchPage()" id="btn-yes">
+        {{ continue.languages[serviceLang] }}
+      </button>
+      <button type="button" class="btn btn-danger btn-sm btn-block" (click)="modalRef.hide()">
+        {{ "buttons_plateform.buttons_plateform_2" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- ADDRESS -->

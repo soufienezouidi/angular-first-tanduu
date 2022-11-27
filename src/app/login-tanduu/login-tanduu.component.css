@@ -1,0 +1,98 @@
+@import './../../assets/admin/css/bootstrap.min.css';
+
+@import './../../assets/admin/css/font-awesome.min.css';
+
+@import './../../assets/admin/css/style.css';
+
+.label-required {
+  color: red;
+}
+
+.btn-primary {
+  background-color: #312783;
+  border: 1px solid #312783;
+}
+
+.btn-primary:hover {
+  background-color: #009FE3;
+  border: 1px solid #009FE3;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+td.details-control {
+  background: url('/assets/img/datatables/eye-open.svg') no-repeat center center;
+  background-size: 18px;
+  cursor: pointer;
+}
+
+tr.shown td.details-control {
+  background: url('/assets/img/datatables/eye-close.png') no-repeat center center;
+  background-size: 18px;
+
+}
+
+/*#cashbook_tb tr:nth-child(even){
+    background-color: #eaeaea !important;
+
+}*/
+tr.group,
+tr.group:hover {
+  background-color: #ddd !important;
+}
+
+.fa-icon-size {
+  font-size: 15px !important;
+  cursor: pointer;
+  font-weight: bold !important;
+  margin-left: 10px;
+}
+
+.fa-icon-color {
+  color: #009FE3;
+  cursor: pointer;
+}
+
+.separator {
+  margin-top: 15px !important;
+  margin-bottom: 15px;
+}
+
+.view-btn {
+  color: #009FE3;
+  font-size: 13px;
+  border: 2px solid #009FE3;
+  text-align: center;
+  display: block;
+  font-weight: 500;
+  padding: 6px;
+}
+
+.view-btn:hover,
+.view-btn:focus {
+  background-color: #009FE3;
+  color: #fff;
+}
+
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+.book-btn {
+  background-color: #009FE3;
+  border: 2px solid #009FE3;
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  display: block;
+  font-weight: 500;
+  padding: 6px;
+}

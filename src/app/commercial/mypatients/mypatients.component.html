@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-table mb-0">
+      <div class="card-body" *ngIf="finalobj && headerTable">
+        <dx-data-grid
+          id="gridContainer"
+          [dataSource]="finalobj"
+          keyExpr="ID"
+          [allowColumnReordering]="true"
+          [showBorders]="true"
+          [noDataText]="headerTable.emptyTable[serviceLang]"
+        >
+          <dxo-filter-row
+            [visible]="showFilterRow"
+            [applyFilter]="currentFilter"
+            placeholder="Type here to search"
+          ></dxo-filter-row>
+          <dxi-column
+            dataField="CompanyName"
+            caption="{{ headerTable.columns2[serviceLang] }}"
+          ></dxi-column>
+
+          <dxi-column
+            dataField="City"
+            caption="{{ headerTable.columns3[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+            dataField="Country"
+            caption="{{ headerTable.columns4[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+            dataField="createdAt"
+            dataType="date"
+            caption="{{ headerTable.columns5[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+            dataField="user"
+            [groupIndex]="0"
+            caption="{{ headerTable.columns1[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+          dataField="proflink"
+          caption="Options"
+          [allowFiltering]="false"
+          [allowSorting]="false"
+          cellTemplate="cellTemplate"
+        ></dxi-column>
+        <dxo-summary>
+          <dxi-group-item
+            column="id"
+            summaryType="count"
+            displayFormat="{0} companies"
+          >
+          </dxi-group-item>
+          <dxi-total-item
+            column="Options"
+            summaryType="count"
+            displayFormat="Total of clients: {0}"
+          >
+          </dxi-total-item>
+        </dxo-summary>
+        <div *dxTemplate="let data of 'cellTemplate'">
+          <a
+            class="btn btn-sm btn-primary"
+            href="{{data.value}}"
+            target="_blank"
+            >show profile  <i class="fa fa-eye"></i
+          ></a>
+        </div>
+          <dxo-search-panel
+            [visible]="true"
+            placeholder="{{ headerTable.placeholderSearch[serviceLang] }}"
+          ></dxo-search-panel>
+          <dxo-paging [pageSize]="100"></dxo-paging>
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

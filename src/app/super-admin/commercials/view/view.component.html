@@ -1,0 +1,387 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-7 col-auto">
+          <h3 class="page-title">Commercials</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/'">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Commercials</li>
+          </ul>
+        </div>
+        <div class="col-sm-5 col">
+          <a
+            class="btn btn-primary float-right mt-2"
+            data-toggle="modal"
+            (click)="openModal(template)"
+          >
+            Add
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="row" style="margin-bottom: 30px">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="datatable table table-hover table-center mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Commercial</th>
+                    <th>Code</th>
+                    <th>email</th>
+                    <th>Started since</th>
+
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let comm of allcommercials">
+                    <td>{{ comm.id }}</td>
+
+                    <td>
+                      <h2 class="table-avatar">
+                        <a
+                          >{{ comm.user.first_name }}
+                          {{ comm.user.last_name }}</a
+                        >
+                      </h2>
+                    </td>
+
+                    <td>
+                      <h2 class="table-avatar">
+                        <a>{{ comm.code }} </a>
+                      </h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">
+                        <a>{{ comm.user.email }} </a>
+                      </h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">
+                        <a>{{ comm.createdAt | date }} </a>
+                      </h2>
+                    </td>
+
+                    <td class="text-right">
+                      <div class="actions">
+                        <a
+                          class="btn btn-sm bg-success-light"
+                          (click)="getclients(comm.id, comm)"
+                        >
+                          <i class="fe fe-eye"></i> show stats
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="card card-table mb-0"
+     
+      style="margin-bottom: 100px"
+    >
+      <section class="clinics-section">
+        <div class="shapes"></div>
+        <div class="container">
+          <div class="row">
+            <h5>
+              <span id>
+                {{ curcom }}
+              </span>
+            </h5>
+          </div>
+        </div>
+      </section>
+      <div class="card-body" *ngIf="finalobj && headerTable">
+        <dx-data-grid
+          id="gridContainer"
+          [dataSource]="finalobj"
+          keyExpr="ID"
+          [allowColumnReordering]="true"
+          [showBorders]="true"
+          [noDataText]="headerTable.emptyTable[serviceLang]"
+        >
+          <dxo-filter-row
+            [visible]="showFilterRow"
+            [applyFilter]="currentFilter"
+            placeholder="Type here to search"
+          ></dxo-filter-row>
+          <dxi-column
+            dataField="CompanyName"
+            caption="{{ headerTable.columns2[serviceLang] }}"
+          ></dxi-column>
+
+          <dxi-column
+            dataField="City"
+            caption="{{ headerTable.columns3[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+            dataField="Country"
+            caption="{{ headerTable.columns4[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+            dataField="createdAt"
+            dataType="date"
+            caption="{{ headerTable.columns5[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+            dataField="user"
+            [groupIndex]="0"
+            caption="{{ headerTable.columns1[serviceLang] }}"
+          ></dxi-column>
+          <dxi-column
+            dataField="proflink"
+            caption="Options"
+            [allowFiltering]="false"
+            [allowSorting]="false"
+            cellTemplate="cellTemplate"
+          ></dxi-column>
+          <dxo-summary>
+            <dxi-group-item
+              column="id"
+              summaryType="count"
+              displayFormat="{0} companies"
+            >
+            </dxi-group-item>
+            <dxi-total-item
+              column="Options"
+              summaryType="count"
+              displayFormat="Total of clients: {0}"
+            >
+            </dxi-total-item>
+          </dxo-summary>
+          <div *dxTemplate="let data of 'cellTemplate'">
+            <a
+              class="btn btn-sm btn-primary"
+              href="{{ data.value }}"
+              target="_blank"
+              >show profile <i class="fa fa-eye"></i
+            ></a>
+          </div>
+          <dxo-search-panel
+            [visible]="true"
+            placeholder="{{ headerTable.placeholderSearch[serviceLang] }}"
+          ></dxo-search-panel>
+          <dxo-paging [pageSize]="100"></dxo-paging>
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-grouping #expand [autoExpandAll]="false"></dxo-grouping>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Commercial</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>first name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="specazeazeazeiality"
+              [(ngModel)]="fname"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>last name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="specializerzerty"
+              (focusout)="onKey($event.target.value)"
+              [(ngModel)]="lname"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="speciality"
+              [(ngModel)]="email"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>password</label>
+            <input
+              type="text"
+              class="form-control"
+              name="specialityss"
+              [(ngModel)]="password"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Code</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speciqsdqsdqsdsqdality"
+              [(ngModel)]="code"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Provision (%)</label>
+            <input
+              type="number"
+              class="form-control"
+              name="specisqdqsdqsdqsality"
+              [(ngModel)]="provision"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Phone number</label>
+            <input
+              type="number"
+              class="form-control"
+              name="speciqsdqsdqsdality"
+              [(ngModel)]="phone"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Personnal email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="specqsqsiaqsdqsdlity"
+              [(ngModel)]="pemail"
+            />
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" (click)="save()">
+        Add commercial
+      </button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #edittemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit Commercials</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Commercials</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speciality"
+              [(ngModel)]="fname"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label>Image</label>
+            <input type="file" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        (click)="update()"
+      >
+        Edit
+      </button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    Are you sure want to delete this speciality?
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-default"
+        (mouseover)="btnColor()"
+        id="btn-yes"
+        (click)="deleteSpeciality()"
+      >
+        Yes
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (mouseover)="btnColorNo()"
+        id="btn-no"
+        (click)="decline()"
+      >
+        No
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,26 @@
+.parent-draggable{
+  width:100%;
+  overflow-x: hidden; 
+  float:left;
+}
+.draggable{
+
+  float:left;
+  display: inline;
+  font-size:15px;
+  font-family:arial;
+  padding:10px;
+  cursor: pointer;
+}
+
+.nav-link{
+    display: inline;
+}
+
+
+ div.scrollmenu {
+    cursor: grab;
+    overflow: auto;
+    white-space: nowrap;
+   
+  }

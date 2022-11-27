@@ -1,0 +1,802 @@
+<!-- Breadcrumb -->
+<!-- 	<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a [routerLink]="''">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Doctor Profile</li>
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">Doctor Profile</h2>
+						</div>
+					</div>
+				</div>
+			</div> -->
+<!-- /Breadcrumb -->
+
+<!-- Page Content -->
+<div class="content" *ngIf="companyDetails">
+  <div class="container">
+    <!-- Doctor Widget -->
+    <div class="card">
+      <div class="card-body">
+        <div class="doctor-widget">
+          <!-- <div class="doc-info-left">
+            <div class="doctor-img" *ngIf="companyDetails.user.id">
+              <img
+                data-src="https://api.aroundorder.com:1337/api/user/{{
+                  companyDetails.user.id
+                }}/profilepic.png"
+                alt="companyDetails.company_name"
+                *ngIf="companyDetails.user.id"
+                class="img-fluid"
+                alt="User Image"
+              />
+            </div>
+            <div class="doc-info-cont">
+              <h3 class="doc-name" *ngIf="!doctorDetails">
+                {{ companyDetails.company_name }}
+              </h3>
+
+              <p class="doc-department" *ngIf="allcategories">
+                <span>
+                  {{ companyDetails.category.languages[serviceLang] }}
+                </span>
+              </p>
+
+              <div class="clinic-details">
+                <p class="doc-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ companyDetails.street_number }}
+                  {{ companyDetails.street }} , {{ companyDetails.state }}
+                  {{ companyDetails.ciry }} {{ companyDetails.country }}
+                  {{ companyDetails.zip_code }}
+                  <a href="javascript:void(0);">{{
+                    getdirect.languages[serviceLang]
+                  }}</a>
+                </p>
+              </div>
+              <div class="clinic-services">
+                <span *ngFor="let hashs of companyDetails.hashtags">{{
+                  hashs.value
+                }}</span>
+              </div>
+              <div class="clinic-services" style="margin-top: 12px">
+                <ul class="social-share">
+                  <li *ngIf="this.companyDetails.socials.fb.is_shown">
+                    <a
+                      href="{{ this.companyDetails.socials.fb.link }}"
+                      target="_blank"
+                      title="Facebook"
+                      ><i class="fab fa-facebook"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.socials.twt.is_shown">
+                    <a
+                      href="{{ this.companyDetails.socials.twt.link }}"
+                      target="_blank"
+                      title="Twitter"
+                      ><i class="fab fa-twitter"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.socials.lnk.is_shown">
+                    <a
+                      href="{{ this.companyDetails.socials.lnk.link }}"
+                      target="_blank"
+                      title="Linkedin"
+                      ><i class="fab fa-linkedin"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.socials.inst.is_shown">
+                    <a
+                      href="{{ this.companyDetails.socials.inst.link }}"
+                      target="_blank"
+                      title="instagram"
+                      ><i class="fab fa-instagram"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.website">
+                    <a
+                      href="{{ this.companyDetails.website }}"
+                      target="_blank"
+                      title="website"
+                      ><i class="fas fa-globe"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="doc-info-right">
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded" href="tel:{{ companyDetails.phone1 }}"
+                ><i class="fa fa-phone fa-1x mr-2"></i
+                >{{ companyDetails.phone1 }}</a
+              >
+            </div>
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded">
+                <i class="fa fa-envelope fa-1x mr-2"></i
+                >{{ sendmail.languages[serviceLang] }}</a
+              >
+            </div>
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="apt-btn">{{ askser.languages[serviceLang] }}</a>
+            </div>
+            <div
+              class="clinic-booking"
+              style="margin-bottom: 15px"
+              *ngIf="listShopProducts.length > 0"
+              id="conttab"
+            >
+              <a
+                class="apt-btn"
+                [routerLink]="['/shop']"
+                [queryParams]="{ id: companyDetails.id }"
+                target="_blank"
+              >
+                <i class="fa fa-shopping-cart fa-1x mr-2"></i
+                >{{ Visitshop.languages[serviceLang] }}</a
+              >
+            </div>
+          </div> -->
+          <div class="main-box">
+            <input type="file" class="input-file" id="imgInp" />
+
+            <img
+              class="cover"
+              id="blah"
+              src="https://api.aroundorder.com:1337/api/user/{{
+                companyDetails.user.id
+              }}/{{ companyDetails.id }}/cover.png"
+              lightbox
+            />
+            <div class="dp-container">
+              <img
+                class="dp"
+                src="https://api.aroundorder.com:1337/api/user/{{
+                  companyDetails.user.id
+                }}/{{ companyDetails.id }}/logo.png"
+                lightbox
+              />
+            </div>
+
+            <div class="box" style="width: 100%">
+              <div
+                class="main-content"
+                style="margin-top: 15px; min-width: 100%; margin-bottom: 15px"
+              >
+                <h5 style="font-weight: bold">
+                  {{ companyDetails.company_name }}
+                </h5>
+                <h5>{{ companyDetails.category.languages[serviceLang] }}</h5>
+
+                <h5>
+                  {{ companyDetails.street_number }}
+                  {{ companyDetails.street }} {{ companyDetails.city }} ,
+                  {{ companyDetails.state }}
+                  {{ companyDetails.country }}
+                  {{ companyDetails.zip_code }}
+                </h5>
+              </div>
+            </div>
+            <div class="clinic-services" style="margin-top: 12px">
+              <ul
+                class="social-share"
+                style="
+                  margin-left: 20px;
+                  margin-top: -10px;
+                  margin-bottom: 16px;
+                "
+              >
+                <li *ngIf="this.companyDetails.socials.fb.is_shown">
+                  <a
+                    href="{{ this.companyDetails.socials.fb.link }}"
+                    target="_blank"
+                    title="Facebook"
+                    ><i class="fab fa-facebook"></i
+                  ></a>
+                </li>
+                <li *ngIf="this.companyDetails.socials.twt.is_shown">
+                  <a
+                    href="{{ this.companyDetails.socials.twt.link }}"
+                    target="_blank"
+                    title="Twitter"
+                    ><i class="fab fa-twitter"></i
+                  ></a>
+                </li>
+                <li *ngIf="this.companyDetails.socials.lnk.is_shown">
+                  <a
+                    href="{{ this.companyDetails.socials.lnk.link }}"
+                    target="_blank"
+                    title="Linkedin"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                </li>
+                <li *ngIf="this.companyDetails.socials.inst.is_shown">
+                  <a
+                    href="{{ this.companyDetails.socials.inst.link }}"
+                    target="_blank"
+                    title="instagram"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                </li>
+                <li
+                  *ngIf="
+                    this.companyDetails.show_website &&
+                    this.companyDetails.website
+                  "
+                >
+                  <a
+                    href="{{ this.companyDetails.website }}"
+                    target="_blank"
+                    title="website"
+                    ><i class="fas fa-globe"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+            <div class="text-center" *ngIf="isMobile">
+              <a
+                class="btn btn-rounded but1"
+                href="tel:{{ companyDetails.phone1 }}"
+                *ngIf="companyDetails.phone1"
+              >
+                <i class="fa fa-phone fa-1x"></i
+                ><!-- {{ companyDetails.phone1 }} -->
+              </a>
+
+              <a class="btn btn-rounded but1">
+                <i class="fa fa-envelope fa-1x"></i
+                ><!-- {{ sendmail.languages[serviceLang] }} -->
+              </a>
+              <a class="btn btn-rounded but1">
+                <i class="fa fa-concierge-bell fa-1x"></i>
+                <!-- {{
+              askser.languages[serviceLang]
+            }} --></a
+              >
+              <a
+                class="btn btn-rounded but1"
+                *ngIf="listShopProducts.length > 0"
+                [routerLink]="['/shop']"
+                [queryParams]="{ id: companyDetails.id }"
+                target="_blank"
+                ><i class="fa fa-shopping-cart fa-1x"></i
+                ><!-- {{ Visitshop.languages[serviceLang] }} --></a
+              >
+            </div>
+            <div *ngIf="!isMobile">
+              <a
+                class="btn btn-rounded but1"
+                href="tel:{{ companyDetails.phone1 }}"
+                *ngIf="companyDetails.phone1"
+              >
+                <i class="fa fa-phone fa-1x mr-2"></i>
+                {{ companyDetails.phone1 }}
+              </a>
+
+              <a class="btn btn-rounded but1">
+                <i class="fa fa-envelope fa-1x mr-2"></i>
+                {{ sendmail.languages[serviceLang] }}
+              </a>
+              <a class="btn btn-rounded but1">
+                <i class="fa fa-concierge-bell fa-1x mr-1"></i>
+                {{ askser.languages[serviceLang] }}
+              </a>
+              <a
+                class="btn btn-rounded but1"
+                *ngIf="listShopProducts.length > 0"
+                [routerLink]="['/shop']"
+                [queryParams]="{ id: companyDetails.id }"
+                target="_blank"
+                ><i class="fa fa-shopping-cart fa-1x"></i>
+                {{ Visitshop.languages[serviceLang] }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a
+        class="text-right"
+        href="javascript:void(0)"
+        style="margin-right: 30px; margin-top: -12px"
+        ><i class="fa fa-bullhorn"></i> Report this profile</a
+      >
+    </div>
+    <!-- /Doctor Widget -->
+
+    <!-- Doctor Details Tab -->
+    <div class="card" id="conttab">
+      <div class="card-body pt-0">
+        <!-- Tab Menu -->
+
+        <!-- /Tab Menu -->
+
+        <!-- Tab Content -->
+        <div class="pt-0">
+          <!-- Overview Content -->
+
+          <div class="row" style="margin-top: 22px">
+            <div class="col-md-12 col-lg-9">
+              <div class="widget about-widget">
+                <h3 class="widget-title" style="color: #009fe3">
+                  {{ about.languages[serviceLang] }}
+                  {{ companyDetails.company_name }}
+                </h3>
+
+                <div
+                  class="container-description"
+                  [class.show-description]="descriptionText.visible"
+                  [innerHTML]="descriptionText.text"
+                ></div>
+
+                <span
+                  *ngIf="descriptionText.text"
+                  style="
+                    color: #009fe3;
+                    text-decoration: underline;
+                    cursor: pointer;
+                  "
+                  (click)="descriptionText.visible = !descriptionText.visible"
+                >
+                  {{
+                    descriptionText.visible
+                      ? showLessText[serviceLang]
+                      : showMoreText[serviceLang]
+                  }}
+                </span>
+              </div>
+              <div class="text-center" *ngIf="isMobile">
+                <a
+                  href="{{ this.companyDetails.socials.fb.link }}"
+                  target="_blank"
+                  title="Facebook"
+                  style="text-align: center !important"
+                  *ngIf="this.companyDetails.socials.fb.is_shown"
+                  ><i class="fab fa-facebook fa-icon-size"></i
+                ></a>
+                <a
+                  href="{{ this.companyDetails.socials.twt.link }}"
+                  target="_blank"
+                  title="Twitter"
+                  *ngIf="this.companyDetails.socials.twt.is_shown"
+                  ><i class="fab fa-twitter fa-icon-size"></i
+                ></a>
+                <a
+                  href="{{ this.companyDetails.socials.lnk.link }}"
+                  target="_blank"
+                  title="Linkedin"
+                  *ngIf="this.companyDetails.socials.lnk.is_shown"
+                  ><i class="fab fa-linkedin fa-icon-size"></i
+                ></a>
+                <a
+                  href="{{ this.companyDetails.socials.inst.link }}"
+                  target="_blank"
+                  title="Instagram"
+                  *ngIf="this.companyDetails.socials.inst.is_shown"
+                  ><i class="fab fa-instagram fa-icon-size"></i
+                ></a>
+                <a
+                  href="{{ this.companyDetails.website }}"
+                  target="_blank"
+                  title="{{ this.companyDetails.website }}"
+                  *ngIf="
+                    this.companyDetails.show_website &&
+                    this.companyDetails.website
+                  "
+                  ><i class="fa fa-globe fa-icon-size"></i
+                ></a>
+              </div>
+              <br />
+
+              <!-- Services List -->
+              <div class="service-list">
+                <h4>{{ mainser.languages[serviceLang] }}</h4>
+                <ul class="clearfix">
+                  <li
+                    *ngFor="let item of allcategories"
+                    style="color: black !important"
+                  >
+                    {{ item.languages[serviceLang] }}
+                  </li>
+                </ul>
+              </div>
+              <!-- /Services List -->
+
+              <div class="service-list">
+                <h4>{{ subser.languages[serviceLang] }}</h4>
+                <ul class="clearfix">
+                  <li *ngFor="let item of allsub_categories">
+                    {{ item.languages[serviceLang] }}
+                  </li>
+                </ul>
+              </div>
+
+              <!-- <div class="service-list">
+                  <h3>{{ allser.languages[serviceLang] }}</h3>
+                  <ul class="clearfix">
+                    <li *ngFor="let item of allservices">
+                      {{ item.languages[serviceLang] }}
+                    </li>
+                  </ul>
+                </div> -->
+            </div>
+          </div>
+          <div class="row" style="margin-top: 22px">
+            <div class="col-lg-12 text-left">
+              <h3 class="section-heading" style="color: #009fe3">
+                {{ mainser.languages[serviceLang] }}
+              </h3>
+            </div>
+          </div>
+          <div id="map">
+            <agm-map
+              [zoom]="6"
+              *ngIf="complocations[0]"
+              [longitude]="complocations[0].longitude"
+              [latitude]="complocations[0].latitude"
+            >
+              <agm-marker
+                *ngFor="let item of complocations"
+                [latitude]="item.latitude"
+                [longitude]="item.longitude"
+              >
+              </agm-marker>
+            </agm-map>
+          </div>
+          <mat-accordion *ngFor="let item of complocations">
+            <mat-expansion-panel
+              (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false"
+              style="margin-top: 10px"
+            >
+              <mat-expansion-panel-header
+                style="background-color: #009fe3 !important; color: white"
+              >
+                <mat-panel-title>
+                  {{ item.zip_code }} {{ item.city }} ,{{ item.state }}
+                  {{ item.country }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="service-list">
+                <ul class="clearfix">
+                  <li *ngFor="let item of item.subcategories">
+                    {{ item.languages[serviceLang] }}
+                  </li>
+                </ul>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <div
+            class="row"
+            style="margin-top: 22px"
+            *ngIf="GalleriesList.length > 0"
+          >
+            <div class="col-lg-12 text-left">
+              <h3 class="section-heading" style="color: #009fe3">
+                {{ gallery.languages[serviceLang] }}
+              </h3>
+
+              <div
+                class="row"
+                *ngFor="let item of GalleriesList"
+                style="margin-bottom: 25px"
+              >
+                <div class="col-md-12">
+                  <h3 class="section-subheading text-muted text-left">
+                    {{ item.catalog_name }}
+                  </h3>
+                  <div class="features-slider slider">
+                    <ngx-slick-carousel
+                      class="carousel"
+                      #slickModal="slick-carousel"
+                      [config]="slideConfig2"
+                    >
+                      <div ngxSlickItem *ngFor="let item1 of item.galleries">
+                        <div class="gallery-image">
+                          <div class="img-box">
+                            <img
+                              src="{{
+                                'https://api.aroundorder.com:1337/api/user/gallery/' +
+                                  userId +
+                                  '/' +
+                                  companyDetails.id +
+                                  '/' +
+                                  item1.file_name
+                              }}"
+                              alt=""
+                              *ngIf="item1.type == 'image'"
+                              lightbox
+                            />
+                            <video
+                              alt=""
+                              *ngIf="item1.type == 'video'"
+                              style="width: 100%; height: 80%"
+                              controls
+                            >
+                              <source
+                                src="{{
+                                  'https://api.aroundorder.com:1337/api/user/gallery/' +
+                                    userId +
+                                    '/' +
+                                    companyDetails.id +
+                                    '/' +
+                                    item1.file_name
+                                }}"
+                                type="video/mp4"
+                              />
+                            </video>
+                          </div>
+                        </div>
+                      </div>
+                    </ngx-slick-carousel>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="row"
+            style="margin-top: 22px"
+            *ngIf="companyDetails.terms || companyDetails.privacy"
+          >
+            <div class="col-lg-12 text-left">
+              <h3 class="section-heading" style="color: #009fe3">
+                {{ legalinfos[serviceLang] }}
+              </h3>
+            </div>
+          </div>
+          <div class="row">
+            <div
+              style="cursor: pointer"
+              class="col-md-6"
+              *ngIf="companyDetails.terms"
+            >
+              <div
+                class="set-category"
+                style="background-color: #009fe3"
+                (click)="gototerms()"
+              >
+                <div class="d-flex align-items-center">
+                  <div class="img-holder">
+                    <a style="cursor: pointer"
+                      ><img src="assets/img/icons/pp.png" alt=""
+                    /></a>
+                  </div>
+                  <div class="info-holder">
+                    <h5 style="color: white">
+                      <br />
+                      {{ name[serviceLang] }}
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-md-6"
+              *ngIf="companyDetails.privacy"
+              style="cursor: pointer"
+              (click)="gotopp()"
+            >
+              <div
+                class="set-category"
+                style="cursor: pointer; background-color: #009fe3"
+              >
+                <div class="d-flex align-items-center">
+                  <div class="img-holder">
+                    <a href="javascript:void(0);"
+                      ><img src="assets/img/icons/terms.png" alt=""
+                    /></a>
+                  </div>
+                  <div class="info-holder">
+                    <h5 style="color: white; cursor: pointer">
+                      <br />
+                      {{ name2[serviceLang] }}
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="text-center" *ngIf="isMobile || !isMobile">
+            <a
+              class="btn btn-rounded but1"
+              href="tel:{{ companyDetails.phone1 }}"
+              *ngIf="companyDetails.phone1"
+            >
+              <i class="fa fa-phone fa-1x"></i
+              ><!-- {{ companyDetails.phone1 }} -->
+            </a>
+
+            <a class="btn btn-rounded but1">
+              <i class="fa fa-envelope fa-1x"></i
+              ><!-- {{ sendmail.languages[serviceLang] }} -->
+            </a>
+            <a class="btn btn-rounded but1">
+              <i class="fa fa-concierge-bell fa-1x"></i>
+              <!-- {{
+              askser.languages[serviceLang]
+            }} --></a
+            >
+            <a
+              class="btn btn-rounded but1"
+              *ngIf="listShopProducts.length > 0"
+              [routerLink]="['/shop']"
+              [queryParams]="{ id: companyDetails.id }"
+              target="_blank"
+              ><i class="fa fa-shopping-cart fa-1x"></i
+              ><!-- {{ Visitshop.languages[serviceLang] }} --></a
+            >
+          </div>
+          <br />
+          <div class="text-center" *ngIf="isMobile || !isMobile">
+            <a
+              href="{{ this.companyDetails.socials.fb.link }}"
+              target="_blank"
+              title="Facebook"
+              style="text-align: center !important"
+              *ngIf="this.companyDetails.socials.fb.is_shown"
+              ><i class="fab fa-facebook fa-icon-size"></i
+            ></a>
+            <a
+              href="{{ this.companyDetails.socials.twt.link }}"
+              target="_blank"
+              title="Twitter"
+              *ngIf="this.companyDetails.socials.twt.is_shown"
+              ><i class="fab fa-twitter fa-icon-size"></i
+            ></a>
+            <a
+              href="{{ this.companyDetails.socials.lnk.link }}"
+              target="_blank"
+              title="Linkedin"
+              *ngIf="this.companyDetails.socials.lnk.is_shown"
+              ><i class="fab fa-linkedin fa-icon-size"></i
+            ></a>
+            <a
+              href="{{ this.companyDetails.socials.inst.link }}"
+              target="_blank"
+              title="Instagram"
+              *ngIf="this.companyDetails.socials.inst.is_shown"
+              ><i class="fab fa-instagram fa-icon-size"></i
+            ></a>
+            <a
+              href="{{ this.companyDetails.website }}"
+              target="_blank"
+              title="{{ this.companyDetails.website }}"
+              *ngIf="
+                this.companyDetails.show_website && this.companyDetails.website
+              "
+              ><i class="fa fa-globe fa-icon-size"></i
+            ></a>
+          </div>
+
+          <div class="widget review-listing" hidden>
+            <ul class="comments-list">
+              <!-- Comment List -->
+              <li>
+                <div class="comment">
+                  <img
+                    class="avatar avatar-sm rounded-circle"
+                    alt="User Image"
+                    src="assets/img/patients/patient.jpg"
+                  />
+                  <div class="comment-body">
+                    <div class="meta-data">
+                      <span class="comment-author">Richard Wilson</span>
+                      <span class="comment-date">Reviewed 2 Days ago</span>
+                      <div class="review-count rating">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                    </div>
+
+                    <p class="comment-content">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud
+                      exercitation. Curabitur non nulla sit amet nisl tempus
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <!-- /Comment List -->
+
+              <!-- Comment List -->
+              <li>
+                <div class="comment">
+                  <img
+                    class="avatar avatar-sm rounded-circle"
+                    alt="User Image"
+                    src="assets/img/patients/patient2.jpg"
+                  />
+                  <div class="comment-body">
+                    <div class="meta-data">
+                      <span class="comment-author">Travis Trimble</span>
+                      <span class="comment-date">Reviewed 4 Days ago</span>
+                      <div class="review-count rating">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                    </div>
+                    <p class="comment-content">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud
+                      exercitation. Curabitur non nulla sit amet nisl tempus
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <!-- /Comment List -->
+            </ul>
+
+            <!-- Show All -->
+            <div class="all-feedback text-center">
+              <a href="javascript:void(0)" class="btn btn-primary btn-sm">
+                Show all feedback <strong>(167)</strong>
+              </a>
+            </div>
+            <!-- /Show All -->
+          </div>
+          <div
+            class="widget about-widget"
+            style="margin-top: 20px"
+            *ngIf="finallistkeywords.length > 0"
+          >
+            <div class="col-lg-12 text-left">
+              <h3 class="section-heading" style="color: #009fe3">
+                {{ keyword.languages[serviceLang] }}
+              </h3>
+            </div>
+            <div class="card tags-widget" *ngIf="finallistkeywords.length > 0">
+              <div class="card-body">
+                <ul class="tags">
+                  <li *ngFor="let item of finallistkeywords | slice: 0:30">
+                    <a
+                      style="font-size: 11px"
+                      href="javascript:void(0)"
+                      class="tag"
+                      >{{ item.text }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Overview Content -->
+
+        <!-- Locations Content -->
+
+        <!-- /Location List -->
+      </div>
+      <!-- /Locations Content -->
+
+      <!-- Reviews Content -->
+
+      <!-- /Reviews Content -->
+    </div>
+  </div>
+  <!-- /Doctor Details Tab -->
+</div>
+
+<!-- Voice Call Modal -->
+
+<!-- /Voice Call Modal -->
+
+<!-- Video Call Modal -->
+
+<!-- Video Call Modal -->

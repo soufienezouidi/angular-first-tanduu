@@ -1,0 +1,173 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <!-- Login Tab Content -->
+        <div class="account-content">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-7 col-lg-6 login-left">
+              <img
+                src="assets/img/log-in.png"
+                class="img-fluid"
+                alt="Doccure Login"
+              />
+            </div>
+            <div class="col-md-12 col-lg-6 login-right">
+              <div class="login-header">
+                <h3 style="color: #009fe3">
+                  {{
+                    "login_page_plateform.login_page_plateform_8" | translate
+                  }}
+                </h3>
+              </div>
+              <form>
+                <div class="row form-row social-login" style="display: none">
+                  <div class="col-6">
+                    <a
+                      href="javascript:void(0)"
+                      class="btn btn-facebook btn-block"
+                      ><i class="fab fa-facebook-f mr-1"></i> Login</a
+                    >
+                  </div>
+                  <div class="col-6">
+                    <a
+                      class="btn btn-google btn-block"
+                      href="javascript:void(0)"
+                      ><i class="fab fa-google mr-1"></i> Login</a
+                    >
+                  </div>
+                </div>
+                <div class="login-or" style="display: none">
+                  <span class="or-line"></span>
+                  <span class="span-or">or</span>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="login2()">
+                  <div
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                    *ngIf="
+                      form.get('username').dirty &&
+                      form.get('username').errors?.required
+                    "
+                  >
+                    <a>Username field is a required field!</a>
+
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="alert"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                    *ngIf="
+                      form.get('password').dirty &&
+                      form.get('password').errors?.required
+                    "
+                  >
+                    <a>password field is a required field!</a>
+
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="alert"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      name="name"
+                      [(ngModel)]="username"
+                      id="username"
+                      [ngStyle]="{
+                        'border-color':
+                          form.get('username').dirty &&
+                          form.get('username').errors?.required
+                            ? 'red'
+                            : '#858585'
+                      }"
+                      class="form-control floating"
+                      [formControlName]="'username'"
+                      placeholder="{{ placeholderSignup[serviceLang] }}"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <!-- Change input type to be able to accept dynamic data -->
+                      <input
+                        [type]="fieldTextType ? 'text' : 'password'"
+                        class="form-control floating"
+                        [formControlName]="'password'"
+                        name="name"
+                        [(ngModel)]="password"
+                        id="username12"
+                        placeholder="{{
+                          'register_partner_page_plateform.register_partner_page_plateform_14'
+                            | translate
+                        }}"
+                      />
+
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i
+                            class="fa"
+                            [ngClass]="{
+                              'fa-eye-slash': !fieldTextType,
+                              'fa-eye': fieldTextType
+                            }"
+                            (click)="toggleFieldTextType()"
+                          ></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div>
+									<label class="custom_check">
+										<input type="checkbox" name="gender_type" [(ngModel)]="isPatient" (click)="checkType($event)"  >
+										<span class="checkmark"></span> Patients
+									</label>
+								</div> -->
+
+                  <div class="text-right">
+                    <a class="forgot-link" [routerLink]="'/forgot-password'"
+                      >{{
+                        "login_page_plateform.login_page_plateform_10"
+                          | translate
+                      }}?</a
+                    >
+                  </div>
+                  <button
+                    class="btn btn-primary btn-block btn-lg login-btn"
+                    type="submit"
+                  >
+                    {{
+                      "login_page_plateform.login_page_plateform_11" | translate
+                    }}
+                  </button>
+                </form>
+                <div class="text-center dont-have">
+                  {{
+                    "login_page_plateform.login_page_plateform_12" | translate
+                  }}
+                  <a [routerLink]="'/choose_register'" style="color: #009fe3">{{
+                    "register_partner_page_plateform.register_partner_page_plateform_6"
+                      | translate
+                  }}</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- /Login Tab Content -->
+      </div>
+    </div>
+  </div>
+</div>

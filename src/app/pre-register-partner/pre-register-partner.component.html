@@ -1,0 +1,239 @@
+<section class="section section-features">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="app-form">
+          <div class="section-heading">
+            <h2 style="color: #009fe3">
+              {{
+                "become_a_jobber_page_plateform.become_a_jobber_page_plateform_12"
+                  | translate
+              }}
+            </h2>
+            <p>
+              {{
+                "become_a_jobber_page_plateform.become_a_jobber_page_plateform_13"
+                  | translate
+              }}
+            </p>
+          </div>
+
+          <div class="section-heading">
+            <div class="row col-md-12" style="margin-top: 25px"></div>
+            <div class="col-md-12">
+              <div class="col-md-12 col-lg-4">
+                <a [routerLink]="'/register_partner'" class="btn banner-btn">{{
+                  "become_a_jobber_page_plateform.become_a_jobber_page_plateform_14"
+                    | translate
+                }}</a>
+                <!-- <div class="login-or col-md-12">
+                  <span class="or-line"></span>
+                  <span class="span-or">or</span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <p class="col-md-12">
+                  {{
+                    "become_a_jobber_page_plateform.become_a_jobber_page_plateform_15"
+                      | translate
+                  }}
+                </p>-->
+              </div>
+
+              <!--
+
+              <div class="col-md-10" style="margin-top: 10px">
+                <a
+                  class="btn banner-btn col-md-6"
+                  style="
+                    color: white;
+                    margin-right: 10px;
+                    width: 226px;
+                    background-color: whitesmoke;
+                    margin-bottom: 7px;
+                  "
+                  ><img src="assets/img/app-pro.png" style="width: 100%"
+                /></a>
+                <a
+                  class="btn banner-btn col-md-6"
+                  style="
+                    color: white;
+                    margin-right: 10px;
+                    width: 226px;
+                    background-color: whitesmoke;
+                    margin-bottom: 7px;
+                  "
+                  ><img src="assets/img/app-pro-2.png" style="width: 100%"
+                /></a>
+              </div>
+-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7 features-img">
+        <img
+          src="assets/img/iso2.png"
+          class="img-fluid"
+          alt="Feature"
+          style="height: 400px; width: 100%"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+<section class="browse-section" style="background-color: white">
+  <div class="container">
+    <div class="section-header-three text-center">
+      <h2>
+        {{
+          "become_a_jobber_page_plateform.become_a_jobber_page_plateform_7"
+            | translate
+        }}
+      </h2>
+      <p class="sub-title">
+        {{
+          "become_a_jobber_page_plateform.become_a_jobber_page_plateform_16"
+            | translate
+        }}
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-md-3" *ngFor="let item of clinicsslides">
+        <div class="brower-box">
+          <div>
+            <div class="brower-img" style="background-color: white">
+              <img
+                src="assets/img/categoriesicons/{{ item.id }}.png"
+                style="width: 120px"
+                alt=""
+              />
+            </div>
+            <h4 style="margin-top: 33px">{{ item.languages[serviceLang] }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="viewmore">
+      <div class="col-lg-2 col-md-3" *ngFor="let item of clinicsslides2">
+        <div class="brower-box">
+          <div>
+            <div class="brower-img" style="background-color: white">
+              <img
+                src="assets/img/categoriesicons/{{ item.id }}.png"
+                style="width: 120px"
+                alt=""
+              />
+            </div>
+            <h4 style="margin-top: 33px">{{ item.languages[serviceLang] }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-all-more text-center" *ngIf="!viewmore">
+      <a class="btn btn-primary" (click)="showmore()" style="color: white">{{
+        "become_a_jobber_page_plateform.become_a_jobber_page_plateform_17"
+          | translate
+      }}</a>
+    </div>
+    <div class="view-all-more text-center" *ngIf="viewmore">
+      <a class="btn btn-primary" (click)="showmore()" style="color: white">{{
+        "become_a_jobber_page_plateform.become_a_jobber_page_plateform_24"
+          | translate
+      }}</a>
+    </div>
+  </div>
+</section>
+<section class="category-sec">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="set-category" style="min-height: 195px">
+          <div class="d-flex align-items-center">
+            <div class="img-holder">
+              <a href="javascript:void(0);"><img src="" alt="" /></a>
+            </div>
+            <div class="info-holder">
+              <h4 style="color: white">
+                {{
+                  "become_a_jobber_page_plateform.become_a_jobber_page_plateform_18"
+                    | translate
+                }}
+              </h4>
+              <p>
+                {{
+                  "become_a_jobber_page_plateform.become_a_jobber_page_plateform_19"
+                    | translate
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="set-category light" style="min-height: 195px">
+          <div class="d-flex align-items-center">
+            <div class="img-holder">
+              <a href="javascript:void(0);"><img src="" alt="" /></a>
+            </div>
+            <div class="info-holder">
+              <h4 style="color: white">
+                {{
+                  "become_a_jobber_page_plateform.become_a_jobber_page_plateform_10"
+                    | translate
+                }}
+              </h4>
+              <p>
+                {{
+                  "become_a_jobber_page_plateform.become_a_jobber_page_plateform_21"
+                    | translate
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="set-category lighter" style="min-height: 195px">
+          <div class="d-flex align-items-center">
+            <div class="img-holder">
+              <a href="javascript:void(0);"><img src="" alt="" /></a>
+            </div>
+            <div class="info-holder">
+              <h4 style="color: white">
+                {{
+                  "become_a_jobber_page_plateform.become_a_jobber_page_plateform_22"
+                    | translate
+                }}
+              </h4>
+              <p>
+                {{
+                  "become_a_jobber_page_plateform.become_a_jobber_page_plateform_23"
+                    | translate
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="view-all-more text-center">
+    <a
+      [routerLink]="'/register_partner'"
+      class="btn banner-btn"
+      style="width: fit-content"
+      >{{
+        "become_a_jobber_page_plateform.become_a_jobber_page_plateform_14"
+          | translate
+      }}</a
+    >
+  </div>
+</section>
+
+<!-- /Home Banner -->
+<!-- Category Section -->
+
+<!-- /Category Section -->

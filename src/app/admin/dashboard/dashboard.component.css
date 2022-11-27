@@ -1,0 +1,44 @@
+#parent{
+  width:300px;
+  overflow-x: hidden; 
+  float:left;
+  display: inline;
+  max-height: 150px;
+}
+#dragMe .nav-link{
+  width:1000px;
+  display: inline;
+  float:left;
+  font-size:15px;
+  font-family:arial;
+  padding:10px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 660px) {
+ .grid-container {
+  
+   grid-template-columns: auto auto;
+
+   padding: 10px;
+ }
+}
+ @media (min-width: 661px) {
+   .grid-container {
+
+     grid-template-columns: auto auto;
+
+     padding: 10px;
+   }
+}
+.grid-item {
+
+
+ 
+}
+
+.vl {
+  border-left: 1px solid #009fe3;
+  height: 100%
+}

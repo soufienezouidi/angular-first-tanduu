@@ -1,0 +1,220 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-6 col-auto">
+          <h3 class="page-title">Express-services</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/'">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Express-services</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="row">
+      <div class="col-sm-6 col float-right mt-2" style="margin-bottom: 10px">
+        <a class="btn btn-primary" data-toggle="modal" data-target="#addexpress"
+          ><i class="fe fe-plus"></i> Add new Express-services</a
+        >
+        <a class="btn bg-danger-light" (click)="disableall()"
+          ><i class="fa fa-close"></i> Disable all</a
+        >
+        <a data-toggle="modal" class="btn bg-success-light"
+          ><i class="fa fa-check"></i>Enable all</a
+        >
+      </div>
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row blog-grid-row">
+              <div
+                class="col-md-6 col-xl-3 col-sm-12"
+                *ngFor="let express of expresses"
+              >
+                <!-- Blog Post -->
+                <div class="blog grid-blog">
+                  <div class="blog-image">
+                    <a href="javascript:void(0)"
+                      ><img
+                        class="img-fluid"
+                        src="https://api.aroundorder.com:1337/quick_services/{{
+                          express.id
+                        }}.png"
+                        alt="Post Image"
+                        style="width: 100%; height: 200px"
+                    /></a>
+                  </div>
+                  <div class="blog-content">
+                    <h3 class="blog-title">
+                      <a href="javascript:void(0)">{{
+                        express.languages.name_en
+                      }}</a>
+                    </h3>
+                  </div>
+                  <div class="row pt-3">
+                    <div class="col">
+                      <a
+                        class="btn btn-primary"
+                        style="max-width: 30%"
+                        (click)="editModal(edittemplate, express)"
+                        ><i class="fe fe-pencil"></i> edit</a
+                      >
+                      <a
+                        class="btn bg-success-light"
+                        style="max-width: 40%"
+                        (click)="showmodaladdimgexpress(express)"
+                        ><i class="fa fa-upload"></i> edit photo</a
+                      >
+
+                      <a
+                        class="btn bg-danger-light"
+                        style="max-width: 30%"
+                        (click)="disableexpress(express)"
+                        ><i class="far fa-trash-alt"></i>Disable</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- /Blog Post -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->
+<ng-template #edittemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit Product</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label> Name francais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speciazeality"
+              [(ngModel)]="categtoedit.languages.name_fr"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name englais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speqciazeality"
+              [(ngModel)]="categtoedit.languages.name_en"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name Allmand</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speciazealaeity"
+              [(ngModel)]="categtoedit.languages.name_de"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="updateexpress()"
+      >
+        Update
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editphoto>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit Product</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Upload File</label>
+          <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+          <div>
+            <img
+              [src]="urlimgcategory"
+              *ngIf="urlimgcategory"
+              style="width: 300px; margin-left: 25%; margin-bottom: 10px"
+            />
+          </div>
+          <input
+            type="file"
+            class="form-control"
+            (change)="selectFilecategory($event)"
+          />
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="updatephoto()"
+      >
+        Update
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>

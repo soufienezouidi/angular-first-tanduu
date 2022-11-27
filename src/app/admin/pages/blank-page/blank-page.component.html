@@ -1,0 +1,40 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Blank Page</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/admin/'">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Blank Page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-sm-12" *ngFor="let item of rcorders">
+                <button (click)="acceptorder(item)"> accept {{item.senderId}}</button>
+            </div>
+        </div>
+        <div class="parent-draggable">
+            <div class="scrollmenu draggable">
+                <a class="nav-link cls" (mouseover)="showcard(1)" href="" data-abc="true">About us</a><a
+                    class="nav-link cls" (mouseover)="(2)" href="" data-abc="true">About
+                    us</a><a class="nav-link cls" (mouseover)="showcard(3)" href="" data-abc="true">About us</a><a
+                    class="nav-link cls" (mouseover)="showcard(4)" href="" data-abc="true">About us</a><a
+                    class="nav-link cls" (mouseover)="showcard(5)" href="" data-abc="true">About us</a><a
+                    class="nav-link cls" (mouseover)="showcard(6)" href="" data-abc="true">About us</a><a
+                    class="nav-link cls" (mouseover)="showcard(7)" href="" data-abc="true">About
+                    us</a>
+            </div>
+        </div>
+        <div id="card-nav" class="cardsss">rrrrrrrr</div>
+
+    </div>
+</div>
+<!-- /Page Wrapper -->

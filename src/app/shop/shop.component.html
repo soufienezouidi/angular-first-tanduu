@@ -1,0 +1,123 @@
+<!-- Page Content -->
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-lg-3 col-xl-3 theiaStickySidebar">
+        <!-- Search Filter -->
+
+        <!-- /Search Filter -->
+      </div>
+
+      <div class="col-md-10 col-lg-8 col-xl-12" *ngIf="companyDetails">
+        <div class="row align-items-center pb-3">
+          <div class="doc-info-left" style="padding-left: 14px">
+            <div class="doctor-img">
+              <img
+                src="https://api.aroundorder.com:1337/api/user/{{
+                  companyDetails.user.id
+                }}/{{ companyDetails.id }}/logo.png"
+                class="img-fluid"
+                alt="User Image"
+              />
+            </div>
+            <div class="doc-info-cont">
+              <h4 class="doc-name">
+                {{ companyDetails.company_name }}
+              </h4>
+
+              <p class="doc-department">
+                <span> {{ companyDetails.main_category }} </span>
+              </p>
+
+              <div class="clinic-details">
+                <p class="doc-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ companyDetails.street_number }}
+                  {{ companyDetails.street }} , {{ companyDetails.state }}
+                  {{ companyDetails.ciry }}
+                  {{ companyDetails.country }}
+                  {{ companyDetails.zip_code }}
+                  <a href="javascript:void(0);">Get Directions</a>
+                </p>
+              </div>
+              <div class="clinic-services">
+                <span *ngFor="let hashs of companyDetails.hashtags">{{
+                  hashs.value
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-8 col-12 d-md-block d-none custom-short-by">
+            <div class="sort-by pb-3">
+              <span class="sort-title">Sort by</span>
+              <span class="sortby-fliter">
+                <ng-select2 width="100%">
+                  <option>Select</option>
+                  <option class="sorting">Rating</option>
+                  <option class="sorting">Popular</option>
+                  <option class="sorting">Latest</option>
+                  <option class="sorting">Free</option>
+                </ng-select2>
+              </span>
+            </div>
+          </div>-->
+        </div>
+
+        <div class="row" *ngIf="listShopProducts.length > 0">
+          <div class="gallery-image">
+            <div
+              class="img-box"
+              *ngFor="let item of listShopProducts1"
+              [routerLink]="['/product-details']"
+              [queryParams]="{ shp: companyDetails.id, prd: item.id }"
+            >
+              <img
+                src="{{
+                  'https://api.aroundorder.com:1337/api/user/products/' +
+                    userId +
+                    '/' +
+                    companyDetails.id +
+                    '/' +
+                    item.picture_name
+                }}"
+                alt=""
+                lightbox
+              />
+
+              <div class="transparent-box">
+                <div class="caption">
+                  <p>{{ item.name }}</p>
+                  <p class="opacity-low">{{ item.articles }} units</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-12 text-center"
+          *ngIf="isless && listShopProducts.length > 12"
+        >
+          <a
+            (click)="showmore()"
+            class="btn book-btn1 mb-4"
+            style="color: white"
+            >Load More</a
+          >
+        </div>
+        <div
+          href="javascript:void(0)"
+          class="col-md-12 text-center"
+          style="color: white"
+          *ngIf="!isless"
+        >
+          <a
+            href="javascript:void(0)"
+            (click)="showless()"
+            class="btn book-btn1 mb-4"
+            >Show less</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

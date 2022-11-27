@@ -1,0 +1,13 @@
+.footer {
+  background-color: #272b41;
+}
+
+.ng-dropdown-panel-items {
+  background-color: white ;
+  color: #272b41;
+}
+
+.ng-select ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 1; /* Firefox */
+}

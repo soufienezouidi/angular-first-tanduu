@@ -1,0 +1,300 @@
+<section class="section section-features" style="margin-bottom: -35px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="section-header">
+          <h2 class="mt-5">About Tanduu Pro</h2>
+          <p>
+            Several features can be found on this page that can definetely help
+            you launch your business in a an efficient and effective way. This
+            includes Business Cards, which pave the way to a more developed
+            business, accounting, which is a dynamic tool to supervise all your
+            bank and company transactions. Invoices, in their turn, are
+            considered as a sound way to control your company’s payments and
+            deals made with your customers. Another feature that is worth
+            mentioning, is orders management, which helps you run the whole
+            fulfillment process of a certain service. You are able as well to
+            treat your company’s database and documents in a blink of an eye
+            through files management, as well as, you are capable to build a
+            really solid connection between you and your employees through team
+            management, which leads to a perfect team spirit .
+          </p>
+        </div>
+      </div>
+      <div class="col-md-7 features-img">
+        <img
+          src="assets/img/iso.png"
+          class="img-fluid"
+          alt="Feature"
+          style="height: 400px; width: 900px"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+<div style="padding: 100px">
+  <section class="section section-features" style="margin-bottom: 25px">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-5 features-img">
+          <img
+            src="assets/img/features/business-card.png"
+            class="img-fluid"
+            alt="Feature"
+          />
+        </div>
+        <div class="col-md-7">
+          <div class="section-header">
+            <h2 class="mt-2">Business Card</h2>
+            <p>
+              An assembly of information that help you promote your business
+              world wide.
+            </p>
+          </div>
+          <div class="features-slider slider">
+            <ngx-slick-carousel
+              class="carousel"
+              #slickModal="slick-carousel"
+              [config]="slideConfig2"
+            >
+              <div ngxSlickItem *ngFor="let slide of sliderContent">
+                <div class="feature-item text-center">
+                  <img src="{{ slide.img }}" class="img-fluid" alt="Feature" />
+                  <div class="all-feedback text-center">
+                    <p>{{ slide.name }}</p>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="all-feedback text-center">
+      <a class="btn btn-primary btn-sm" style="width: 100px">
+        <strong>Read More</strong>
+      </a>
+    </div>
+  </section>
+  <!-- /Availabe Features --><!-- Availabe Features -->
+  <section class="section section-features">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="section-header">
+            <h2 class="mt-2">Team management</h2>
+            <p>
+              Interact with your staff members through a well-structured team
+              management system .
+            </p>
+          </div>
+          <div class="features-slider slider">
+            <ngx-slick-carousel
+              class="carousel"
+              #slickModal="slick-carousel"
+              [config]="slideConfig2"
+            >
+              <div ngxSlickItem *ngFor="let slide of sliderContent">
+                <div class="feature-item text-center">
+                  <img src="{{ slide.img }}" class="img-fluid" alt="Feature" />
+                  <div class="all-feedback text-center">
+                    <p>{{ slide.name }}</p>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+        <div class="col-md-5 features-img">
+          <img
+            src="assets/img/features/team-managment.png"
+            class="img-fluid"
+            alt="Feature"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="all-feedback text-center">
+      <a href="#" class="btn btn-primary btn-sm">
+        <strong>Read More</strong>
+      </a>
+    </div>
+  </section>
+  <section class="section section-features" style="margin-bottom: 25px">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-5 features-img">
+          <img
+            src="assets/img/features/files-managment-2.png"
+            class="img-fluid"
+            alt="Feature"
+          />
+        </div>
+        <div class="col-md-7">
+          <div class="section-header">
+            <h2 class="mt-2">Files management</h2>
+            <p>
+              management : Manage your files and folders and gain more time
+              while searching for information and ressources.
+            </p>
+          </div>
+          <div class="features-slider slider">
+            <ngx-slick-carousel
+              class="carousel"
+              #slickModal="slick-carousel"
+              [config]="slideConfig2"
+            >
+              <div ngxSlickItem *ngFor="let slide of sliderContent">
+                <div class="feature-item text-center">
+                  <img src="{{ slide.img }}" class="img-fluid" alt="Feature" />
+                  <div class="all-feedback text-center">
+                    <p>{{ slide.name }}</p>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="all-feedback text-center">
+      <a class="btn btn-primary btn-sm" style="width: 100px">
+        <strong>Read More</strong>
+      </a>
+    </div>
+  </section>
+  <!-- /Availabe Features --><!-- Availabe Features -->
+  <section class="section section-features">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="section-header">
+            <h2 class="mt-2">orders management</h2>
+            <p>
+              age the lifecycle of a service and automate its fulfillment
+              process.
+            </p>
+          </div>
+          <div class="features-slider slider">
+            <ngx-slick-carousel
+              class="carousel"
+              #slickModal="slick-carousel"
+              [config]="slideConfig2"
+            >
+              <div ngxSlickItem *ngFor="let slide of sliderContent">
+                <div class="feature-item text-center">
+                  <img src="{{ slide.img }}" class="img-fluid" alt="Feature" />
+                  <div class="all-feedback text-center">
+                    <p>{{ slide.name }}</p>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+        <div class="col-md-5 features-img">
+          <img
+            src="assets/img/features/orders-managment-2.png"
+            class="img-fluid"
+            alt="Feature"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="all-feedback text-center">
+      <a href="#" class="btn btn-primary btn-sm">
+        <strong>Read More</strong>
+      </a>
+    </div>
+  </section>
+  <section class="section section-features" style="margin-bottom: 25px">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-5 features-img">
+          <img
+            src="assets/img/features/accountant.png"
+            class="img-fluid"
+            alt="Feature"
+          />
+        </div>
+        <div class="col-md-7">
+          <div class="section-header">
+            <h2 class="mt-2">Accounting</h2>
+            <p>
+              Manage your firm’s purchase and sales, bank account transactions
+              and cash transactions.
+            </p>
+          </div>
+          <div class="features-slider slider">
+            <ngx-slick-carousel
+              class="carousel"
+              #slickModal="slick-carousel"
+              [config]="slideConfig2"
+            >
+              <div ngxSlickItem *ngFor="let slide of sliderContent">
+                <div class="feature-item text-center">
+                  <img src="{{ slide.img }}" class="img-fluid" alt="Feature" />
+                  <div class="all-feedback text-center">
+                    <p>{{ slide.name }}</p>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="all-feedback text-center">
+      <a class="btn btn-primary btn-sm" style="width: 100px">
+        <strong>Read More</strong>
+      </a>
+    </div>
+  </section>
+  <!-- /Availabe Features --><!-- Availabe Features -->
+  <section class="section section-features">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="section-header">
+            <h2 class="mt-2">Invoices</h2>
+            <p>
+              Include the cost of the services rendered to the customer and
+              approve payments.
+            </p>
+          </div>
+          <div class="features-slider slider">
+            <ngx-slick-carousel
+              class="carousel"
+              #slickModal="slick-carousel"
+              [config]="slideConfig2"
+            >
+              <div ngxSlickItem *ngFor="let slide of sliderContent">
+                <div class="feature-item text-center">
+                  <img src="{{ slide.img }}" class="img-fluid" alt="Feature" />
+                  <div class="all-feedback text-center">
+                    <p>{{ slide.name }}</p>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+        <div class="col-md-5 features-img">
+          <img
+            src="assets/img/features/invoic.png"
+            class="img-fluid"
+            alt="Feature"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="all-feedback text-center">
+      <a href="#" class="btn btn-primary btn-sm">
+        <strong>Read More</strong>
+      </a>
+    </div>
+  </section>
+</div>
+<!-- Availabe Features -->
+
+<!-- /Availabe Features -->

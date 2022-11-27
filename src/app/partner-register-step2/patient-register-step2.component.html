@@ -1,0 +1,95 @@
+<!-- Page Content -->
+<div class="content login-page pt-0">
+  <div class="container-fluid">
+    <!-- Register Content -->
+    <div class="account-content">
+      <div class="row align-items-center">
+        <div class="login-right">
+          <div class="inner-right-login">
+            <div class="login-header">
+              <div class="logo-icon">
+                <img src="/assets/img/tanduucrm.png" width="230px" alt="" />
+              </div>
+              <div class="step-list">
+                <ul>
+                  <li>
+                    <a class="active-done" (click)="gotostepone()">1</a>
+                  </li>
+                  <li><a class="active">2</a></li>
+                  <li><a>3</a></li>
+                </ul>
+              </div>
+              <form id="personal_details" enctype="multipart/form-data">
+                <div class="text-left mt-2">
+                  <h4 class="mt-3">Select Your Company type</h4>
+                </div>
+                <div class="select-gender-col">
+                  <div class="row">
+                    <div class="col-6 pr-2">
+                      <input
+                        type="radio"
+                        id="test1"
+                        name="gender"
+                        value="Male"
+                      />
+                      <label for="test1">
+                        <span class="gender-icon"
+                          ><img src="assets/img/icons/male.png" alt=""
+                        /></span>
+                        <span>Company</span>
+                      </label>
+                    </div>
+                    <div class="col-6 pl-2">
+                      <input
+                        type="radio"
+                        id="test2"
+                        name="gender"
+                        value="Female"
+                      />
+                      <label for="test2">
+                        <span class="gender-icon"
+                          ><img src="assets/img/icons/female.png" alt=""
+                        /></span>
+                        <span>Individual</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="step-process-col mt-4">
+                  <div class="form-group">
+                    <label>Company name</label>
+                    <div class="row">
+                      <div class="col-12 pr-2">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="weight"
+                          value=""
+                          id="weight"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5">
+                  <a
+                    (click)="gotostepthree()"
+                    style="color: white"
+                    class="btn btn-primary btn-block btn-lg login-btn step2_submit"
+                    >continue
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="login-bottom-copyright">
+            <span>© 2020 Doccure. All rights reserved.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Register Content -->
+  </div>
+</div>
+<!-- /Page Content -->

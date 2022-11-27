@@ -1,0 +1,3156 @@
+<div class="main-wrapper">
+  <app-home7header [hidden]="!showheader7"></app-home7header>
+  <app-home6header [hidden]="!showheader6"></app-home6header>
+  <app-home1header [hidden]="!showheader1"></app-home1header>
+  <app-home8header [hidden]="!showheader8"></app-home8header>
+  <app-home1header [hidden]="!showheader1"></app-home1header>
+  <app-home4header [hidden]="!showheader4"></app-home4header>
+  <app-home6header [hidden]="!showheader6"></app-home6header>
+  <app-home7header [hidden]="!showheader7"></app-home7header>
+  <app-header [hidden]="!show"></app-header>
+
+  <!--<a
+    class="floatT"
+    id="btn-back-to-top"
+    [hidden]="!showheader6"
+    (click)="scrollToTop()"
+  >
+    <i class="fas fa-arrow-up fa-2x" style="color: white"></i>
+  </a>-->
+  <!--
+  <ng-chat
+    *ngIf="showchat"
+    [adapter]="adapter"
+    [userId]="999"
+    title="Team"
+    (onMessagesSeen)="messageSeen($event)"
+  ></ng-chat>-->
+  <router-outlet>
+    <ngx-loading-x [show]="!loading"></ngx-loading-x>
+  </router-outlet>
+  <app-home4footer *ngIf="loadFooter"></app-home4footer>
+
+  <!--<app-footer *ngIf="loadFooter" [hidden]="hideFooter"></app-footer>
+  <app-home8footer *ngIf="loadFooter" [hidden]="hidefooter8"></app-home8footer>
+  <app-home1footer *ngIf="loadFooter" [hidden]="hidefooter1"></app-home1footer>
+  <app-home4footer *ngIf="loadFooter" [hidden]="hidefooter4"></app-home4footer>
+  <app-home6footer *ngIf="loadFooter" [hidden]="hidefooter6"></app-home6footer>
+  <app-home7footer *ngIf="loadFooter" [hidden]="hidefooter7"></app-home7footer>Voice Call Modal -->
+
+  <div class="modal fade call-modal" id="voice_call">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <!-- Outgoing Call -->
+          <div class="call-box incoming-box">
+            <div class="call-wrapper">
+              <div class="call-inner">
+                <div class="call-user">
+                  <img
+                    alt="User Image"
+                    src="assets/img/patients/patient.jpg"
+                    class="call-avatar"
+                  />
+                  <h4>Richard Wilson</h4>
+                  <span>Connecting...</span>
+                </div>
+                <div class="call-items">
+                  <a
+                    href="javascript:void(0);"
+                    class="btn call-item call-end"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    ><i class="material-icons">call_end</i></a
+                  >
+                  <a
+                    [routerLink]="'/voice-call'"
+                    class="btn call-item call-start"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    ><i class="material-icons">call</i></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Outgoing Call -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Voice Call Modal -->
+
+  <!-- Video Call Modal -->
+  <div class="modal fade call-modal" id="video_call">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <!-- Incoming Call -->
+          <div class="call-box incoming-box">
+            <div class="call-wrapper">
+              <div class="call-inner">
+                <div class="call-user">
+                  <img
+                    class="call-avatar"
+                    src="assets/img/patients/patient.jpg"
+                    alt="User Image"
+                  />
+                  <h4>Richard Wilson</h4>
+                  <span>Calling ...</span>
+                </div>
+                <div class="call-items">
+                  <a
+                    href="javascript:void(0);"
+                    class="btn call-item call-end"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    ><i class="material-icons">call_end</i></a
+                  >
+                  <a
+                    [routerLink]="'/video-call'"
+                    class="btn call-item call-start"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    ><i class="material-icons">videocam</i></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Incoming Call -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Video Call Modal -->
+
+  <!-- Add Medical Records Modal -->
+  <div class="modal fade custom-modal" id="add_medical_records">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Medical Records</h3>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Date</label>
+              <input
+                type="text"
+                class="form-control datetimepicker"
+                value="31-10-2019"
+              />
+            </div>
+            <div class="form-group">
+              <label>Description ( Optional )</label>
+              <textarea class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Upload File</label>
+              <input type="file" class="form-control" />
+            </div>
+            <div class="submit-section text-center">
+              <button type="submit" class="btn btn-primary submit-btn">
+                Submit
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary submit-btn"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /Add Medical Records Modal -->
+
+  <!-- Add Event Modal -->
+  <div id="add_event" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Event</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Event Name <span class="text-danger">*</span></label>
+              <input class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+              <label>Event Date <span class="text-danger">*</span></label>
+              <div class="cal-icon">
+                <input class="form-control datetimepicker" type="text" />
+              </div>
+            </div>
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Add Event Modal -->
+
+  <!-- Add Event Modal -->
+  <div class="modal fade none-border" id="my_event">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Event</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-success save-event submit-btn">
+            Create event
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger delete-event submit-btn"
+            data-dismiss="modal"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Add Event Modal -->
+
+  <!-- Add Category Modal -->
+  <div class="modal fade" id="add_new_event">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Category</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Category Name</label>
+              <input
+                class="form-control form-white"
+                placeholder="Enter name"
+                type="text"
+                name="category-name"
+              />
+            </div>
+            <div class="form-group">
+              <label>Choose Category Color</label>
+              <select
+                class="form-control form-white"
+                data-placeholder="Choose a color..."
+                name="category-color"
+              >
+                <option value="success">Success</option>
+                <option value="danger">Danger</option>
+                <option value="info">Info</option>
+                <option value="primary">Primary</option>
+                <option value="warning">Warning</option>
+                <option value="inverse">Inverse</option>
+              </select>
+            </div>
+            <div class="submit-section text-center">
+              <button
+                type="button"
+                class="btn btn-primary save-category submit-btn"
+                data-dismiss="modal"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Add Category Modal -->
+
+  <!-- Payment Request Moodal -->
+  <div
+    class="modal fade custom-modal"
+    id="payment_request_modal"
+    role="dialog"
+    style="display: none"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Payment Request</h3>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="payment_request_form" method="post">
+            <input
+              type="hidden"
+              name="payment_type"
+              id="payment_type"
+              value="1"
+            />
+            <div class="form-group">
+              <label>Request Amount</label>
+              <input
+                type="text"
+                name="request_amount"
+                id="request_amount"
+                class="form-control"
+                maxlength="6"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              />
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label>Description (Optional)</label>
+              <textarea
+                class="form-control"
+                name="description"
+                id="description"
+              ></textarea>
+              <span class="help-block"></span>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-center">
+          <button type="submit" id="request_btn" class="btn btn-primary">
+            Request
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Payment Request Moodal -->
+
+  <!-- Account Details Modal-->
+  <div
+    class="modal fade custom-modal"
+    id="account_modal"
+    role="dialog"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Account Details</h3>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="accounts_form" method="post">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Bank Name</label>
+                  <input
+                    type="text"
+                    name="bank_name"
+                    class="form-control bank_name"
+                    value="Wells Fargo & Co"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Branch Name</label>
+                  <input
+                    type="text"
+                    name="branch_name"
+                    class="form-control branch_name"
+                    value="Lenexa"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Account Number</label>
+                  <input
+                    type="text"
+                    name="account_no"
+                    class="form-control account_no"
+                    value="5396 5250 1908 3838"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Account Name</label>
+                  <input
+                    type="text"
+                    name="account_name"
+                    class="form-control acc_name"
+                    value="Dr. Darren Elder"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-center">
+          <button type="submit" id="acc_btn" class="btn btn-primary">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Account Details Modal-->
+
+  <!-- Add Dependent Modal-->
+  <div
+    id="modal_form"
+    class="modal fade custom-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form
+          action="#"
+          enctype="multipart/form-data"
+          autocomplete="off"
+          method="post"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title">Add new member</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="control-label mb-10">
+                Name <span class="text-danger">*</span></label
+              >
+              <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Relationship </label>
+              <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Gender </label>
+              <select class="form-control">
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">DOB </label>
+              <input
+                type="text"
+                name="dob"
+                id="dep-dob"
+                value=""
+                readonly=""
+                class="form-control"
+              />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Photo </label>
+              <input type="file" class="form-control" />
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <button type="submit" class="btn btn-primary submit-btn">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /Add Dependent Modal-->
+
+  <!-- Edit Dependent Modal-->
+  <div
+    id="edit_form"
+    class="modal fade custom-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form
+          action="#"
+          enctype="multipart/form-data"
+          autocomplete="off"
+          method="post"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title">Edit member</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="control-label mb-10">
+                Name <span class="text-danger">*</span></label
+              >
+              <input type="text" class="form-control" value="Christopher" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Relationship </label>
+              <input type="text" class="form-control" value="son" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Gender </label>
+              <select class="form-control">
+                <option value="">Select</option>
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">DOB </label>
+              <input
+                type="text"
+                name="dob"
+                id="dep-editdob"
+                value="01/12/2021"
+                readonly=""
+                class="form-control"
+              />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Photo </label>
+              <input type="file" class="form-control" />
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <button type="submit" class="btn btn-primary submit-btn">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /Edit Dependent Modal-->
+
+  <!-- Patient Account Details Modal -->
+  <div
+    class="modal fade custom-modal"
+    id="patient_account_modal"
+    role="dialog"
+    style="display: none"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Account Details</h3>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="patient_accounts_form" method="post">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Bank Name</label>
+                  <input
+                    type="text"
+                    name="bank_name"
+                    class="form-control bank_name"
+                    value="Goldman Sachs"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Branch Name</label>
+                  <input
+                    type="text"
+                    name="branch_name"
+                    class="form-control branch_name"
+                    value="Alpharetta"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Account Number</label>
+                  <input
+                    type="text"
+                    name="account_no"
+                    class="form-control account_no"
+                    value="4916 0606 4635 5064"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label">Account Name</label>
+                  <input
+                    type="text"
+                    name="account_name"
+                    class="form-control acc_name"
+                    value="Richard Wilson"
+                  />
+                  <span class="help-block"></span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-center">
+          <button type="submit" id="acc_btn" class="btn btn-primary">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Patient Account Details Modal -->
+
+  <!-- Medical Records Modal -->
+  <div
+    class="modal fade custom-modal custom-medicalrecord-modal"
+    id="add_medical_records_modal"
+    style="display: none"
+    data-select2-id="add_medical_records_modal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Medical Records</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="medical_records_form" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label>Title Name</label>
+                  <input
+                    type="text"
+                    name="description"
+                    class="form-control"
+                    placeholder="Enter Title Name"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label>Patient</label>
+                  <ng-select2 width="100%">
+                    <option>Select</option>
+                    <option>Myself</option>
+                    <option>Child_1</option>
+                    <option>Self</option>
+                  </ng-select2>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Hospital Name</label>
+                  <input
+                    type="text"
+                    name="hospital"
+                    class="form-control"
+                    placeholder="Enter name here.."
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Upload</label>
+                  <div class="upload-medical-records">
+                    <input
+                      class="form-control"
+                      type="file"
+                      name="user_file"
+                      id="user_files_mr"
+                    />
+                    <div class="upload-content dropzone">
+                      <div class="text-center">
+                        <div class="upload-icon mb-2">
+                          <img src="assets/img/upload-icon.png" alt="" />
+                        </div>
+                        <h5>Drag &amp; Drop</h5>
+                        <h6>or <span class="text-danger">Browse</span></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Symptoms</label>
+                  <input
+                    type="text"
+                    data-role="tagsinput"
+                    class="input-tags form-control"
+                    value="Fever, Fatigue"
+                    name="services"
+                    id="services"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label>Date</label>
+                  <div class="form-group">
+                    <input
+                      type="date"
+                      class="form-control"
+                      name="tratment_date"
+                      id="tratment_date"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <div class="submit-section text-center">
+                <button
+                  type="submit"
+                  id="medical_btn"
+                  class="btn btn-primary submit-btn"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /Medical Records Modal -->
+
+  <!-- Add Medical Detail -->
+  <div
+    id="modal_medical_form"
+    class="modal fade custom-modal"
+    tabindex="-1"
+    role="dialog"
+    style="display: none"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form
+          action="#"
+          enctype="multipart/form-data"
+          autocomplete="off"
+          method="post"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title">Add new data</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" value="" name="id" />
+            <input type="hidden" value="insert" name="method" />
+            <div class="form-group">
+              <label class="control-label mb-10">
+                BMI <span class="text-danger">*</span></label
+              >
+              <input type="text" name="bmi" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Heart rate </label>
+              <input type="text" name="hr" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Weight</label>
+              <input type="text" name="Weight" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Fbc</label>
+              <input type="text" name="Fbc" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Created Date </label>
+              <input
+                type="text"
+                name="dob"
+                id="dob"
+                value=""
+                readonly=""
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <button type="submit" class="btn btn-outline btn-success">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /Add Medical Detail -->
+
+  <!-- Edit Medical Detail -->
+  <div
+    id="edit_medical_form"
+    class="modal fade custom-modal"
+    tabindex="-1"
+    role="dialog"
+    style="display: none"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form
+          action="#"
+          enctype="multipart/form-data"
+          autocomplete="off"
+          method="post"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title">Add new data</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" value="" name="id" />
+            <input type="hidden" value="insert" name="method" />
+            <div class="form-group">
+              <label class="control-label mb-10">
+                BMI <span class="text-danger">*</span></label
+              >
+              <input type="text" name="bmi" class="form-control" value="23.7" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Heart rate </label>
+              <input type="text" name="hr" class="form-control" value="89" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Weight</label>
+              <input
+                type="text"
+                name="Weight"
+                class="form-control"
+                value="74"
+              />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Fbc</label>
+              <input type="text" name="Fbc" class="form-control" value="140" />
+            </div>
+            <div class="form-group">
+              <label class="control-label mb-10">Created Date </label>
+              <input
+                type="text"
+                name="dob"
+                id="editdob"
+                value="11/11/2019"
+                readonly=""
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <button type="submit" class="btn btn-outline btn-success">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /Edit Medical Detail -->
+
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="exampleModalLong"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries,
+          </p>
+          <p>
+            but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing
+          </p>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries,
+          </p>
+          <p>
+            but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing
+          </p>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries,
+          </p>
+          <p>
+            but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing
+          </p>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries,
+          </p>
+          <p>
+            but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing
+          </p>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries,
+          </p>
+          <p>
+            but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing
+          </p>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries,
+          </p>
+          <p>
+            but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="exampleModalCenter"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenter"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s,
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="tooltipmodal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="tooltipmodal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5>Popover in a modal</h5>
+          <p>
+            This
+            <a
+              class="btn btn-primary popover-test"
+              href="#"
+              role="button"
+              title=""
+              data-content="Popover body content is set in this attribute."
+              data-container="#exampleModalPopovers"
+              data-original-title="Popover title"
+              >button</a
+            >
+            triggers a popover on click.
+          </p>
+          <hr />
+          <h5>Tooltips in a modal</h5>
+          <p>
+            <a
+              class="tooltip-test"
+              href="#"
+              title=""
+              data-container="#exampleModalPopovers"
+              data-original-title="Tooltip"
+              >This link</a
+            >
+            and
+            <a
+              class="tooltip-test"
+              href="#"
+              title=""
+              data-container="#exampleModalPopovers"
+              data-original-title="Tooltip"
+              >that link</a
+            >
+            have tooltips on hover.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="grid-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="grid-modal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body grid-showcase">
+          <div class="container-fluid bd-example-row">
+            <div class="row">
+              <div class="col-md-4"><span>.col-md-4</span></div>
+              <div class="col-md-4 ml-auto">
+                <span>.col-md-4 .ml-auto</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 ml-auto">
+                <span>.col-md-3 .ml-auto</span>
+              </div>
+              <div class="col-md-2 ml-auto">
+                <span>.col-md-2 .ml-auto</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 ml-auto">
+                <span>.col-md-6 .ml-auto</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-9">
+                <span>Level 1: .col-sm-9</span>
+                <div class="row">
+                  <div class="col-8 col-sm-6">
+                    <span>Level 2: .col-8 .col-sm-6</span>
+                  </div>
+                  <div class="col-4 col-sm-6">
+                    <span>Level 2: .col-4 .col-sm-6</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="exampleModalfat"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel2">New message</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label class="col-form-label" for="recipient-name"
+                >Recipient:</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                value="@fat"
+                data-original-title=""
+                title=""
+              />
+            </div>
+            <div class="form-group">
+              <label class="col-form-label" for="message-text">Message:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Send message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="exampleModalmdo"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New message</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label class="col-form-label" for="recipient-name"
+                >Recipient:</label
+              >
+              <input
+                class="form-control"
+                id="recipient-name"
+                type="text"
+                value="@Mat"
+                data-original-title=""
+                title=""
+              />
+            </div>
+            <div class="form-group">
+              <label class="col-form-label" for="message-text">Message:</label>
+              <textarea class="form-control"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Send message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="exampleModalgetbootstrap"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New message</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label class="col-form-label" for="recipient-name"
+                >Recipient:</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                value="@getbootstrap"
+                data-original-title=""
+                title=""
+              />
+            </div>
+            <div class="form-group">
+              <label class="col-form-label" for="message-text">Message:</label>
+              <textarea class="form-control"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            data-dismiss="modal"
+            data-original-title=""
+            title=""
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-original-title=""
+            title=""
+          >
+            Send message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade bd-example-modal-xl"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">...</div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade bd-example-modal-lg"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">...</div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="mySmallModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+            data-original-title=""
+            title=""
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">...</div>
+      </div>
+    </div>
+  </div>
+  <!-- Model -->
+
+  <div
+    class="modal fade"
+    id="deleteNotConfirmModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    style="display: none"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="acc_title">Inactive Service?</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="acc_msg">Service is Booked and Inprogress..</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger si_accept_cancel"
+            data-dismiss="modal"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Model -->
+
+  <!-- Edit Details Modal -->
+  <div
+    class="modal fade"
+    id="edit_invoice_report"
+    aria-hidden="true"
+    role="dialog"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Invoice Report</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row form-row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Invoice Number</label>
+                  <input type="text" class="form-control" value="#INV-0001" />
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Patient ID</label>
+                  <input type="text" class="form-control" value="	#PT002" />
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Patient Name</label>
+                  <input type="text" class="form-control" value="R Amer" />
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Patient Image</label>
+                  <input type="file" class="form-control" />
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Total Amount</label>
+                  <input type="text" class="form-control" value="$200.00" />
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Created Date</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="29th Oct 2019"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Edit Details Modal -->
+</div>
+<div class="modal fade custom-modal" id="appt_details">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Email</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="info-details">
+          <li>
+            <div class="details-header">
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="title" style="margin-bottom: 20px">
+                    new email :
+                  </span>
+                  <div class="form-group">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="text-right">
+                    <button
+                      type="button"
+                      class="btn bg-success-light btn-sm"
+                      id="topup_status"
+                    >
+                      Send Verification code
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-md-3"></div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <span class="title">Confirmation:</span>
+            <span class="text"
+              >Please enter the verification code sent to your e-mail
+            </span>
+          </li>
+          <li>
+            <div class="row">
+              <div class="col-md-4 center">
+                <span class="title" style="margin-bottom: 20px">Code</span>
+                <div class="form-group">
+                  <input type="text" class="form-control" />
+                </div>
+                <div class="text-right">
+                  <button
+                    type="button"
+                    class="btn bg-success-light btn-sm"
+                    id="topup_status"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-md-3"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModalas" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Suggest new subject</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Subject Name </label>
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModalaq" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Ask a question</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="card-body">
+        <div class="form-group">
+          <label>Question title </label>
+          <input type="text" class="form-control" />
+        </div>
+
+        <div class="form-group mb-0">
+          <label>Response</label>
+          <textarea class="form-control" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="card services-card">
+        <div class="card-body">
+          <h4 class="card-title">Services and Specialization</h4>
+
+          <div class="form-group mb-0">
+            <label>Specialization </label>
+            <input
+              class="input-tags form-control"
+              type="text"
+              data-role="tagsinput"
+              placeholder="Enter Specialization"
+              name="specialist"
+              value="Children Care,Cardiologist Care"
+              id="specialist"
+            />
+            <small class="form-text text-muted"
+              >Note : Type & Press enter to add new specialization</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Images</label>
+          <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop files here to upload</ngx-dropzone-label>
+            <ngx-dropzone-image-preview
+              ngProjectAs="ngx-dropzone-preview"
+              *ngFor="let f of files"
+              [file]="f"
+              [removable]="true"
+              (removed)="onRemove(f)"
+            >
+            </ngx-dropzone-image-preview>
+          </ngx-dropzone>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="deleteConfirmModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="acc_title"></h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="acc_msg"></p>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-success si_accept_confirm">Yes</a>
+        <button
+          type="button"
+          class="btn btn-danger si_accept_cancel"
+          data-dismiss="modal"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add category Modal -->
+<div class="modal fade custom-modal" id="addcategory">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add new category</h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Name fr</label>
+            <input type="text" class="form-control" [(ngModel)]="categfrname" />
+          </div>
+          <div class="form-group">
+            <label>Name eng</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="categengname"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name de</label>
+            <input type="text" class="form-control" [(ngModel)]="categdename" />
+          </div>
+
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlimgcategory"
+                *ngIf="urlimgcategory"
+                style="width: 250px"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFilecategory($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="savenewcategory()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade custom-modal" id="editcategory">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit category</h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Name fr</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newfrtextfromedit"
+              value="{{ getnamefrcategtoedit }}"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name eng</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newentextfromedit"
+              value="{{ getnameengcategtoedit }}"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name de</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newdetextfromedit"
+              value="{{ getnamedecategtoedit }}"
+            />
+          </div>
+
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="editcategory()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /Add Medical Records Modal -->
+<div class="modal fade" id="addcategoryimg">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add photo for {{ categorynameforaddimage }}</h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlimgcategory"
+                *ngIf="urlimgcategory"
+                style="width: 300px; margin-left: 25%; margin-bottom: 10px"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFilecategory($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="editphotoforcateg()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addbannertocategory">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Add banner for {{ categorynameforaddimage }}
+        </h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlbannercategory"
+                *ngIf="urlbannercategory"
+                style="width: 300px; margin-left: 25%; margin-bottom: 10px"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFilebannercategory($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="uploadbanner()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add category Modal -->
+<div class="modal fade custom-modal" id="addsubcategory">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Add new subcategory for {{ getcategorynameforsub }}
+        </h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Name fr</label>
+            <input
+              type="text"
+              class="form-control"
+              value="Name fr"
+              [(ngModel)]="subnamefr"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name eng</label>
+            <input
+              type="text"
+              class="form-control"
+              value="Name eng"
+              [(ngModel)]="subnameeng"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name de</label>
+            <input
+              type="text"
+              class="form-control"
+              value="Name de"
+              [(ngModel)]="subnamede"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlimagesub"
+                *ngIf="urlimagesub"
+                style="width: 300px; margin-left: 25%"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFilesub($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="addnewsubcategory()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /Add Medical Records Modal -->
+
+<div class="modal fade" id="addsubcategoryimg">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add photo for {{ getnamesubb }} subcategory</h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlimagesub"
+                *ngIf="urlimagesub"
+                style="width: 250px"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFilesub($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="uploadsubphoto()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addserviceimg">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Add photo for {{ getexpressname }} express service
+        </h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlimgexpress"
+                *ngIf="urlimgexpress"
+                style="width: 250px"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFileexpress($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="uploadexpressserv()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Add express service Modal -->
+<div class="modal fade custom-modal" id="addexpress">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add new express service</h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Name fr</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="expressfrname"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name eng</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="expressgengname"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name de</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="expressdename"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlimgexpress"
+                *ngIf="urlimgexpress"
+                style="width: 300px; margin-left: 25%"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFileexpress($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              (click)="savenewexpress()"
+            >
+              Add
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /Add express  service icon  -->
+
+<div class="modal fade" id="addexpressicon">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Add photo for {{ getexpressnameforsub }} express service
+        </h3>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Upload File</label>
+            <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+            <div>
+              <img
+                [src]="urlimg"
+                *ngIf="urlimg"
+                style="width: 300px; margin-left: 25%"
+              />
+            </div>
+            <input
+              type="file"
+              class="form-control"
+              (change)="selectFile($event)"
+            />
+          </div>
+          <div class="submit-section text-center">
+            <button type="submit" class="btn btn-primary submit-btn">
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary submit-btn"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Add Time Slot Modal -->
+<div class="modal fade custom-modal" id="add_time_slot">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Time Slots</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="hours-info">
+            <div class="row form-row hours-cont">
+              <div class="col-12 col-md-10">
+                <div class="row form-row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>Start Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>12.00 am</option>
+                        <option>12.30 am</option>
+                        <option>1.00 am</option>
+                        <option>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>End Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>12.00 am</option>
+                        <option>12.30 am</option>
+                        <option>1.00 am</option>
+                        <option>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-more mb-3">
+            <a href="javascript:void(0);" class="add-hours"
+              ><i class="fa fa-plus-circle"></i> Add More</a
+            >
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="submit"
+              class="btn btn-primary submit-btn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Time Slot Modal -->
+
+<!-- Edit Time Slot Modal -->
+<div class="modal fade custom-modal" id="edit_time_slot">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Time Slots</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="hours-info">
+            <div class="row form-row hours-cont">
+              <div class="col-12 col-md-10">
+                <div class="row form-row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>Start Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option selected>12.00 am</option>
+                        <option>12.30 am</option>
+                        <option>1.00 am</option>
+                        <option>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>End Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>12.00 am</option>
+                        <option selected>12.30 am</option>
+                        <option>1.00 am</option>
+                        <option>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-row hours-cont">
+              <div class="col-12 col-md-10">
+                <div class="row form-row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>Start Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>12.00 am</option>
+                        <option selected>12.30 am</option>
+                        <option>1.00 am</option>
+                        <option>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>End Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>12.00 am</option>
+                        <option>12.30 am</option>
+                        <option selected>1.00 am</option>
+                        <option>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-2">
+                <label class="d-md-block d-sm-none d-none">&nbsp;</label
+                ><a href="javascript:void(0);" class="btn btn-danger trash"
+                  ><i class="far fa-trash-alt"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="row form-row hours-cont">
+              <div class="col-12 col-md-10">
+                <div class="row form-row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>Start Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>12.00 am</option>
+                        <option>12.30 am</option>
+                        <option selected>1.00 am</option>
+                        <option>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label>End Time</label>
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>12.00 am</option>
+                        <option>12.30 am</option>
+                        <option>1.00 am</option>
+                        <option selected>1.30 am</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-2">
+                <label class="d-md-block d-sm-none d-none">&nbsp;</label
+                ><a href="javascript:void(0);" class="btn btn-danger trash"
+                  ><i class="far fa-trash-alt"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-more mb-3">
+            <a href="javascript:void(0);" class="add-hours"
+              ><i class="fa fa-plus-circle"></i> Add More</a
+            >
+          </div>
+          <div class="submit-section text-center">
+            <button type="submit" class="btn btn-primary submit-btn">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit Time Slot Modal -->
+<div
+  class="modal fade"
+  id="AddNewWord"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="acc_title">Add New Text</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form
+              *ngIf="!isSuccessful"
+              name="form"
+              (ngSubmit)="f.form.valid && onSubmit()"
+              #f="ngForm"
+              novalidate
+            >
+              <div class="form-group">
+                <label for="en" class="form-label"
+                  >English Text <span class="label-required">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="original_text"
+                  [(ngModel)]="form.original_text"
+                  required
+                  #original_text="ngModel"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="f.submitted && original_text.invalid"
+                >
+                  <div *ngIf="original_text.errors.required">
+                    English text is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="fr" class="form-label"
+                  >Frensh Text <span class="label-required">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="text_fr"
+                  [(ngModel)]="form.text_fr"
+                  required
+                  #text_fr="ngModel"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="f.submitted && text_fr.invalid"
+                >
+                  <div *ngIf="text_fr.errors.required">
+                    Frensh text is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="de" class="form-label"
+                  >Deutsch Text <span class="label-required">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="text_de"
+                  [(ngModel)]="form.text_de"
+                  required
+                  #text_de="ngModel"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="f.submitted && text_de.invalid"
+                >
+                  <div *ngIf="text_de.errors.required">
+                    Deutsch text is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="page" class="form-label">Page</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="page"
+                  [(ngModel)]="form.page"
+                  required
+                  #page="ngModel"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="f.submitted && page.invalid"
+                >
+                  <div *ngIf="page.errors.required">Page is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block">Add</button>
+              </div>
+
+              <div
+                class="alert alert-warning"
+                *ngIf="f.submitted && isSignUpFailed"
+              >
+                failed!<br />{{ errorMessage }}
+              </div>
+            </form>
+
+            <div class="alert alert-success" *ngIf="isSuccessful">
+              New Text was added successfully
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="set_access_setting"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Edit access for {{ categorynameforaddimage }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <cdk-accordion class="example-accordion">
+          <cdk-accordion-item
+            *ngFor="let item of items; let index = index"
+            #accordionItem="cdkAccordionItem"
+            class="example-accordion-item"
+            role="button"
+            tabindex="0"
+            [attr.id]="'accordion-header-' + index"
+            [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' + index"
+          >
+            <div
+              class="example-accordion-item-header"
+              (click)="accordionItem.toggle()"
+            >
+              {{ item }}
+              <span class="example-accordion-item-description">
+                <i
+                  class="fa fa-angle-double-down"
+                  *ngIf="!accordionItem.expanded"
+                ></i>
+                <i
+                  class="fa fa-angle-double-up"
+                  *ngIf="accordionItem.expanded"
+                ></i>
+              </span>
+            </div>
+            <div
+              class="example-accordion-item-body"
+              role="region"
+              [style.display]="accordionItem.expanded ? '' : 'none'"
+              [attr.id]="'accordion-body-' + index"
+              [attr.aria-labelledby]="'accordion-header-' + index"
+            >
+              <div class="card" *ngIf="item === 'Orders management'">
+                <div class="card-body">
+                  <div class="list-group">
+                    <span
+                      class="list-group-items"
+                      *ngFor="let it of list_access"
+                    >
+                      <span *ngIf="it.section === 'orders management'">
+                        <input
+                          type="checkbox"
+                          [checked]="it.access_action"
+                          id="{{ it.access_title }}_{{ it.invitation_id }}"
+                          value="{{ it.access_title }}|{{ it.invitation_id }}"
+                        />
+                        {{ it.access_text }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card" *ngIf="item === 'Team management'">
+                <div class="card-body">
+                  <div class="list-group">
+                    <span
+                      class="list-group-items"
+                      *ngFor="let it of list_access"
+                    >
+                      <span *ngIf="it.section === 'team management'">
+                        <input
+                          type="checkbox"
+                          [checked]="it.access_action"
+                          value="it.access_action"
+                        />
+                        {{ it.access_text }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card" *ngIf="item === 'Accounting'">
+                <div class="card-body">
+                  <div class="list-group">
+                    <span
+                      class="list-group-items"
+                      *ngFor="let it of list_access"
+                    >
+                      <span *ngIf="it.section === 'accounting'">
+                        <input
+                          type="checkbox"
+                          [checked]="it.access_action"
+                          value="it.access_action"
+                        />
+                        {{ it.access_text }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card" *ngIf="item === 'Office'">
+                <div class="card-body">
+                  <div class="list-group">
+                    <span
+                      class="list-group-items"
+                      *ngFor="let it of list_access"
+                    >
+                      <span *ngIf="it.section === 'office'">
+                        <input
+                          type="checkbox"
+                          [checked]="it.access_action"
+                          value="it.access_action"
+                        />
+                        {{ it.access_text }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card" *ngIf="item === 'Invoices'">
+                <div class="card-body">
+                  <div class="list-group">
+                    <span
+                      class="list-group-items"
+                      *ngFor="let it of list_access"
+                    >
+                      <span *ngIf="it.section === 'invoices'">
+                        <input
+                          type="checkbox"
+                          [checked]="it.access_action"
+                          value="it.access_action"
+                        />
+                        {{ it.access_text }}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </cdk-accordion-item>
+        </cdk-accordion>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add_new_event">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Category</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Category Name</label>
+            <input
+              class="form-control form-white"
+              placeholder="Enter name"
+              type="text"
+              name="category-name"
+            />
+          </div>
+          <div class="form-group">
+            <label>Choose Category Color</label>
+            <select
+              class="form-control form-white"
+              data-placeholder="Choose a color..."
+              name="category-color"
+            >
+              <option value="success">Success</option>
+              <option value="danger">Danger</option>
+              <option value="info">Info</option>
+              <option value="primary">Primary</option>
+              <option value="warning">Warning</option>
+              <option value="inverse">Inverse</option>
+            </select>
+          </div>
+          <div class="submit-section text-center">
+            <button
+              type="button"
+              class="btn btn-primary save-category submit-btn"
+              data-dismiss="modal"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="changeLanguages">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          {{
+            "header_section_plateform.header_section_plateform_13" | translate
+          }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body" style="min-height: 330px">
+        <div class="text-center" style="display: none" id="loading">
+          <i class="fa fa-spinner fa-spin" style="font-size: 24px"></i>
+          <p>loading ...</p>
+        </div>
+        <div class="form-group">
+          <ng-select
+            [isOpen]="true"
+            (change)="changeLanguage($event)"
+            style="color: black; font-size: 12px"
+          >
+            <ng-option *ngFor="let it of languagesList" [value]="it.symbol">
+              <span style="margin-right: 9px">
+                <img
+                  src="assets/img/flags/{{ it.symbol }}.png"
+                  width="39px"
+                  alt=""
+              /></span>
+              {{ it.languages[serviceLang] }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="search_error_address">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Warning</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">city not found. please try again.</div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="search_error_sevice">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Warning</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">Please select service to continue</div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="translateModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">translate modal</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body" style="min-height: 330px">
+        <div class="form-group">
+          <label>english text</label>
+          <textarea class="form-control" name="engtxt" id="engtxt"></textarea>
+          <label>frensh text</label>
+          <textarea class="form-control" name="engtxt" id="frtxt"></textarea>
+          <label>german text</label>
+          <textarea class="form-control" name="engtxt" id="detxt"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="complete_profile">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <p><b>Modal Open!!</b></p>
+      <p>
+        Built using :target css selector, which basically "Selects the # active
+        HTML anchor". <br /><small
+          >Read more:
+          https://developer.mozilla.org/en-US/docs/Web/CSS/:target</small
+        >
+      </p>
+      <p>Super simple, and easy to modify for your own needs.</p>
+      <a href="#" title="Close Modal" class="close">Close</a>
+    </div>
+  </div>
+</div>

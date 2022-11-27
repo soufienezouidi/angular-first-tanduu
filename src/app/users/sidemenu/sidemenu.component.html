@@ -1,0 +1,107 @@
+<div class="profile-sidebar">
+  <div class="widget-profile pro-widget-content">
+    <div class="profile-info-widget">
+      <a href="javascript:void(0)" class="booking-doc-img">
+        <img
+          src="https://api.aroundorder.com:1337/api/user/{{
+            connecteduser.id
+          }}/profilepic.png"
+          alt="User Image"
+        />
+      </a>
+      <div class="profile-det-info">
+        <h3>{{ connecteduser.first_name }} {{ connecteduser.last_name }}</h3>
+        <div class="patient-details" *ngIf="connecteduser.location">
+          <h5 class="mb-0">
+            <i class="fas fa-map-marker-alt"></i>
+            {{ connecteduser.location.city }},
+            {{ connecteduser.location.country }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-widget">
+    <nav class="dashboard-menu">
+      <ul>
+        <li [class.active]="name === 'Dashboard'">
+          <a [routerLink]="'dashboard'" (click)="navigate('Dashboard')">
+            <i class="fas fa-columns"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li [class.active]="name === 'Favourites'">
+          <a (click)="navigate('Favourites')" [routerLink]="'favourites'">
+            <i class="fas fa-handshake"></i>
+            <span>Pros i worked with</span>
+          </a>
+        </li>
+        <!--	<li [class.active]="name === 'Dependent'">
+					<a (click)="navigate('Dependent')" [routerLink]="'dependent'">	
+						<i class="fas fa-users"></i>
+						<span>Dependent</span>
+					</a>
+				</li>-->
+        <li [class.active]="name === 'mailbox'">
+          <a [routerLink]="'mailbox'">
+            <i class="fas fa-envelope"></i>
+            <span>Mail box</span>
+            <small class="unread-msg">23</small>
+          </a>
+        </li>
+        <li [class.active]="name === 'Accounts'">
+          <a (click)="navigate('Accounts')" [routerLink]="'accounts'">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Invoices</span>
+          </a>
+        </li>
+        <!-- <li [class.active]="name === 'Orders'">
+          <a (click)="navigate('Orders')" [routerLink]="'orders'">
+            <i class="fas fa-list-alt"></i>
+            <span>Orders</span>
+            <small class="unread-msg">7</small>
+          </a>
+        </li>
+        <li [class.active]="name === 'medical-records'">
+          <a
+            (click)="navigate('medical-records')"
+            [routerLink]="'medical-records'"
+          >
+            <i class="fas fa-clipboard"></i>
+            <span>Add Medical Records</span>
+          </a>
+        </li>
+        <li [class.active]="name === 'medical-details'">
+          <a
+            (click)="navigate('medical-details')"
+            [routerLink]="'medical-details'"
+          >
+            <i class="fas fa-file-medical-alt"></i>
+            <span>Medical Details</span>
+          </a>
+        </li> -->
+        <li [class.active]="name === 'Profile Settings'">
+          <a (click)="navigate('Profile Settings')" [routerLink]="'settings'">
+            <i class="fas fa-user-cog"></i>
+            <span>Profile Settings</span>
+          </a>
+        </li>
+        <!--   <li [class.active]="name === 'Patients Change Password'">
+          <a
+            (click)="navigate('Patients Change Password')"
+            [routerLink]="'patients-change-password'"
+          >
+            <i class="fas fa-lock"></i>
+            <span>Change Password</span>
+          </a>
+        </li>-->
+        <li>
+          <a (click)="logout()" style="cursor: pointer">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

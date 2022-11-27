@@ -1,0 +1,690 @@
+<header class="header hovered-class">
+  <section class="header-main border-bottom">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-lg-2 col-sm-4 col-md-4 col-5">
+          <a
+            class="brand-wrap"
+            data-abc="true"
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+          >
+            <!-- <img class="logo" src="http://ampexamples.com/data/upload/2017/08/bootstrap2_logo.png"> -->
+            <span class="logo">
+              <img class="img-fluid" alt="Logo" style="margin-left: 25px"
+            /></span>
+            <br />
+            <p
+              class="slogan"
+              style="margin-left: 44px; font-size: 10px; color: white"
+            >
+              {{
+                "header_section_plateform.header_section_plateform_8"
+                  | translate
+              }}
+            </p>
+          </a>
+        </div>
+        <div
+          class="col-lg-6 col-xl-6 col-sm-8 col-md-4 d-none d-md-block"
+          
+        >
+          <form action="#" class="search-wrap" >
+            <div class="input-group w-100">
+              <input
+                type="text"
+                id="search-service"
+                name="aaaaaaaa"
+                (keyup)="searchServices($event.target.value)"
+                [(ngModel)]="searchServiceWebHeader1"
+                placeholder="{{
+                  'header_section_plateform.header_section_plateform_17'
+                    | translate
+                }}"
+                class="form-control search-form"
+                autocomplete="off"
+              />
+              <!--
+              <input
+                type="text"
+                id="search-location"
+                (keyup)="searchLocation()"
+                class="form-control search-form"
+                style="width: 55%"
+                (blur.enter)="goToSearchP()"
+                placeholder="{{
+                  'header_section_plateform.header_section_plateform_16'
+                    | translate
+                }}"
+              />
+              <input type="hidden" id="search_zip" />
+              <input type="hidden" id="search_city" />
+              <input type="hidden" id="search_lng" />
+              <input type="hidden" id="search_ltd" />-->
+              <div class="input-group-append">
+                <button
+                  type="submit"
+                  class="btn btn-secondary"
+                  (click)="gotoresults()"
+                >
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="search-filter" *ngIf="showSuggestion && !isMobile && !showsearching">
+            <div class="autocom-box"></div>
+            <ul
+              id="box_result"
+              class="list-group-filter"
+              *ngIf="results1.length > 0"
+            >
+              <li
+                class="list-group-item sample-items"
+                *ngFor="let item of results1"
+                (click)="selectService(item.id, item.name, item)"
+              >
+                {{ item.name }}
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="col-lg-4 col-xl-4 col-sm-7 col-md-4 col-7">
+          <div class="d-flex justify-content-end">
+            <div class="dropdown btn-group">
+              <a
+                class="nav-link nav-icons"
+                id="navbarDropdownMenuLink12"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-abc="true"
+                style="color: #009fe3; margin-top: -2px"
+                (click)="showmodal()"
+                data-target="#languageModal"
+                data-toggle="modal"
+                ><span class="user-img" style="margin-left: 2px">
+                  <img
+                    *ngIf="currentLanguage"
+                    class=""
+                    src="assets/img/flags/{{ currentLanguage }}.png"
+                    style="
+                      height: 20px;
+                      -o-object-fit: cover;
+                      object-fit: cover;
+                      width: 30px;
+                      margin-right: 3px;
+                      border: 1px solid;
+                      border-color: #272b41;
+                    "
+                    alt="Richard Wilson"
+                  /> </span
+              ></a>
+              <ul
+                id="languages_list"
+                class="dropdown-menu dropdown-menu-right noti-dropdown"
+                [ngStyle]="{
+                  display: showlangdropdown === true ? 'block' : 'none'
+                }"
+              >
+                <li>
+                  <a class="dropdown-item" style="cursor: pointer">
+                    <span class="user-img" style="margin-left: 2px">
+                      <img
+                        class=""
+                        src="assets/img/langs/france.png"
+                        style="
+                          height: 20px;
+                          -o-object-fit: cover;
+                          object-fit: cover;
+                          width: 20px;
+                        "
+                        alt="Richard Wilson"
+                      /> </span
+                    >FR</a
+                  >
+                  <a class="dropdown-item" style="cursor: pointer">
+                    <span class="user-img" style="margin-left: 2px">
+                      <img
+                        class=""
+                        src="assets/img/langs/ger.png"
+                        style="
+                          height: 20px;
+                          -o-object-fit: cover;
+                          object-fit: cover;
+                          width: 20px;
+                        "
+                        alt="Richard Wilson"
+                      /> </span
+                    >DE</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <span class="vl"></span>
+            <div class="dropdown btn-group" *ngIf="auth">
+              <!-- <a
+                class="nav-link nav-icons"
+                aria-haspopup="true"
+                aria-expanded="false"
+                (click)="changeshowme()"
+                data-toggle="dropdown"
+                data-abc="true"
+                ><i class="fas fa fa-bell fa-sm"></i
+              ></a>-->
+              <ul
+                id="list_notifications"
+                class="dropdown-menu dropdown-menu-right notification-dropdown"
+                [ngStyle]="{
+                  display: showme === true ? 'block' : 'none'
+                }"
+              >
+                <li>
+                  <div class="notification-list">
+                    <div class="list-group" style="width: 250px">
+                      <a href="javascript:void(0)">
+                        <div class="media">
+                          <span class="avatar avatar-sm">
+                            <img
+                              class="avatar-img rounded-circle"
+                              alt="User Image"
+                              src="assets/img/doctors/doctor-thumb-02.jpg"
+                            />
+                          </span>
+                          <div class="media-body">
+                            <p class="noti-details">
+                              <span class="noti-title">Dr. Ruby Perrin</span>
+                              Schedule
+                              <span class="noti-title">her appointment</span>
+                            </p>
+                            <p class="noti-time">
+                              <span class="notification-time">4 mins ago</span>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a href="javascript:void(0)">
+                        <div class="media">
+                          <span class="avatar avatar-sm">
+                            <img
+                              class="avatar-img rounded-circle"
+                              alt="User Image"
+                              src="assets/img/doctors/doctor-thumb-02.jpg"
+                            />
+                          </span>
+                          <div class="media-body">
+                            <p class="noti-details">
+                              <span class="noti-title">Dr. Ruby Perrin</span>
+                              Schedule
+                              <span class="noti-title">her appointment</span>
+                            </p>
+                            <p class="noti-time">
+                              <span class="notification-time">4 mins ago</span>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                      <a href="javascript:void(0)">
+                        <div class="media">
+                          <span class="avatar avatar-sm">
+                            <img
+                              class="avatar-img rounded-circle"
+                              alt="User Image"
+                              src="assets/img/doctors/doctor-thumb-02.jpg"
+                            />
+                          </span>
+                          <div class="media-body">
+                            <p class="noti-details">
+                              <span class="noti-title">Dr. Ruby Perrin</span>
+                              Schedule
+                              <span class="noti-title">her appointment</span>
+                            </p>
+                            <p class="noti-time">
+                              <span class="notification-time">4 mins ago</span>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="dropdown btn-group" *ngIf="auth">
+              <a
+                class="nav-link nav-icons input-group-append"
+                (click)="showprofile()"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-abc="true"
+                ><span class="avatar avatar-sm">
+                  <img
+                    class="avatar-img rounded-circle"
+                    alt="tanduu"
+                    width="35px"
+                    width="35px"
+                    style="width: 35px; height: 35px"
+                    src="assets/img/logo3n.png"
+                  /> </span
+              ></a>
+              <ul
+                id="profile_menu"
+                class="dropdown-menu dropdown-menu-right notification-dropdown"
+                [ngStyle]="{
+                  display: showprofiledropdown === true ? 'block' : 'none'
+                }"
+              >
+                <li>
+                  <div class="user-header">
+                    <div class="avatar avatar-sm">
+                      <img
+                      src="assets/img/logo3n.png"
+                        alt="User Image"
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <div class="user-text">
+                      <h6>{{ infos.first_name }} {{ infos.last_name }}</h6>
+                    </div>
+                  </div>
+                  <a
+                    class="dropdown-item"
+                    (click)="gotodashbard()"
+                    style="cursor: pointer"
+                    >{{
+                      "header_section_plateform.header_section_plateform_9"
+                        | translate
+                    }}</a
+                  >
+                  <a
+                    class="dropdown-item"
+                    (click)="gotoprofilesetting()"
+                    *ngIf="showprofsets"
+                    style="cursor: pointer"
+                    >{{
+                      "header_section_plateform.header_section_plateform_10"
+                        | translate
+                    }}</a
+                  >
+
+                  <a
+                    class="dropdown-item"
+                    (click)="logout()"
+                    style="cursor: pointer"
+                    >{{
+                      "header_section_plateform.header_section_plateform_11"
+                        | translate
+                    }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <span class="vl"></span>
+            <a
+              class="nav-link header-login white-bg text-center nav-icons input-group-append"
+              id="navbarDropdownMenuLink1"
+              aria-haspopup="true"
+              *ngIf="!auth && !isMobile"
+              aria-expanded="false"
+              (click)="gotologins()"
+              [routerLink]="['/login-page']"
+              style="color: #009fe3 !important"
+              routerLinkActive="router-link-active"
+              data-abc="true"
+              ><i class="fas fa fa-user-plus fa-xl" style="font-size: 16px">
+              </i>
+              {{
+                "header_section_plateform.header_section_plateform_2"
+                  | translate
+              }}</a
+            >
+
+            <a
+              class="nav-link header-login white-bg text-center nav-icons input-group-append"
+              id="navbarDropdownMenuLink1"
+              aria-haspopup="true"
+              *ngIf="!auth && isMobile"
+              aria-expanded="false"
+              (click)="gotologins()"
+              [routerLink]="['/login-page']"
+              style="color: #009fe3 !important"
+              routerLinkActive="router-link-active"
+              data-abc="true"
+              ><i class="fas fa fa-user-plus fa-xl" style="font-size: 21px">
+              </i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <nav
+    class="navbar navbar-expand-md navbar-main border-bottom"
+    style="background-color: #272b41"
+  >
+    <div class="container-fluid">
+      <form
+        class="d-md-none my-2"
+        style="width: 100%; display: inherit"
+      
+      >
+        <div class="input-group">
+          <input
+            type="text"
+            id="search-service-mob"
+            name="mobsearch"
+            (keyup)="searchServicesmob($event.target.value)"
+            placeholder="{{
+              'header_section_plateform.header_section_plateform_17' | translate
+            }}"
+            class="form-control search-form"
+            style="max-height: 30px"
+            style="min-height: 30px"
+            [(ngModel)]="searchServiceMobHeader"
+            autocomplete="off"
+          />
+        </div>
+        <div class="input-group-append">
+          <button
+            type="submit"
+            class="btn btn-secondary"
+            (click)="gotoresults()"
+            style="height: 36px"
+          >
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#dropdown6"
+          aria-expanded="false"
+        >
+          <span class="navbar-toggler-icon"> <i class="fas fa-bars"></i></span>
+        </button>
+      </form>
+      <div
+        class="search-filter"
+        *ngIf="showSuggestion && isMobile && !showlooking"
+        style="width: 70%; margin-top: 32px"
+      >
+        <div class="autocom-box"></div>
+        <ul
+          id="box_result"
+          class="list-group-filter"
+          *ngIf="results1.length > 0"
+        >
+          <li
+            class="list-group-item sample-items"
+            *ngFor="let item of results1"
+            (click)="selectServicemob(item.id, item.name, item)"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+        <ul
+        id="box_result"
+        class="list-group-filter"
+        *ngIf="showlooking"
+        style="margin-left: -38px"
+      >
+        <li
+          class="list-group-item sample-items"
+          
+         
+          style="cursor: pointer"
+        >
+        <div class="spinner">
+          <div class="pulse-container"> <span class="p-bubble p-bubble-1"></span> <span class="p-bubble p-bubble-2"></span> <span class="p-bubble p-bubble-3"></span>  <span class="p-bubble p-bubble-3"></span><span class="p-bubble p-bubble-3"></span><span class="p-bubble p-bubble-3"></span></div>
+      </div>
+        </li>
+      </ul>
+      </div>
+
+      <div class="navbar-collapse collapse" id="dropdown6">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href=""
+              data-abc="true "
+              style="color: white"
+              [routerLink]="['/']"
+              routerLinkActive="router-link-active"
+              >{{
+                "header_section_plateform.header_section_plateform_4"
+                  | translate
+              }}</a
+            >
+          </li>
+      
+          <li class="nav-item" *ngIf="!auth">
+            <a
+              class="nav-link"
+              href=""
+              data-abc="true"
+              style="color: white"
+              [routerLink]="['/pre-register_partner']"
+              routerLinkActive="router-link-active"
+              >{{
+                "header_section_plateform.header_section_plateform_6"
+                  | translate
+              }}</a
+            >
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--
+  <nav
+    class="navbar navbar-expand-md navbar-main border-bottom hovered-class"
+    style="height: 48px !important"
+  >
+    <drag-scroll
+      style="
+        width: 100%;
+        height: 50px;
+        overflow-x: hidden !important ;
+        margin-top: 10px;
+      "
+      [scrollbar-hidden]="!isMobile"
+      class="hovered-class"
+    >
+      <div
+        class="drag-scroll-content hovered-class"
+        id="tt"
+        style="height: 40px"
+      >
+        <a
+          (mouseenter)="showcard(item)"
+          (mouseleave)="unhoverElement()"
+          data-abc="true"
+          class="test hovered-class"
+          *ngFor="let item of categories"
+          (click)="gogtosub(item)"
+          [ngStyle]="{
+            color: item.id === data.id ? '#009fe3' : 'black'
+          }"
+          id="{{ 'category-item' + item.id }}"
+        >
+          {{ item.languages[serviceLang] }}
+        </a>
+      </div>
+    </drag-scroll>
+  </nav>-->
+  <div
+    class="drag-scroll-content card-nav hovered-class"
+    style="
+      z-index: 99999999;
+      display: none;
+      position: absolute;
+
+      overflow-x: none;
+      overflow: hidden;
+    "
+  >
+    <div class="sub-nav hovered-class">
+      <div
+        class="row row-shadow hovered-class"
+        style="padding-top: 10px; background-color: white"
+      >
+        <div class="col hovered-class" [style]="widthmob">
+          <ul
+            class="booking-fee hovered-class"
+            *ngFor="let itemz of data.sub_categories"
+          >
+            <li
+              (mouseover)="showservice(itemz)"
+              [ngClass]="
+                itemz.id === data2.id
+                  ? 'test2 hovered-class'
+                  : ' hovered-class  blurry-text '
+              "
+              id="{{ 'sub-item' + itemz.id }}"
+              style="cursor: pointer"
+            >
+              {{ itemz.languages[serviceLang] }}
+            </li>
+          </ul>
+        </div>
+        <div class="vertical-row hovered-class"></div>
+        <div class="col hovered-class" [style]="widthmob">
+          <ul
+            class="booking-fee hovered-class"
+            *ngFor="let items of data2.services"
+          >
+            <li
+              class="hovered-class"
+              (mouseover)="gotoservice(items)"
+              [ngStyle]="{
+                color: items.id === serviceselected.id ? '#009fe3' : 'black'
+              }"
+              (click)="openModalAddress(addAddress)"
+              style="cursor: pointer"
+            >
+              {{ items.languages[serviceLang] }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row row-shadow hovered-class" *ngIf="data">
+        <div [style]="widthmobbanner" *ngIf="data.id">
+          <img
+            src="https://api.aroundorder.com:1337/banners/{{ data.id }}.png"
+            alt="Feature"
+            width="540px"
+            style="background-color: white"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<ng-template #addAddress>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{ "modals_plateform.modals_plateform_1" | translate }}
+      <i
+        class="fa fa-question-circle"
+        style="cursor: pointer"
+        title="{{ 'help_plateform.help_plateform_1' | translate }}"
+      ></i>
+    </h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="font-size: 13px">
+    <div class="row">
+      <div class="col-md-12">
+        <label
+          >{{ "forms_plateform.forms_plateform_1" | translate }} ({{
+            locationmsg.languages[serviceLang]
+          }}) <span class="label-required">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="{{
+            'forms_plateform.forms_plateform_1' | translate | lowercase
+          }}"
+          (keyup)="checkAddress()"
+        />
+      </div>
+    </div>
+    <br />
+
+    <div class="row" style="margin-top: 12px">
+      <div class="col-md-6">
+        <label
+          >{{ "forms_plateform.forms_plateform_4" | translate }}
+          <span class="label-required">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="{{
+            'forms_plateform.forms_plateform_4' | translate | lowercase
+          }}"
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="latitude"
+          placeholder="latitude"
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="longitude"
+          placeholder="longitude"
+        />
+      </div>
+      <div class="col-md-6">
+        <label>{{ "forms_plateform.forms_plateform_5" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="zip_code"
+          placeholder="{{
+            'forms_plateform.forms_plateform_5' | translate | lowercase
+          }}"
+        />
+      </div>
+    </div>
+
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-primary btn-sm btn-block"
+        (click)="goToSearchPage()"
+        id="btn-yes"
+      >
+        {{ "buttons_plateform.buttons_plateform_1" | translate }}
+        <i class="fa fa-search"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger btn-sm btn-block"
+        (click)="modalRef.hide()"
+      >
+        {{ "buttons_plateform.buttons_plateform_2" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- ADDRESS -->

@@ -1,0 +1,46 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Translation</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/admin/'">Tanduu</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:(0);">Translate</a></li>
+                        <li class="breadcrumb-item active">CRM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body custom-edit-service">                        
+                        <div class="row mb-5">
+                            <div class="col">
+                                <ul class="nav nav-tabs nav-tabs-solid">
+                                    <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="'/admin/translate'" >CRM & Plateform</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" [routerLink]="'/admin/translate'" [queryParams]="{translate: 'cm'}">CRM</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="'/admin/translate'" [queryParams]="{translate: 'plateform'}">Plateform</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-primary btn-sm" [routerLink]="'/admin/add-blog'"><i class="fas fa-plus mr-1"></i> Add Blog</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,538 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+
+    <div class="page-header" *ngIf="userConnected">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Shop</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/dashboard'">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Shop</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="text-right">
+              <button
+                (click)="showModalAddProduct(AddProduct)"
+                class="btnadd btn-primary"
+                type="submit"
+              >
+                <i class="fas fa-plus-circle"></i>
+                {{ addnewproduct.languages[serviceLang] }}
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <strong>{{
+              "profile_page_crm.profile_page_crm_74" | translate
+            }}</strong>
+
+            <dx-data-grid
+              id="gridContainer"
+              [noDataText]="listShopProducts ? '' : NoProduct[serviceLang]"
+              [dataSource]="listShopProducts"
+              keyExpr="id"
+              [showBorders]="true"
+            >
+              <dxo-load-panel [enabled]="true">
+                <!-- or false | "auto" -->
+              </dxo-load-panel>
+
+              <dxi-column
+                dataField="picture_name"
+                caption="{{ tableColumn.col2[serviceLang] }}"
+                [width]="!isMobile ? 250 : 320"
+                [allowFiltering]="false"
+                [allowSorting]="false"
+                cellTemplate="cellTemplate"
+              ></dxi-column>
+              <dxi-column
+                *ngIf="!isMobile"
+                dataField="name"
+                [calculateCellValue]="getDescription"
+                caption="{{ tableColumn.col1[serviceLang] }}"
+                cellTemplate="description"
+              ></dxi-column>
+
+              <div *dxTemplate="let data of 'cellTemplate'">
+                <img
+                  src="{{
+                    'https://api.aroundorder.com:1337/api/user/products/' +
+                      userConnected.id +
+                      '/' +
+                      companyConnected.id +
+                      '/' +
+                      data.value
+                  }} "
+                  alt="{{ data.data.name }}"
+                  title="{{ data.data.description }}"
+                  style="width: 94%; height: 250px; border-radius: 4px"
+                  lightbox
+                />
+                <p>
+                  <br />
+                  <span *ngIf="isMobile">
+                    <div class="pro-content">
+                      <h3 class="title">
+                        {{ data.data.name }}
+                      </h3>
+                      <ul class="available-info">
+                        <li>
+                          <p class="mb-0" style="color: black">
+                            <strong
+                              ><i class="fa fa-money" aria-hidden="true"></i
+                            ></strong>
+                            {{ data.data.price }}
+                          </p>
+                          <p class="mb-0" style="color: black">
+                            <strong
+                              ><i class="fa fa-list" aria-hidden="true"></i>
+                            </strong>
+                            {{ data.data.articles }} articles
+                          </p>
+                          <p class="mb-0" style="color: black">
+                            <strong
+                              ><i class="fa fa-globe" aria-hidden="true"></i>
+                            </strong>
+                            <a
+                              href="{{ data.data.product_link }}"
+                              target="_blank"
+                              style="color: black"
+                              >{{ data.data.product_link }}</a
+                            >
+                          </p>
+                        </li>
+                      </ul>
+                      <div class="row row-sm">
+                        <div class="col-6">
+                          <button
+                            class="btn btn-sm btn-primary"
+                            (click)="openEditProduct(EditProduct, data.data)"
+                          >
+                            Edit <i class="fas fa-edit"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-danger"
+                            (click)="
+                              openDeletionProduct(DeleteProduct, data.data)
+                            "
+                          >
+                            Delete <i class="fa fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </p>
+              </div>
+              <div *dxTemplate="let ss of 'description'">
+                <span *ngIf="!isMobile">
+                  <b style="margin-right: 5px; margin-bottom: 10px">{{
+                    tableColumn.col2[serviceLang]
+                  }}</b>
+                  {{ ss.data.name }}<br /><br />
+                  <b style="margin-right: 5px; margin-bottom: 10px"
+                    >{{ tableColumn.articles[serviceLang] }}:</b
+                  >
+                  {{ ss.data.articles }} articles<br /><br />
+                  <b style="margin-right: 5px; margin-bottom: 10px"
+                    >{{ tableColumn.link[serviceLang] }}:</b
+                  >
+                  <span *ngIf="ss.data.product_link">{{
+                    ss.data.product_link
+                  }}</span
+                  ><span *ngIf="!ss.data.product_link">-</span><br /><br />
+                  <br />
+                  <p>
+                    <button
+                      class="btn btn-sm btn-primary"
+                      (click)="openEditProduct(EditProduct, ss.data)"
+                    >
+                      {{ "profile_page_crm.profile_page_crm_14" | translate }}
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      class="btn btn-sm btn-danger"
+                      (click)="openDeletionProduct(DeleteProduct, ss.data)"
+                    >
+                      {{ "profile_page_crm.profile_page_crm_54" | translate }}
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </p>
+                </span>
+              </div>
+              <dxo-search-panel
+                [visible]="true"
+                placeholder="{{ searchPanel[serviceLang] }}"
+              ></dxo-search-panel>
+              <dxo-paging [pageSize]="100"></dxo-paging>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- TELMPLATE TO ADD PRODUCT -->
+    <ng-template #DeleteProduct>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_85" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeDeleteProduct()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ textDeleteProd[serviceLang] }}
+        <input type="hidden" id="deleteProductId" />
+        <div style="margin-top: 25px" class="text-center">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="confirmProduct()"
+            id="btn-yes"
+          >
+            {{ "profile_page_crm.profile_page_crm_57" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="closeDeleteProduct()"
+          >
+            {{ "profile_page_crm.profile_page_crm_52" | translate | lowercase }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #AddProduct>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_79" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditProduct()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="overflow-y: scroll; max-height: 460px">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_80" | translate
+              }}</label>
+              <input
+                type="text"
+                [class]="classNames2"
+                [(ngModel)]="productName"
+                (keyup)="showCarc2($event.target.value)"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_80' | translate | lowercase
+                }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_81" | translate
+              }}</label>
+              <input
+                type="text"
+                [class]="classNames1"
+                [(ngModel)]="productPrice"
+                (keyup)="showCarc1($event.target.value)"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_81' | translate | lowercase
+                }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_82" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control form-required"
+                [(ngModel)]="productArticles"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_82' | translate | lowercase
+                }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                ProductLinkTitle[serviceLang]
+              }}</label>
+              <input
+                type="text"
+                class="form-control form-required"
+                [(ngModel)]="productLink"
+                placeholder="{{ ProductLinkTitle[serviceLang] | lowercase }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">Description</label>
+              <textarea
+                type="text"
+                [class]="classNames"
+                [(ngModel)]="description"
+                placeholder="description"
+                maxlength="50"
+                (keyup)="showCarc($event.target.value)"
+              ></textarea>
+              <span style="float: right"> {{ countCarc }} / 50</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_84" | translate
+              }}</label>
+              <div>
+                <span
+                  style="color: crimson; font-weight: bold"
+                  *ngIf="msgProductFile"
+                  >{{ msgProductFile[serviceLang] }}</span
+                >
+                <img
+                  [src]="urlPicture"
+                  *ngIf="urlPicture"
+                  style="width: 300px; margin-left: 30%"
+                />
+              </div>
+              <ngx-dropzone
+                (change)="onSelectProductFile($event)"
+                accept="image/*"
+                [multiple]="false"
+              >
+                <ngx-dropzone-label>{{
+                  labelProduct[serviceLang]
+                }}</ngx-dropzone-label>
+                <ngx-dropzone-image-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of filesProducts"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveProductFile(f)"
+                >
+                </ngx-dropzone-image-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 25px" class="text-center">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="addNewProduct()"
+            id="btn-yes"
+          >
+            {{ "profile_page_crm.profile_page_crm_12" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="closeEditProduct()"
+          >
+            {{ "profile_page_crm.profile_page_crm_52" | translate | lowercase }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <!-- END TELMPLATE TO ADD PRODUCT -->
+
+    <!-- TELMPLATE TO ADD PRODUCT -->
+    <ng-template #EditProduct>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_14" | translate }}
+          {{ productName }}
+        </h4>
+        <button
+          type=" button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditProduct()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="overflow-y: scroll; max-height: 450px">
+        <input type="hidden" id="editProductId" />
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_80" | translate
+              }}</label>
+              <input
+                type="text"
+                [class]="classNames2"
+                [(ngModel)]="ProductName"
+                (keyup)="showCarc2($event.target.value)"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_80' | translate | lowercase
+                }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_81" | translate
+              }}</label>
+              <input
+                type="text"
+                [class]="classNames1"
+                (keyup)="showCarc1($event.target.value)"
+                [(ngModel)]="productPrice"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_81' | translate | lowercase
+                }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_82" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control form-required"
+                [(ngModel)]="productArticles"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_82' | translate | lowercase
+                }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                ProductLinkTitle[serviceLang]
+              }}</label>
+              <input
+                type="text"
+                class="form-control form-required"
+                [(ngModel)]="productLink"
+                placeholder="{{ ProductLinkTitle[serviceLang] | lowercase }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">Description</label>
+              <textarea
+                type="text"
+                [class]="classNames"
+                [(ngModel)]="description"
+                placeholder="description"
+                maxlength="50"
+                (keyup)="showCarc($event.target.value)"
+              ></textarea>
+              <span style="float: right"> {{ countCarc }} / 50</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_84" | translate
+              }}</label>
+              <div>
+                <span
+                  style="color: crimson; font-weight: bold"
+                  *ngIf="msgProductFile"
+                  >{{ msgProductFile[serviceLang] }}</span
+                >
+              </div>
+              <ngx-dropzone
+                (change)="onSelectProductFile($event)"
+                accept="image/*"
+                [multiple]="false"
+              >
+                <ngx-dropzone-label>{{
+                  labelProduct[serviceLang]
+                }}</ngx-dropzone-label>
+                <ngx-dropzone-image-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of filesProducts"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveProductFile(f)"
+                >
+                </ngx-dropzone-image-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 25px" class="text-center modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          (click)="confirmEditProduct()"
+          id="btn-yes"
+        >
+          {{ "profile_page_crm.profile_page_crm_12" | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          (click)="closeEditProduct()"
+        >
+          {{ "profile_page_crm.profile_page_crm_54" | translate | lowercase }}
+        </button>
+      </div>
+    </ng-template>
+    <!-- END TELMPLATE TO ADD PRODUCT -->
+  </div>
+</div>

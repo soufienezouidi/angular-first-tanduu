@@ -1,0 +1,250 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Welcome Admin!</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-primary border-primary">
+                <i class="fe fe-money"></i>
+              </span>
+              <div class="dash-count">
+                <h3>$530.00</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">income today</h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary w-50"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-success">
+                <i class="fe fe-credit-card"></i>
+              </span>
+              <div class="dash-count">
+                <h3>546</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">new customers today</h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-success w-50"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-success border-success">
+                <i class="fe fe-users"></i>
+              </span>
+              <div class="dash-count">
+                <h3>{{ partnersnew.length }}</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">Total jobbers</h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-success w-50"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="dash-widget-header">
+              <span class="dash-widget-icon text-warning border-warning">
+                <i class="fe fe-users"></i>
+              </span>
+              <div class="dash-count">
+                <h3>{{ customersnew.length }}</h3>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              <h6 class="text-muted">Total customers</h6>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-warning w-50"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-lg-6">
+        <!-- Sales Chart -->
+        <div class="card card-chart">
+          <div class="card-header">
+            <h4 class="card-title">Revenue</h4>
+          </div>
+          <div class="card-body">
+            <div id="morrisArea"></div>
+          </div>
+        </div>
+        <!-- /Sales Chart -->
+      </div>
+      <div class="col-md-12 col-lg-6">
+        <!-- Invoice Chart -->
+        <div class="card card-chart">
+          <div class="card-header">
+            <h4 class="card-title">Status</h4>
+          </div>
+          <div class="card-body">
+            <div id="morrisLine"></div>
+          </div>
+        </div>
+        <!-- /Invoice Chart -->
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Users</h4>
+        </div>
+        <div class="card-body">
+          <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="#basic-justified-tab1"
+                data-toggle="tab"
+                >Jobbers</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#basic-justified-tab2" data-toggle="tab"
+                >Customers</a
+              >
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane show active" id="basic-justified-tab1">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover table-center mb-0">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>User name</th>
+
+                        <th>Company Name</th>
+
+                        <th>Email</th>
+                        <th>Address</th>
+
+                        <th class="text-right">Date added</th>
+                        <th class="text-right">Check profile</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of partnersnew">
+                        <td>{{ item.id }}</td>
+                        <td>
+                          {{ item.user.first_name }} {{ item.user.last_name }}
+                        </td>
+                        <td>
+                          <h2 class="table-avatar">{{ item.company_name }}</h2>
+                        </td>
+
+                        <td>
+                          <h2 class="table-avatar">{{ item.user.email }}</h2>
+                        </td>
+                        <td>
+                          <h2 class="table-avatar">
+                            {{ item.city }} , {{ item.state }} .
+                            {{ item.country }}
+                          </h2>
+                        </td>
+                        <td class="text-right">
+                          {{ item.createdAt | date: "d-MMMM-y" }}
+                        </td>
+                        <td class="text-center">
+                          <a
+                            type="button"
+                            class="btn btn-rounded btn-info"
+                            href="{{ item.proflink }}"
+                            target="_blank"
+                          >
+                            see profile
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="basic-justified-tab2">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover table-center mb-0">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+
+                        <th>Email</th>
+                        <th>Address</th>
+
+                        <th class="text-right">Date added</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of customersnew">
+                        <td>{{ item.user.id }}</td>
+                        <td>
+                          <h2 class="table-avatar">
+                            {{ item.user.first_name }} {{ item.user.last_name }}
+                          </h2>
+                        </td>
+
+                        <td>
+                          <h2 class="table-avatar">{{ item.user.email }}</h2>
+                        </td>
+                        <td>
+                          <h2 class="table-avatar">
+                            {{ item.city }} , {{ item.state }} .
+                            {{ item.country }}
+                          </h2>
+                        </td>
+                        <td class="text-right">
+                          {{ item.createdAt | date: "d-MMMM-y" }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->

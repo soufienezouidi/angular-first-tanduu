@@ -1,0 +1,570 @@
+<!-- Breadcrumb -->
+<!-- 	<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a [routerLink]="''">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Doctor Profile</li>
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">Doctor Profile</h2>
+						</div>
+					</div>
+				</div>
+			</div> -->
+<!-- /Breadcrumb -->
+
+<!-- Page Content -->
+<div class="content" *ngIf="companyDetails">
+  <div class="container">
+    <!-- Doctor Widget -->
+    <div class="card">
+      <div class="card-body">
+        <div class="doctor-widget">
+          <div class="doc-info-left">
+            <div class="doctor-img" *ngIf="companyDetails.user.id">
+              <img
+                data-src="https://api.aroundorder.com:1337/api/user/{{
+                  companyDetails.user.id
+                }}/profilepic.png"
+                alt="companyDetails.company_name"
+                *ngIf="companyDetails.user.id"
+                class="img-fluid"
+                alt="User Image"
+              />
+            </div>
+            <div class="doc-info-cont">
+              <h3 class="doc-name" *ngIf="!doctorDetails">
+                {{ companyDetails.company_name }}
+              </h3>
+
+              <p class="doc-department" *ngIf="allcategories">
+                <span> {{ companyDetails.category.languages[serviceLang] }} </span>
+              </p>
+
+              <div class="clinic-details">
+                <p class="doc-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ companyDetails.street_number }}
+                  {{ companyDetails.street }} , {{ companyDetails.state }}
+                  {{ companyDetails.ciry }} {{ companyDetails.country }}
+                  {{ companyDetails.zip_code }}
+                  <a href="javascript:void(0);">{{
+                    getdirect.languages[serviceLang]
+                  }}</a>
+                </p>
+              </div>
+              <div class="clinic-services">
+                <span *ngFor="let hashs of companyDetails.hashtags">{{
+                  hashs.value
+                }}</span>
+              </div>
+              <!-- <div class="clinic-services" style="margin-top: 12px" *ngIf="this.companyDetails.socials"> 
+                <ul class="social-share" *ngIf="this.companyDetails.socials">
+                  <li >
+                    <a
+                      href="{{ this.companyDetails.socials.fb.link }}"
+                      target="_blank"
+                      title="Facebook"
+                      ><i class="fab fa-facebook"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.socials.twt.is_shown">
+                    <a
+                      href="{{ this.companyDetails.socials.twt.link }}"
+                      target="_blank"
+                      title="Twitter"
+                      ><i class="fab fa-twitter"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.socials.lnk.is_shown">
+                    <a
+                      href="{{ this.companyDetails.socials.lnk.link }}"
+                      target="_blank"
+                      title="Linkedin"
+                      ><i class="fab fa-linkedin"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.socials.inst.is_shown">
+                    <a
+                      href="{{ this.companyDetails.socials.inst.link }}"
+                      target="_blank"
+                      title="instagram"
+                      ><i class="fab fa-instagram"></i
+                    ></a>
+                  </li>
+                  <li *ngIf="this.companyDetails.website">
+                    <a
+                      href="{{ this.companyDetails.website }}"
+                      target="_blank"
+                      title="website"
+                      ><i class="fas fa-globe"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="doc-info-right">
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded" href="tel:{{ companyDetails.phone1 }}"
+                ><i class="fa fa-phone fa-1x mr-2"></i
+                >{{ companyDetails.phone1 }}</a
+              >
+            </div>
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded">
+                <i class="fa fa-envelope fa-1x mr-2"></i
+                >{{ sendmail.languages[serviceLang] }}</a
+              >
+            </div>
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="apt-btn">{{ askser.languages[serviceLang] }}</a>
+            </div>
+            <div
+              class="clinic-booking"
+              style="margin-bottom: 15px"
+              *ngIf="listShopProducts.length > 0"
+              id="conttab"
+            >
+              <a
+                class="apt-btn"
+                [routerLink]="['/shop']"
+                [queryParams]="{ id: companyDetails.id }"
+                target="_blank"
+              >
+                <i class="fa fa-shopping-cart fa-1x mr-2"></i
+                >{{ Visitshop.languages[serviceLang] }}</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Doctor Widget -->
+
+    <!-- Doctor Details Tab -->
+    <div class="card" id="conttab">
+      <div class="card-body pt-0">
+        <!-- Tab Menu -->
+        <nav class="user-tabs mb-4">
+          <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="#doc_overview"
+                data-toggle="tab"
+                >{{ overview.languages[serviceLang] }}</a
+              >
+            </li>
+
+            <li class="nav-item" *ngIf="GalleriesList.length > 0">
+              <a class="nav-link" href="#doc_galleries" data-toggle="tab">{{
+                gallery.languages[serviceLang]
+              }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#doc_locations" data-toggle="tab">{{
+                locations.languages[serviceLang]
+              }}</a>
+            </li>
+            <li class="nav-item" disabed>
+              <a
+                class="nav-link disabled"
+                href="#doc_reviews"
+                data-toggle="tab"
+                >{{ reviews.languages[serviceLang] }}</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <!-- /Tab Menu -->
+
+        <!-- Tab Content -->
+        <div class="tab-content pt-0">
+          <!-- Overview Content -->
+          <div
+            role="tabpanel"
+            id="doc_overview"
+            class="tab-pane fade show active"
+          >
+            <div class="row">
+              <div class="col-md-12 col-lg-9">
+                <div class="widget about-widget">
+                  <h3 class="widget-title">
+                    {{ about.languages[serviceLang] }}
+                    {{ companyDetails.company_name }}
+                  </h3>
+
+                  <p [innerHTML]="companyDetails.description"></p>
+                </div>
+                <!-- Services List -->
+                <div class="service-list">
+                  <h3>{{ mainser.languages[serviceLang] }}</h3>
+                  <ul class="clearfix">
+                    <li *ngFor="let item of allcategories">
+                      {{ item.languages[serviceLang] }}
+                    </li>
+                  </ul>
+                </div>
+                <!-- /Services List -->
+
+                <div class="service-list">
+                  <h3>{{ subser.languages[serviceLang] }}</h3>
+                  <ul class="clearfix">
+                    <li *ngFor="let item of allsub_categories">
+                      {{ item.languages[serviceLang] }}
+                    </li>
+                  </ul>
+                </div>
+                <div class="service-list">
+                  <h3>{{ allser.languages[serviceLang] }}</h3>
+                  <ul class="clearfix">
+                    <li *ngFor="let item of allservices">
+                      {{ item.languages[serviceLang] }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Overview Content -->
+
+          <div id="doc_galleries" class="tab-pane fade">
+            <div class="wrapper">
+              <div class="container">
+                <div
+                  *ngFor="let item of GalleriesList; let index = index"
+                  class="row"
+                >
+                  <div>
+                    <div>
+                      <h4>
+                        <strong
+                          >{{ item.catalog_name
+                          }}<span>( {{ item.galleries.length }} )</span></strong
+                        >
+                      </h4>
+                      <div class="gallery-image">
+                        <div
+                          class="img-box"
+                          *ngFor="let item1 of item.galleries"
+                        >
+                          <img
+                            src="{{
+                              'https://api.aroundorder.com:1337/api/user/gallery/' +
+                                userId +
+                                '/' +
+                                item1.file_name
+                            }}"
+                            alt=""
+                            *ngIf="item1.type == 'image'"
+                            lightbox
+                          />
+                          <video
+                            alt=""
+                            *ngIf="item1.type == 'video'"
+                            style="width: 100%; height: 100%"
+                            controls
+                          >
+                            <source
+                              src="{{
+                                'https://api.aroundorder.com:1337/api/user/gallery/' +
+                                  userId +
+                                  '/' +
+                                  item1.file_name
+                              }}"
+                              type="video/mp4"
+                            />
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Locations Content -->
+          <div role="tabpanel" id="doc_locations" class="tab-pane fade">
+            <!-- Location List -->
+            <div class="content">
+              <div class="container-fluid">
+                <div class="row">
+                  <div
+                    class="col-xl-6 col-lg-12 order-md-last order-sm-last order-last"
+                    style="
+                      padding: 4px;
+                      /* background-color: green; */
+                      width: 500px;
+                      height: 100%;
+                      overflow-x: hidden;
+                      overflow-y: auto;
+                    "
+                  >
+                    <div>
+                      <div class="card" style="height: 100%" id="locs">
+                        <div class="card-body">
+                          <div class="widget education-widget">
+                            <h4 class="widget-title">Work Locations</h4>
+                            <div class="experience-box">
+                              <cdk-accordion class="example-accordion">
+                                <cdk-accordion-item
+                                  style="margin-bottom: 10px"
+                                  *ngFor="
+                                    let item of complocations;
+                                    let index = index
+                                  "
+                                  #accordionItem="cdkAccordionItem"
+                                  class="example-accordion-item"
+                                  role="button"
+                                  tabindex="0"
+                                  [attr.id]="'accordion-header-' + index"
+                                  [attr.aria-expanded]="accordionItem.expanded"
+                                  [attr.aria-controls]="
+                                    'accordion-body-' + index
+                                  "
+                                >
+                                  <div
+                                    class="example-accordion-item-header"
+                                    (click)="accordionItem.toggle()"
+                                  >
+                                    <div class="experience-user">
+                                      <div class="before-circle"></div>
+                                    </div>
+                                    {{ item.zip_code }} {{ item.city }} ,{{
+                                      item.state
+                                    }}
+                                    {{ item.country }}
+                                    <span
+                                      class="example-accordion-item-description"
+                                    >
+                                      <i
+                                        class="fa fa-arrow-down"
+                                        *ngIf="!accordionItem.expanded"
+                                      >
+                                        open</i
+                                      >
+                                      <i
+                                        class="fa fa-arrow-up"
+                                        *ngIf="accordionItem.expanded"
+                                      >
+                                        close</i
+                                      >
+                                    </span>
+                                  </div>
+                                  <div
+                                    class="example-accordion-item-body"
+                                    role="region"
+                                    [style.display]="
+                                      accordionItem.expanded ? '' : 'none'
+                                    "
+                                    [attr.id]="'accordion-body-' + index"
+                                    [attr.aria-labelledby]="
+                                      'accordion-header-' + index
+                                    "
+                                  >
+                                    <div>services :</div>
+                                    <div class="clinic-services">
+                                      <span
+                                        *ngFor="let hashs of item.services"
+                                        >{{ hashs.service.name }}</span
+                                      >
+                                    </div>
+                                  </div>
+                                </cdk-accordion-item>
+                              </cdk-accordion>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="mobile"></div>
+                  </div>
+
+                  <div
+                    class="col-xl-8 col-lg-11 order-md-last order-sm-last order-last"
+                  >
+                    <div id="map"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- /Location List -->
+          </div>
+          <!-- /Locations Content -->
+
+          <!-- Reviews Content -->
+          <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+            <!-- Review Listing -->
+            <div class="widget review-listing">
+              <ul class="comments-list">
+                <!-- Comment List -->
+                <li>
+                  <div class="comment">
+                    <img
+                      class="avatar avatar-sm rounded-circle"
+                      alt="User Image"
+                      src="assets/img/patients/patient.jpg"
+                    />
+                    <div class="comment-body">
+                      <div class="meta-data">
+                        <span class="comment-author">Richard Wilson</span>
+                        <span class="comment-date">Reviewed 2 Days ago</span>
+                        <div class="review-count rating">
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star"></i>
+                        </div>
+                      </div>
+
+                      <p class="comment-content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation. Curabitur non nulla sit amet nisl
+                        tempus
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <!-- /Comment List -->
+
+                <!-- Comment List -->
+                <li>
+                  <div class="comment">
+                    <img
+                      class="avatar avatar-sm rounded-circle"
+                      alt="User Image"
+                      src="assets/img/patients/patient2.jpg"
+                    />
+                    <div class="comment-body">
+                      <div class="meta-data">
+                        <span class="comment-author">Travis Trimble</span>
+                        <span class="comment-date">Reviewed 4 Days ago</span>
+                        <div class="review-count rating">
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star filled"></i>
+                          <i class="fas fa-star"></i>
+                        </div>
+                      </div>
+                      <p class="comment-content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation. Curabitur non nulla sit amet nisl
+                        tempus
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <!-- /Comment List -->
+              </ul>
+
+              <!-- Show All -->
+              <div class="all-feedback text-center">
+                <a href="javascript:void(0)" class="btn btn-primary btn-sm">
+                  Show all feedback <strong>(167)</strong>
+                </a>
+              </div>
+              <!-- /Show All -->
+            </div>
+            <!-- /Review Listing -->
+
+            <!-- Write Review -->
+            <div class="write-review">
+              <h4>Write a review for <strong>Soufiene Zouidi</strong></h4>
+
+              <!-- Write Review Form -->
+              <form>
+                <div class="form-group">
+                  <label>Your review</label>
+                  <textarea
+                    id="review_desc"
+                    maxlength="100"
+                    class="form-control"
+                  ></textarea>
+
+                  <div class="d-flex justify-content-between mt-3">
+                    <small class="text-muted"
+                      ><span id="chars">100</span> characters remaining</small
+                    >
+                  </div>
+                </div>
+                <hr />
+
+                <div class="submit-section">
+                  <button type="submit" class="btn btn-primary submit-btn">
+                    Add Review
+                  </button>
+                </div>
+              </form>
+              <!-- /Write Review Form -->
+            </div>
+            <!-- /Write Review -->
+          </div>
+          <!-- /Reviews Content -->
+        </div>
+        <nav class="user-tabs mb-4">
+          <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="#doc_overview"
+                data-toggle="tab"
+                (click)="gototop()"
+                >{{ overview.languages[serviceLang] }}</a
+              >
+            </li>
+
+            <li class="nav-item" *ngIf="GalleriesList.length > 0">
+              <a
+                class="nav-link"
+                href="#doc_galleries"
+                data-toggle="tab"
+                (click)="gototop()"
+                >{{ gallery.languages[serviceLang] }}</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                (click)="gototop()"
+                class="nav-link"
+                href="#doc_locations"
+                data-toggle="tab"
+                >{{ locations.languages[serviceLang] }}</a
+              >
+            </li>
+            <li class="nav-item" disabed>
+              <a
+                (click)="gototop()"
+                class="nav-link disabled"
+                href="#doc_reviews"
+                data-toggle="tab"
+                >{{ reviews.languages[serviceLang] }}</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- /Doctor Details Tab -->
+  </div>
+</div>
+<!-- Voice Call Modal -->
+
+<!-- /Voice Call Modal -->
+
+<!-- Video Call Modal -->
+
+<!-- Video Call Modal -->

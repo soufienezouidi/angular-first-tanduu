@@ -1,0 +1,137 @@
+<!-- Page Content -->
+<div class="content" *ngIf="current_prd">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-12col-xl-12">
+        <!-- Doctor Widget -->
+        <div class="card">
+          <div class="card-body product-description">
+            <div class="doctor-widget">
+              <div class="doc-info-left" style="width: 100%">
+                <div class="doctor-img1" lightbox-group>
+                  <div class="gallery-image">
+                    <div class="img-box">
+                      <img
+                        src="{{
+                          'https://api.aroundorder.com:1337/api/user/products/' +
+                            userId +
+                            '/' +
+                            companyDetails.id +
+                            '/' +
+                            current_prd.picture_name
+                        }}"
+                        alt="{{ current_prd.name }}"
+                        title="{{ current_prd.name }}"
+                        lightbox
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="doc-info-cont"
+                  style="width: 50%; display: contents"
+                >
+                  <div class="search-filter">
+                    <!-- Right Details -->
+                    <div class="card" style="border: 0px solid #f0f0f0">
+                      <div class="card-body">
+                        <div class="clini-infos mt-0">
+                          <h2>
+                            {{ current_prd.name }}
+                          </h2>
+                        </div>
+                        <div class="clini-infos mt-0">
+                          <h2>
+                            <span class="text-lg text-success ml-2"
+                              ><b>${{ current_prd.price }} / unit</b></span
+                            >
+                          </h2>
+                        </div>
+                        <span
+                          class="badge badge-primary"
+                          *ngIf="current_prd.articles > 0"
+                          >{{ current_prd.articles }} {{ inStock[serviceLang] }}
+                        </span>
+                        <span
+                          class="badge badge-warning"
+                          *ngIf="current_prd.articles < 1"
+                          >{{ outStock[serviceLang] }}
+                        </span>
+                        <p
+                          *ngIf="current_prd.description"
+                          style="font-size: 12px"
+                        >
+                          {{ current_prd.description }}
+                        </p>
+
+                        <div class="clinic-details mt-4">
+                          <div class="clinic-booking">
+                            <a
+                              class="apt-btn"
+                              href="{{ current_prd.product_link }}"
+                              target="_blank"
+                              >{{ visit[serviceLang] }}</a
+                            >
+                          </div>
+                        </div>
+                        <h6 class="text-center">
+                          {{ websiteText[serviceLang] }}
+                        </h6>
+                      </div>
+                    </div>
+
+                    <!-- /Right Details -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Doctor Widget -->
+
+        <!-- Doctor Details Tab -->
+        <div class="card">
+          <div class="card-body pt-0">
+            <!-- Tab Menu -->
+            <h3 class="pt-4">{{ otherProd[serviceLang] }}</h3>
+            <hr />
+            <!-- /Tab Menu -->
+
+            <!-- Tab Content -->
+            <div class="row" *ngIf="listShopProducts.length > 0">
+              <div class="gallery-image">
+                <div
+                  class="img-box"
+                  *ngFor="let item of listShopProducts1"
+                  (click)="changeproduct(item)"
+                >
+                  <img
+                    src="{{
+                      'https://api.aroundorder.com:1337/api/user/products/' +
+                        userId +
+                        '/' +
+                        companyDetails.id +
+                        '/' +
+                        item.picture_name
+                    }}"
+                    alt=""
+                    lightbox
+                  />
+
+                  <div class="transparent-box">
+                    <div class="caption">
+                      <p>{{ item.name }}</p>
+                      <p class="opacity-low">{{ item.name }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Doctor Details Tab -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Content -->

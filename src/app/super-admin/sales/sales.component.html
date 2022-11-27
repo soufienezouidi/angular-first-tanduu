@@ -1,0 +1,68 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+
+    <!-- /Page Header -->
+    <div class="row row-grid">
+      <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let item of pendinglist">
+        <div class="card widget-profile pat-widget-profile">
+          <div class="card-body">
+            <div class="pro-widget-content">
+              <div class="profile-info-widget">
+                <a
+                  [routerLink]="'/patients/patient-profile'"
+                  class="booking-doc-img"
+                >
+                  <img
+                    src="https://api.aroundorder.com:1337/api/user/{{
+                      item.userId
+                    }}/profilepic.png"
+                    alt="User Image"
+                  />
+                </a>
+                <div class="profile-det-info">
+                  <h3>
+                    <a [routerLink]="'/patients/patient-profile'">{{
+                      item.company_name
+                    }}</a>
+                  </h3>
+
+                  <div class="patient-details">
+                    <h5><b>Account ID :</b> {{ item.user.account_number }}</h5>
+                    <h5 class="mb-0">
+                      <i class="fas fa-map-marker-alt"></i> {{ item.city }},{{
+                        item.state
+                      }}. {{ item.country }}
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="patient-info">
+              <ul>
+                <li>
+                  Phone <span>{{ item.phone1 }}</span>
+                </li>
+
+                <li
+                  class="text-center"
+                  [routerLink]="['/tanduu-admin/requestcheck', item.requestid]"
+                  target="_blank"
+                  routerLinkActive="router-link-active"
+                >
+                  <a class="btn bg-info-light" style="max-width: 50%"
+                    ><i class="fa fa-eye"></i> check request</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  <h4 *ngIf="appointments.length === 0" style="text-align:center;margin-top:1em;">No patients</h4 -->
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->

@@ -1,0 +1,375 @@
+@import "./../assets/css/bootstrap.min.css";
+@import "./../assets/plugins/fontawesome/css/fontawesome.min.css";
+@import "./../assets/admin/css/feathericon.min.css";
+@import "./../assets/plugins/fontawesome/css/all.min.css";
+@import "./../assets/admin/plugins/morris/morris.css";
+@import "./../assets/css/style.css";
+.float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #0c9;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+}
+
+.my-float {
+  margin-top: 22px;
+}
+
+.floatT {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 20px;
+  right: 40px;
+  background-color: #009fe3;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 9px;
+  margin-top: 5px;
+  z-index: 6000 !important;
+  opacity: 1000;
+}
+
+.floatchat {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 20px;
+  right: 40px;
+  background-color: #009fe3;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 9px;
+  margin-top: 5px;
+  z-index: 6000 !important;
+  opacity: 1000;
+}
+
+.bootstrap-tagsinput {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  display: inline-block;
+  padding: 4px 6px;
+  color: #555;
+  vertical-align: middle;
+  border-radius: 4px;
+  max-width: 100%;
+  line-height: 22px;
+  cursor: text;
+}
+
+.bootstrap-tagsinput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+}
+
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1;
+}
+
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777;
+}
+
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777;
+}
+
+.bootstrap-tagsinput input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.bootstrap-tagsinput .tag {
+  margin-right: 2px;
+  color: white;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+ngx-dropzone {
+  background: #fbfbfb !important;
+  border: 2px dashed rgba(0, 0, 0, 0.1) !important;
+  max-height: 150px;
+}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup chat - hidden by default */
+
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+
+.form-container .btn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+/*@media (min-width: 400px) {
+    .section-search {
+          background: #f9f9f9 url('../assets/img/Main.jpg') no-repeat;
+        min-height: 450px;
+        background-size: 100% cover;
+        position: relative;
+        background-blend-mode: Darken;
+        background-size: auto;
+        background-size: cover;
+    }
+}
+
+@media (min-width: 500px) {
+    .section-search  {
+       background: #f9f9f9 url('../assets/img/Main.jpg') no-repeat;
+       min-height: 450px;
+       background-size: 100% cover;
+       position: relative;
+       background-blend-mode: Darken;
+       background-size: auto;
+       background-size: cover;
+    }
+}
+*/
+
+@media (max-width: 768px) {
+  .section-search {
+    background-size: 100%;
+    position: relative;
+    background-blend-mode: Darken;
+    background-size: auto;
+    background-size: cover;
+  }
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  top: 18px;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+  background-color: aliceblue;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: #009fe3;
+}
+
+.mat-accent .mat-slider-thumb {
+  height: 25px;
+  height: 25px;
+  background-color: #009fe3;
+  border: solid 1px gray;
+  bottom: -20px;
+}
+
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  background-color: #009fe3;
+}
+
+/*
+.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb-label,
+.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb {
+background-color: #009fe3;
+}
+
+*/
+
+.test :hover {
+  color: blue;
+  background-color: transparent;
+}
+
+.pac-container {
+  z-index: 10000 !important;
+}
+
+/*  .ng-dropdown-panel-items {
+  background-color: white ;
+  color: #272b41;
+}
+
+.ng-dropdown-panel-items {
+  background-color: white ;
+  color: #272b41;
+}
+
+.list-group {
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}*/
+
+.ng-option {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  background-color: #fff;
+  border: 1px solid white;
+}
+
+/* .ng-option-marked:hover {
+background-color: #009FE3;
+color: white;
+  }
+  .ng-select .ng-select-container .ng-value-container .ng-input>input{
+    background: white;
+    border: 0;
+    cursor: default;
+    font-size: 12px;
+    height: 100px;
+    padding: 7px;
+    width: 47%;
+    
+;
+
+  }
+  
+ /* .ng-select .ng-select-container
+  {
+    border: 1px solid lightgray;
+    border-radius: 3px;
+  }*/
+
+/*  .ng-placeholder{
+      height: 30px;
+      margin-top: 10px;
+      margin-left: 10px
+    }
+    .ng-select.ng-select-filtered .ng-placeholder {
+            height: 30px;
+      margin-top: 10px;
+    }*/
+
+.ng-dropdown-panel {
+  margin-left: -15px;
+  margin-top: 18px;
+}
+::ng-deep .options {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: rgba(191, 191, 191, 0.15);
+}
+
+::ng-deep .caption {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+::ng-deep .option {
+  margin-top: 10px;
+}
+
+.dx-row.dx-column-lines.dx-group-row {
+  background-color: white;
+  color: #009fe3;
+}
+.multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
+  max-width: 600px !important;
+  background: #009fe3 !important;
+  border: #009fe3 solid 1px !important;
+}

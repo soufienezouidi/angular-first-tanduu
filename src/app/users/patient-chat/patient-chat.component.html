@@ -1,0 +1,928 @@
+<!-- Page Content -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-1"></div>
+      <div class="col-xl-10">
+        <div class="chat-window">
+          <!-- Chat Left -->
+          <div class="chat-cont-left">
+            <div class="chat-header">
+              <span>Chats</span>
+              <a href="javascript:void(0)" class="chat-compose">
+                <i class="material-icons">control point</i>
+              </a>
+            </div>
+            <form class="chat-search">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <i class="fas fa-search"></i>
+                </div>
+                <input type="text" class="form-control" placeholder="Search" />
+              </div>
+            </form>
+
+            <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="#bottom-justified-tab1"
+                  data-toggle="tab"
+                  (click)="changetouser()"
+                  >Users</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="#bottom-justified-tab2"
+                  data-toggle="tab"
+                  (click)="changetogroup()"
+                  >Groups</a
+                >
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane show active" id="bottom-justified-tab1">
+                <div class="chat-users-list">
+                  <div class="chat-scroll" *ngFor="let item of final_contacts">
+                    <a
+                      [ngClass]="
+                        item.id === recieveruser.id
+                          ? 'media read-chat active'
+                          : 'media read-chat '
+                      "
+                      style="margin-bottom: 10px"
+                      (click)="switchuser(item)"
+                    >
+                      <div class="media-img-wrap">
+                        <div class="avatar avatar-online">
+                          <img
+                            src="assets/img/doctors/doctor-thumb-02.jpg"
+                            alt="User Image"
+                            class="avatar-img rounded-circle"
+                          />
+                        </div>
+                      </div>
+                      <div class="media-body">
+                        <div>
+                          <div class="user-name">
+                            {{ item.first_name }} {{ item.last_name }}
+                          </div>
+                          <div
+                            class="user-last-chat"
+                            *ngIf="getvalue(item.id) > 0"
+                          >
+                            {{ getmessage(item.id) }}
+                          </div>
+                        </div>
+                        <div>
+                          <div
+                            class="last-chat-time block"
+                            *ngIf="getvalue(item.id) > 0"
+                          ></div>
+                          <div
+                            class="badge badge-success badge-pill"
+                            *ngIf="getvalue(item.id) > 0"
+                          >
+                            {{ getvalue(item.id) }}
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="bottom-justified-tab2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+                  <button
+                    type="button"
+                    class="btn btn-block btn-outline-info active"
+                  >
+                    <i class="fas fa-plus" style="color: white"></i>
+                    Add new group
+                  </button>
+                </div>
+                <div class="chat-users-list">
+                  <div class="chat-scroll" *ngFor="let item of groupchatlist">
+                    <a
+                      [ngClass]="
+                        item.id === currentgroupchat.id
+                          ? 'media read-chat active'
+                          : 'media read-chat '
+                      "
+                      style="margin-bottom: 10px"
+                      (click)="switchgroup(item)"
+                    >
+                      <div class="media-img-wrap">
+                        <div class="avatar avatar-online">
+                          <img
+                            src="assets/img/doctors/doctor-thumb-02.jpg"
+                            alt="User Image"
+                            class="avatar-img rounded-circle"
+                          />
+                        </div>
+                      </div>
+                      <div class="media-body">
+                        <div>
+                          <div class="user-name">
+                            {{ item.company.company_name }}
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Chat Left -->
+
+          <!-- Chat Right -->
+          <div class="chat-cont-right">
+            <div class="chat-header">
+              <a
+                id="back_user_list"
+                href="javascript:void(0)"
+                class="back-user-list"
+              >
+                <i class="material-icons">chevron_left</i>
+              </a>
+              <div class="media">
+                <div class="media-img-wrap">
+                  <div
+                    class="avatar avatar-online"
+                    *ngIf="currenttab == 'users'"
+                  >
+                    <img
+                      src="assets/img/doctors/doctor-thumb-02.jpg"
+                      alt="User Image"
+                      class="avatar-img rounded-circle"
+                    />
+                  </div>
+                  <div class="avatar" *ngIf="currenttab == 'groups'">
+                    <img
+                      src="assets/img/doctors/doctor-thumb-02.jpg"
+                      alt="User Image"
+                      class="avatar-img rounded-circle"
+                    />
+                  </div>
+                </div>
+                <div class="media-body">
+                  <div class="user-name" *ngIf="currentchatterflname">
+                    {{ currentchatterflname }}
+                  </div>
+                  <div class="user-status" *ngIf="currenttab == 'users'">
+                    online
+                  </div>
+                </div>
+              </div>
+              <div class="chat-options">
+                <!-- <a
+                  href="javascript:void(0)"
+                  data-toggle="modal"
+                  data-target="#voice_call"
+                >
+                  <i class="material-icons">local_phone</i>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  data-toggle="modal"
+                  data-target="#video_call"
+                >
+                  <i class="material-icons">videocam</i>
+                </a>-->
+                <a href="javascript:void(0)">
+                  <i class="material-icons">more_vert</i>
+                </a>
+              </div>
+            </div>
+            <div class="chat-headerss" *ngIf="currenttab == 'groups'">
+              <div
+                style="margin-top: 5px"
+                *ngFor="let item of currentchatmembers"
+                [ngClass]="
+                  checkifconnected(item.id)
+                    ? 'avatar avatar-xs avatar-online mr-1'
+                    : 'avatar avatar-xs  mr-1 '
+                "
+              >
+                <img
+                  class="avatar-img rounded-circle"
+                  alt="User Image"
+                  src="assets/img/patients/patient8.jpg"
+                />
+              </div>
+            </div>
+            <div
+              class="chat-body"
+              style="min-height: 600px; max-height: 600px"
+              *ngIf="recieveruser"
+            >
+              <div
+                class="text-center"
+                *ngIf="getvalue(recieveruser.id) > 0"
+                style="z-index: 10000; margin-top: 7px"
+              >
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  (click)="scrollToElement()"
+                >
+                  new {{ getvalue(recieveruser.id) }} unread messages
+                </button>
+              </div>
+              <div class="chat-scroll" #target *ngIf="currenttab == 'users'">
+                <ul class="list-unstyled" *ngFor="let item of chatlog">
+                  <li class="media sent" *ngIf="item.me">
+                    <div class="media-body">
+                      <div class="msg-box" *ngIf="item.type == 'message'">
+                        <div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'png' ||
+                          item.type == 'PNG' ||
+                          item.type == 'jpg' ||
+                          item.type == 'jpeg' ||
+                          item.type == 'webp' ||
+                          item.type == 'ico' ||
+                          item.type == 'gif'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <div class="chat-attachment">
+                              <img
+                                style="width: 400px; height: 200px"
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  chatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                alt="Attachment"
+                              />
+                            </div>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'wav' ||
+                          item.type == 'mp3' ||
+                          item.type == 'oga'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <audio controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  chatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="audio/wav"
+                              />
+                            </audio>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'mpeg' ||
+                          item.type == 'mp4' ||
+                          item.type == 'flv'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <video width="400" controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  chatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="video/mp4"
+                              />
+
+                              Your browser does not support HTML video.
+                            </video>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="msg-box" *ngIf="item.type == 'pdf'">
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <pdf-viewer
+                              src="https://api.aroundorder.com:1337/api/chat/{{
+                                chatlogfilename
+                              }}/{{ item.id }}.{{ item.type }}
+                              "
+                              [render-text]="true"
+                              [original-size]="false"
+                              style="width: 400px; height: 200px"
+                            ></pdf-viewer>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="media received" *ngIf="!item.me">
+                    <div class="avatar">
+                      <img
+                        src="assets/img/doctors/doctor-thumb-02.jpg"
+                        alt="User Image"
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <div class="media-body">
+                      <div class="msg-box" *ngIf="item.type == 'message'">
+                        <div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'png' ||
+                          item.type == 'PNG' ||
+                          item.type == 'jpg' ||
+                          item.type == 'jpeg' ||
+                          item.type == 'webp' ||
+                          item.type == 'ico' ||
+                          item.type == 'gif'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <div class="chat-attachment">
+                              <img
+                                style="width: 400px; height: 200px"
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  chatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                alt="Attachment"
+                              />
+                            </div>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'wav' ||
+                          item.type == 'mp3' ||
+                          item.type == 'ogg'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <audio controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  chatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="audio/wav"
+                              />
+                            </audio>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'mpeg' ||
+                          item.type == 'mp4' ||
+                          item.type == 'flv'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <video width="400" controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  chatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="video/mp4"
+                              />
+
+                              Your browser does not support HTML video.
+                            </video>
+                          </div>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="msg-box" *ngIf="item.type == 'pdf'">
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <pdf-viewer
+                              src="https://api.aroundorder.com:1337/api/chat/{{
+                                chatlogfilename
+                              }}/{{ item.id }}.{{ item.type }}
+                              "
+                              [render-text]="true"
+                              [original-size]="false"
+                              style="width: 400px; height: 200px"
+                            ></pdf-viewer>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="chat-scroll" #target *ngIf="currenttab == 'groups'">
+                <ul class="list-unstyled" *ngFor="let item of chatloggrp">
+                  <li class="media sent" *ngIf="item.me">
+                    <div class="media-body">
+                      <div class="msg-box" *ngIf="item.type == 'message'">
+                        <div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'png' ||
+                          item.type == 'PNG' ||
+                          item.type == 'jpg' ||
+                          item.type == 'jpeg' ||
+                          item.type == 'webp' ||
+                          item.type == 'ico' ||
+                          item.type == 'gif'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <div class="chat-attachment">
+                              <img
+                                style="width: 400px; height: 200px"
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  currentchatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                alt="Attachment"
+                              />
+                            </div>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'wav' ||
+                          item.type == 'mp3' ||
+                          item.type == 'oga'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <audio controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  currentchatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="audio/wav"
+                              />
+                            </audio>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'mpeg' ||
+                          item.type == 'mp4' ||
+                          item.type == 'flv'
+                        "
+                      >
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <video width="400" controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  currentchatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="video/mp4"
+                              />
+
+                              Your browser does not support HTML video.
+                            </video>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="msg-box" *ngIf="item.type == 'pdf'">
+                        <div>
+                          <div class="chat-msg-attachments">
+                            <pdf-viewer
+                              src="https://api.aroundorder.com:1337/api/chat/{{
+                                currentchatlogfilename
+                              }}/{{ item.id }}.{{ item.type }}
+                              "
+                              [render-text]="true"
+                              [original-size]="false"
+                              style="width: 400px; height: 200px"
+                            ></pdf-viewer>
+                          </div>
+                          <p>{{ item.message }}</p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="media received" *ngIf="!item.me">
+                    <div class="avatar">
+                      <img
+                        src="assets/img/doctors/doctor-thumb-02.jpg"
+                        alt="User Image"
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <div class="media-body">
+                      <div class="msg-box" *ngIf="item.type == 'message'">
+                        <div>
+                          <p>
+                            {{ getchatmembetname(item.sender).first_name }}
+                            {{ getchatmembetname(item.sender).last_name }}
+                          </p>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <p>{{ item.message }}</p>
+                            </li>
+                          </ul>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'png' ||
+                          item.type == 'PNG' ||
+                          item.type == 'jpg' ||
+                          item.type == 'jpeg' ||
+                          item.type == 'webp' ||
+                          item.type == 'ico' ||
+                          item.type == 'gif'
+                        "
+                      >
+                        <div>
+                          <p *ngIf="getchatmembetname(item.sender)">
+                            {{ getchatmembetname(item.sender).first_name }}
+                            {{ getchatmembetname(item.sender).last_name }}
+                          </p>
+                          <div class="chat-msg-attachments">
+                            <div class="chat-attachment">
+                              <img
+                                style="width: 400px; height: 200px"
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  currentchatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                alt="Attachment"
+                              />
+                            </div>
+                          </div>
+
+                          <ul class="chat-msg-info">
+                            <li>
+                              <p>
+                                {{ item.message }}
+                              </p>
+                            </li>
+                          </ul>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'wav' ||
+                          item.type == 'mp3' ||
+                          item.type == 'ogg'
+                        "
+                      >
+                        <div>
+                          <p *ngIf="getchatmembetname(item.sender)">
+                            {{ getchatmembetname(item.sender).first_name }}
+                            {{ getchatmembetname(item.sender).last_name }}
+                          </p>
+                          <div class="chat-msg-attachments">
+                            <audio controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  currentchatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="audio/wav"
+                              />
+                            </audio>
+                          </div>
+
+                          <ul class="chat-msg-info">
+                            <li>
+                              <p>
+                                {{ item.message }}
+                              </p>
+                            </li>
+                          </ul>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div
+                        class="msg-box"
+                        *ngIf="
+                          item.type == 'mpeg' ||
+                          item.type == 'mp4' ||
+                          item.type == 'flv'
+                        "
+                      >
+                        <div>
+                          <p *ngIf="getchatmembetname(item.sender)">
+                            {{ getchatmembetname(item.sender).first_name }}
+                            {{ getchatmembetname(item.sender).last_name }}
+                          </p>
+                          <div class="chat-msg-attachments">
+                            <video width="400" controls>
+                              <source
+                                src="https://api.aroundorder.com:1337/api/chat/{{
+                                  currentchatlogfilename
+                                }}/{{ item.id }}.{{ item.type }}"
+                                type="video/mp4"
+                              />
+
+                              Your browser does not support HTML video.
+                            </video>
+                          </div>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <p>
+                                {{ item.message }}
+                              </p>
+                            </li>
+                          </ul>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="msg-box" *ngIf="item.type == 'pdf'">
+                        <div>
+                          <p *ngIf="getchatmembetname(item.sender)">
+                            {{ getchatmembetname(item.sender).first_name }}
+                            {{ getchatmembetname(item.sender).last_name }}
+                          </p>
+                          <div class="chat-msg-attachments">
+                            <pdf-viewer
+                              src="https://api.aroundorder.com:1337/api/chat/{{
+                                currentchatlogfilename
+                              }}/{{ item.id }}.{{ item.type }}
+                              "
+                              [render-text]="true"
+                              [original-size]="false"
+                              style="width: 400px; height: 200px"
+                            ></pdf-viewer>
+                          </div>
+
+                          <ul class="chat-msg-info">
+                            <li>
+                              <p>
+                                {{ item.message }}
+                              </p>
+                            </li>
+                          </ul>
+                          <ul class="chat-msg-info">
+                            <li>
+                              <div class="chat-time">
+                                <span>{{ item.time | date: "medium" }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="chat-footer">
+              <ngx-dropzone
+                (change)="onSelect($event)"
+                *ngIf="addingattach"
+                [multiple]="false"
+              >
+                <ngx-dropzone-label>Drop your file here!</ngx-dropzone-label>
+                <ngx-dropzone-preview
+                  *ngFor="let f of files"
+                  [removable]="true"
+                  (removed)="onRemove(f)"
+                >
+                  <ngx-dropzone-label
+                    >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+                  >
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+              <div *ngIf="isRecording && !blobUrl" style="margin-bottom: 5px">
+                {{ recordedTime }}
+                <i class="fas fa-record-vinyl" style="color: red"></i>
+              </div>
+              <div class="row">
+                <div style="margin-bottom: 5px">
+                  <audio *ngIf="!isRecording && blobUrl" controls>
+                    <source [src]="blobUrl" type="audio/webm" />
+                  </audio>
+                </div>
+                <div style="margin-bottom: 5px">
+                  <button
+                    style="background-color: white"
+                    *ngIf="!isRecording && blobUrl"
+                    (click)="clearRecordedData()"
+                  >
+                    <i class="fas fa-times" style="color: black"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="input-msg-send form-control"
+                  placeholder="Type something"
+                  (keyup.enter)="send()"
+                  [(ngModel)]="messagetext"
+                />
+
+                <div class="input-group-prepend" (click)="showdrop()">
+                  <div class="btn-file btn">
+                    <i class="fa fa-paperclip"></i>
+                  </div>
+                </div>
+                <div
+                  class="input-group-prepend"
+                  *ngIf="!isRecording && !blobUrl"
+                  (click)="startRecording()"
+                >
+                  <div class="btn-file btn">
+                    <i class="fa fa-microphone"></i>
+                  </div>
+                </div>
+                <div
+                  class="input-group-prepend"
+                  *ngIf="isRecording && !blobUrl"
+                  (click)="stopRecording()"
+                >
+                  <div class="btn-file btn">
+                    <i class="fa fa-microphone-alt-slash"></i>
+                  </div>
+                </div>
+
+                <div class="input-group-append" (click)="send()">
+                  <button type="button" class="btn msg-send-btn">
+                    <i class="fab fa-telegram-plane"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Chat Right -->
+        </div>
+      </div>
+    </div>
+    <!-- /Row -->
+  </div>
+</div>
+<!-- /Page Content -->

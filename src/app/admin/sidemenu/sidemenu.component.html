@@ -1,0 +1,823 @@
+<!-- Header -->
+<div class="header">
+  <!-- Logo -->
+  <div class="header-left">
+    <a [routerLink]="'/admin/dashboard'" class="logo">
+      <img src="/assets/img/tanduucrm.png" alt="Logo" />
+    </a>
+    <a [routerLink]="'/admin/'" class="logo logo-small">
+      <img
+        src="/assets/img/tndcrm.png"
+        alt="Logo"
+        style="width: 50px !important"
+      />
+    </a>
+  </div>
+  <!-- /Logo -->
+
+  <a href="javascript:void(0);" id="toggle_btn">
+    <i class="fe fe-text-align-left"></i>
+  </a>
+
+  <!-- Mobile Menu Toggle -->
+  <a class="mobile_btn" id="mobile_btn">
+    <i class="fa fa-bars"></i>
+  </a>
+  <!-- /Mobile Menu Toggle -->
+
+  <!-- Header Right Menu -->
+
+  <ul class="nav user-menu">
+    <li class="nav-item" (click)="gotoplateform()">
+      <a class="gotop">
+        <i
+          class="fas fa-door-open"
+          style="color: #20c0f3"
+          title="Go to tanduu website"
+        ></i>
+      </a>
+    </li>
+    <!-- Notifications -->
+    <li class="nav-item dropdown noti-dropdown">
+      <a
+        href="javascript:void(0)"
+        class="dropdown-toggle nav-link"
+        (click)="bell()"
+        [attr.aria-expanded]="!bellCollapsed"
+        aria-controls="collapseExample1"
+      >
+        <img
+          src="assets/img/flags/{{ currentLanguage }}.png"
+          style="width: 30px; height: 26px"
+        />
+      </a>
+      <a
+        style="display: none"
+        *ngIf="session_state == '0'"
+        class="dropdown-toggle nav-link"
+        (click)="switchToCompany()"
+        [attr.aria-expanded]="!bellCollapsed"
+        aria-controls="collapseExample1"
+      >
+        <i class="fe fe-code"></i>
+      </a>
+      <a
+        style="display: none"
+        class="dropdown-toggle nav-link"
+        *ngIf="session_state == '1'"
+        (click)="switchToUserAccount()"
+        [attr.aria-expanded]="!bellCollapsed"
+        aria-controls="collapseExample1"
+      >
+        <i class="fe fe-code" style="color: brown"></i>
+      </a>
+      <div
+        class="dropdown-menu notifications"
+        id="collapseExample1"
+        [ngbCollapse]="bellCollapsed"
+      >
+        <div class="topnav-dropdown-header">
+          <span class="notification-title">change languages</span>
+          <a
+            href="javascript:void(0)"
+            class="clear-noti"
+            (click)="bellCollapsed = !bellCollapsed"
+          >
+          </a>
+        </div>
+        <div class="noti-content" style="height: auto !important">
+          <ul class="notification-list" *ngIf="languagesList">
+            <li
+              class="notification-message"
+              (click)="
+                bellCollapsed = !bellCollapsed; changeLanguage(item.symbol)
+              "
+              *ngFor="let item of languagesList"
+            >
+              <a href="javascript:void(0)">
+                <div class="media">
+                  <span class="avatar avatar-sm">
+                    <img
+                      class="avatar-img rounded-circle"
+                      alt="User Image"
+                      src="assets/img/flags/{{ item.symbol }}.png"
+                    />
+                  </span>
+                  <div class="media-body">
+                    <p class="noti-details">
+                      <span class="noti-title">{{
+                        item.languages[serviceLang]
+                      }}</span>
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <!-- /Notifications -->
+
+    <!-- User Menu -->
+    <li class="nav-item dropdown has-arrow" id="dropdown">
+      <a
+        href="javascript:void(0)"
+        class="dropdown-toggle nav-link"
+        class="dropdown-toggle nav-link"
+        (click)="user()"
+        [attr.aria-expanded]="!userCollapsed"
+        aria-controls="collapseExample2"
+      >
+        <span class="user-img"
+          ><img
+            class="rounded-circle"
+            [src]="profile_pic"
+            width="31"
+            alt="tanduu"
+        /></span>
+      </a>
+      <div
+        class="dropdown-menu"
+        id="collapseExample2"
+        [ngbCollapse]="userCollapsed"
+      >
+        <div class="user-header">
+          <div class="avatar avatar-sm">
+            <img
+              [src]="profile_pic"
+              alt="User Image"
+              class="avatar-img rounded-circle"
+            />
+          </div>
+          <div class="user-text">
+            <h6>
+              {{ userConnected.first_name }} {{ userConnected.last_name }}
+            </h6>
+          </div>
+        </div>
+        <a
+          class="dropdown-item"
+          (click)="change(items[0].link)"
+          [routerLink]="'profile'"
+          [queryParams]="{
+            settings: items[0].link
+          }"
+          >{{ "side_menu_crm.side_menu_crm_1" | translate }}</a
+        >
+        <a class="dropdown-item" [routerLink]="'settings'" style="display: none"
+          >Settings</a
+        >
+        <a class="dropdown-item" (click)="logout()">{{
+          "side_menu_crm.side_menu_crm_2" | translate
+        }}</a>
+      </div>
+    </li>
+    <!-- /User Menu -->
+  </ul>
+  <!-- /Header Right Menu -->
+</div>
+<!-- /Header -->
+<div
+  class="header"
+  style="
+    top: 62px;
+    height: 45px !important;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  "
+  *ngIf="session_state == '1'"
+>
+  <!-- Logo -->
+
+  <div class="top-nav-session">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <strong>Attention!</strong> You are now connected as
+      <strong>{{ username }}</strong
+      >.
+    </div>
+  </div>
+</div>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-inner slimscroll">
+    <div id="sidebar-menu" class="sidebar-menu">
+      <ul>
+        <li
+          [routerLink]="'/admin/dashboard'"
+          [class.active]="page === 'Dashboard'"
+          style="cursor: pointer"
+        >
+          <a (click)="change('Dashboard')"
+            ><i class="fe fe-home" style="color: #fff"></i>
+            <span style="color: #fff">Dashboard</span></a
+          >
+        </li>
+
+        <hr />
+        <li class="submenu">
+          <a href="javascript:void(0)"
+            ><i class="fa fa-cogs" style="color: #fff"></i>
+            <span> {{ "side_menu_crm.side_menu_crm_1" | translate }} </span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: block">
+            <li [class.active]="page === 'items[0].link'">
+              <a
+                (click)="change('items[0].link')"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[0].link
+                }"
+              >
+                {{ items[0].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[1].link">
+              <a
+                (click)="change(items[1].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[1].link
+                }"
+              >
+                {{ items[1].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[2].link">
+              <a
+                (click)="change(items[2].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[2].link
+                }"
+              >
+                {{ items[2].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[3].link">
+              <a
+                (click)="change(items[3].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[3].link
+                }"
+              >
+                {{ items[3].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[4].link">
+              <a
+                (click)="change(items[4].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[4].link
+                }"
+              >
+                {{ items[4].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[5].link">
+              <a
+                (click)="change(items[5].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[5].link
+                }"
+              >
+                {{ items[5].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[6].link">
+              <a
+                (click)="change(items[6].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[6].link
+                }"
+              >
+                {{ items[6].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[7].link" style="display: none">
+              <a
+                (click)="change(items[7].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[7].link
+                }"
+              >
+                {{ items[7].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[8].link">
+              <a
+                (click)="change(items[8].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[8].link
+                }"
+              >
+                {{ items[8].name[serviceLang] }}
+              </a>
+            </li>
+            <li [class.active]="page === items[9].link">
+              <a
+                (click)="change(items[9].link)"
+                [routerLink]="'profile'"
+                [queryParams]="{
+                  settings: items[9].link
+                }"
+              >
+                {{ items[9].name[serviceLang] }}
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li [class.active]="page === 'shop'" style="cursor: pointer">
+          <a [routerLink]="'/admin/shop'" (click)="change('shop')"
+            ><i class="fa fa-shopping-cart" style="color: #fff"></i>
+            <span style="color: #fff">Shop</span></a
+          >
+        </li>
+        <li [class.active]="page === 'gallery'" style="cursor: pointer">
+          <a [routerLink]="'/admin/gallery'" (click)="change('gallery')"
+            ><i class="fa fa-picture-o" style="color: #fff"></i>
+            <span style="color: #fff">gallery</span></a
+          >
+        </li>
+
+        <li class="submenu">
+          <a href="javascript:void(0);"
+            ><i class="fa fa-list"></i>
+            <span>{{ "side_menu_crm.side_menu_crm_3" | translate }}</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li class="submenu">
+              <a href="javascript:void(0);">
+                <span>{{ "side_menu_crm.side_menu_crm_4" | translate }}</span>
+                <span class="menu-arrow"></span
+              ></a>
+              <ul style="display: none">
+                <li
+                  [class.active]="page === 'new orders list'"
+                  (click)="tests()"
+                >
+                  <a
+                    (click)="change('new orders list')"
+                    [routerLink]="'orders_sent'"
+                    [queryParams]="{ status: 'new' }"
+                    *ngIf="checkIfAuth('see_sent_auftrags')"
+                    ><span>{{
+                      "side_menu_crm.side_menu_crm_27" | translate
+                    }}</span></a
+                  >
+                </li>
+                <li
+                  [class.active]="page === 'all-orders-sent'"
+                  (click)="tests()"
+                >
+                  <a
+                    (click)="change('all-orders-sent')"
+                    [routerLink]="'orders_sent'"
+                    *ngIf="checkIfAuth('see_sent_auftrags')"
+                    ><span>{{
+                      "side_menu_crm.side_menu_crm_5" | translate
+                    }}</span></a
+                  >
+                </li>
+                <li [class.active]="page === 'new_t'" (click)="tests()">
+                  <a
+                    [routerLink]="'create_order'"
+                    (click)="change('new_t')"
+                    *ngIf="checkIfAuth('see_sent_auftrags')"
+                    ><span>{{
+                      "side_menu_crm.side_menu_crm_6" | translate
+                    }}</span></a
+                  >
+                </li>
+                <!-- not allowed-->
+                <li
+                  [class.active]="page === 'new orders list'"
+                  *ngIf="!checkIfAuth('see_sent_auftrags')"
+                  (click)="tests()"
+                >
+                  <a
+                    href="javascript:void(0)"
+                    (click)="change('new orders list'); comingSoon()"
+                    ><span>{{
+                      "side_menu_crm.side_menu_crm_27" | translate
+                    }}</span></a
+                  >
+                </li>
+                <li
+                  (click)="tests()"
+                  [class.active]="page === 'all-orders-sent'"
+                  *ngIf="!checkIfAuth('see_sent_auftrags')"
+                >
+                  <a
+                    href="javascript:void(0)"
+                    (click)="change('all-orders-sent'); comingSoon()"
+                    ><span>{{
+                      "side_menu_crm.side_menu_crm_5" | translate
+                    }}</span></a
+                  >
+                </li>
+                <li
+                  [class.active]="page === 'new_t'"
+                  *ngIf="!checkIfAuth('see_sent_auftrags')"
+                  (click)="tests()"
+                >
+                  <a
+                    href="javascript:void(0)"
+                    (click)="change('new_t'); comingSoon()"
+                    ><span>{{
+                      "side_menu_crm.side_menu_crm_6" | translate
+                    }}</span></a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="submenu">
+              <a href="javascript:void(0);">
+                <span>{{ "side_menu_crm.side_menu_crm_7" | translate }}</span>
+                <span class="menu-arrow"></span
+              ></a>
+              <ul style="display: block">
+                <li
+                  [class.active]="page === 'Orders received'"
+                  (click)="tests()"
+                >
+                  <a
+                    (click)="change('Orders received')"
+                    [routerLink]="'orders-received'"
+                    [queryParams]="{ status: 'new' }"
+                    *ngIf="checkIfAuth('see_recieved_auftrags')"
+                  >
+                    {{ "side_menu_crm.side_menu_crm_27" | translate }}
+                  </a>
+                </li>
+                <li [class.active]="page === 'All requests'" (click)="tests()">
+                  <a
+                    (click)="change('All requests')"
+                    [routerLink]="'orders-received'"
+                    [queryParams]="{ status: 'all' }"
+                    *ngIf="checkIfAuth('see_recieved_auftrags')"
+                  >
+                    {{ "side_menu_crm.side_menu_crm_5" | translate }}
+                  </a>
+                </li>
+                <!-- not allowed-->
+                <li
+                  [class.active]="page === 'Orders received'"
+                  (click)="tests()"
+                >
+                  <a
+                    href="javascript:void(0)"
+                    (click)="change('Orders received'); comingSoon()"
+                    *ngIf="!checkIfAuth('see_recieved_auftrags')"
+                  >
+                    {{ "side_menu_crm.side_menu_crm_27" | translate }}
+                  </a>
+                </li>
+                <li [class.active]="page === 'All requests'" (click)="tests()">
+                  <a
+                    href="javascript:void(0)"
+                    (click)="change('All requests'); comingSoon()"
+                    *ngIf="!checkIfAuth('see_recieved_auftrags')"
+                  >
+                    {{ "side_menu_crm.side_menu_crm_5" | translate }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="javascript:void(0)"
+            ><i class="fa fa-users" menu-icons-size></i>
+            <span> {{ "side_menu_crm.side_menu_crm_8" | translate }} </span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Team'"
+              *ngIf="checkIfAuth('see_members')"
+            >
+              <a (click)="change('Team')" [routerLink]="'team'">
+                {{ "side_menu_crm.side_menu_crm_9" | translate }}
+              </a>
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Invitations Sent'"
+              *ngIf="checkIfAuth('see_sent_invitations')"
+            >
+              <a
+                (click)="change('Invitations Sent')"
+                [routerLink]="'team/invitations-sent'"
+              >
+                {{ "side_menu_crm.side_menu_crm_10" | translate }}
+              </a>
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Invitations Received'"
+              *ngIf="checkIfAuth('see_invitations')"
+            >
+              <a
+                (click)="change('Invitations Received')"
+                [routerLink]="'team/invitations-received'"
+              >
+                {{ "side_menu_crm.side_menu_crm_11" | translate }}
+              </a>
+            </li>
+
+            <!-- not allowed-->
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Team'"
+              *ngIf="!checkIfAuth('see_members')"
+            >
+              <a
+                href="javascript:void(0)"
+                (click)="change('Team'); comingSoon()"
+              >
+                {{ "side_menu_crm.side_menu_crm_9" | translate }}
+              </a>
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Invitations Sent'"
+              *ngIf="!checkIfAuth('see_sent_invitations')"
+            >
+              <a
+                href="javascript:void(0)"
+                (click)="change('Invitations Sent'); comingSoon()"
+              >
+                {{ "side_menu_crm.side_menu_crm_10" | translate }}
+              </a>
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Invitations Received'"
+              *ngIf="!checkIfAuth('see_invitations')"
+            >
+              <a
+                href="javascript:void(0)"
+                (click)="change('Invitations Received'); comingSoon()"
+              >
+                {{ "side_menu_crm.side_menu_crm_11" | translate }}
+              </a>
+            </li>
+            <li [class.active]="page === 'Chat'" (click)="tests()">
+              <a
+                href="javascript:void(0)"
+                (click)="change('Chat'); comingSoon()"
+              >
+                Chat
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="submenu">
+          <a href="javascript:void(0)"
+            ><i class="fa fa-desktop menu-icons-size"></i>
+            <span> {{ "side_menu_crm.side_menu_crm_12" | translate }} </span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Calender'"
+              *ngIf="checkIfAuth('see_calendar')"
+            >
+              <a
+                (click)="change('Calendar'); comingSoon()"
+                href="javascript:void(0)"
+                >{{ "side_menu_crm.side_menu_crm_13" | translate }}</a
+              >
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Customers'"
+              *ngIf="checkIfAuth('see_customers')"
+            >
+              <a
+                (click)="change('Customers')"
+                [routerLink]="'office/customers'"
+                >{{ "side_menu_crm.side_menu_crm_14" | translate }}</a
+              >
+            </li>
+            <!-- not allowed-->
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Calender'"
+              *ngIf="!checkIfAuth('see_calendar')"
+            >
+              <a
+                (click)="change('Calendar'); comingSoon()"
+                href="javascript:void(0)"
+                >{{ "side_menu_crm.side_menu_crm_13" | translate }}</a
+              >
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Customers'"
+              *ngIf="!checkIfAuth('see_customers')"
+            >
+              <a
+                (click)="change('Customers'); comingSoon()"
+                href="javascript:void(0)"
+                >{{ "side_menu_crm.side_menu_crm_14" | translate }}</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="javascript:void(0)"
+            ><i class="fa fa-calculator menu-icons-size"></i>
+            <span> {{ "side_menu_crm.side_menu_crm_15" | translate }} </span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Cashbook'"
+              *ngIf="checkIfAuth('chashbook')"
+            >
+              <a
+                (click)="change('Cashbook')"
+                [routerLink]="'accounting/cashbook'"
+                >{{ "side_menu_crm.side_menu_crm_16" | translate }}</a
+              >
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Balancing List'"
+              *ngIf="checkIfAuth('balancing_list')"
+            >
+              <a
+                (click)="change('Balancing List')"
+                [routerLink]="'accounting/balancing-list'"
+                >{{ "side_menu_crm.side_menu_crm_17" | translate }}</a
+              >
+            </li>
+            <!-- not allowed -->
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Cashbook'"
+              *ngIf="!checkIfAuth('chashbook')"
+            >
+              <a
+                href="javascript:void(0)"
+                (click)="change('Cashbook'); comingSoon()"
+                >{{ "side_menu_crm.side_menu_crm_16" | translate }}</a
+              >
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Balancing List'"
+              *ngIf="!checkIfAuth('balancing_list')"
+            >
+              <a
+                href="javascript:void(0)"
+                (click)="change('Balancing List'); comingSoon()"
+                >{{ "side_menu_crm.side_menu_crm_17" | translate }}</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="javascript:void(0)"
+            ><i class="fa fa-file menu-icons-size"></i>
+            <span> {{ "side_menu_crm.side_menu_crm_18" | translate }} </span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Invoices'"
+              *ngIf="checkIfAuth('see_invoices')"
+            >
+              <a (click)="change('Invoices')" [routerLink]="'invoices'">{{
+                "side_menu_crm.side_menu_crm_19" | translate
+              }}</a>
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Create Invoice'"
+              *ngIf="checkIfAuth('create_invoices')"
+            >
+              <a
+                (click)="change('Create Invoice')"
+                [routerLink]="'invoices/new-invoice'"
+                >{{ "side_menu_crm.side_menu_crm_20" | translate }}</a
+              >
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Add Article'"
+              *ngIf="checkIfAuth('articles')"
+            >
+              <a (click)="change('Add Article')" [routerLink]="'articles'">{{
+                "side_menu_crm.side_menu_crm_21" | translate
+              }}</a>
+            </li>
+            <!-- not allowed-->
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Invoices'"
+              *ngIf="!checkIfAuth('see_invoices')"
+            >
+              <a
+                (click)="change('Invoices'); comingSoon()"
+                href="javascript:void(0)"
+                >{{ "side_menu_crm.side_menu_crm_19" | translate }}</a
+              >
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Create Invoice'"
+              *ngIf="!checkIfAuth('create_invoices')"
+            >
+              <a
+                (click)="change('Create Invoice'); comingSoon()"
+                href="javascript:void(0)"
+                >{{ "side_menu_crm.side_menu_crm_20" | translate }}</a
+              >
+            </li>
+            <li
+              (click)="tests()"
+              [class.active]="page === 'Add Article'"
+              *ngIf="!checkIfAuth('articles')"
+            >
+              <a
+                (click)="change('Add Article'); comingSoon()"
+                href="javascript:void(0)"
+                >{{ "side_menu_crm.side_menu_crm_21" | translate }}</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li
+          [class.active]="page === 'files-management'"
+          *ngIf="checkIfAuth('file_management')"
+        >
+          <a
+            (click)="change('files-management')"
+            [routerLink]="'files-management'"
+            ><i class="fe fe-folder" style="color: #fff"></i>
+            <span style="color: #fff">{{
+              "side_menu_crm.side_menu_crm_22" | translate
+            }}</span></a
+          >
+        </li>
+        <!-- not allowed fs-->
+        <li
+          (click)="tests()"
+          [class.active]="page === 'files-management'"
+          *ngIf="!checkIfAuth('file_management')"
+        >
+          <a
+            (click)="change('files-management'); comingSoon()"
+            href="javascript:void(0)"
+            ><i class="fe fe-folder" style="color: #fff"></i>
+            <span style="color: #fff">{{
+              "side_menu_crm.side_menu_crm_22" | translate
+            }}</span></a
+          >
+        </li>
+
+        <li class="submenu" style="display: none">
+          <a href="javascript:void(0)"
+            ><i class="fa fa-info-circle menu-icons-size"></i>
+            <span> {{ "side_menu_crm.side_menu_crm_24" | translate }}</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li [class.active]="page === 'Blog'">
+              <a (click)="change('Blog')" [routerLink]="'components'">{{
+                "side_menu_crm.side_menu_crm_25" | translate
+              }}</a>
+            </li>
+            <li [class.active]="page === 'Add Blog'" style="display: none">
+              <a (click)="change('Add Blog')" [routerLink]="'add-blog'"
+                >{{ "side_menu_crm.side_menu_crm_26" | translate }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- /Sidebar -->

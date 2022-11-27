@@ -1,0 +1,309 @@
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-lg-4">
+        <!-- Booking Summary -->
+        <div class="card booking-card">
+          <div class="card-header">
+            <h4 class="card-title">Booking Summary</h4>
+          </div>
+          <div class="card-body">
+            <!-- Booking Doctor Info -->
+            <div class="booking-doc-info">
+              <a
+                [routerLink]="'/patients/doctor-profile'"
+                [queryParams]="{ id: doctorDetails?.id }"
+                class="booking-doc-img"
+              >
+                <img
+                  *ngIf="doctorDetails?.profile"
+                  [src]="doctorDetails?.profile"
+                  alt="User Image"
+                />
+              </a>
+              <div class="booking-info">
+                <h4>
+                  <a
+                    [routerLink]="'/patients/doctor-profile'"
+                    [queryParams]="{ id: doctorDetails?.id }"
+                    >{{ partner.company.company_name }}</a
+                  >
+                </h4>
+                <div class="rating">
+                  <i
+                    class="fas fa-star filled"
+                    *ngFor="
+                      let in of counter(partner.company.average_rating);
+                      let i = index
+                    "
+                  ></i>
+
+                  <span class="d-inline-block average-rating">(17)</span>
+                </div>
+                <div class="clinic-details">
+                  <p class="doc-location">
+                    {{ partner.company.main_category }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Booking Doctor Info -->
+
+            <div class="booking-summary">
+              <div class="booking-item-wrap">
+                <ul class="booking-date">
+                  <li>
+                    <p class="doc-location">
+                      <i class="fas fa-map-marker-alt"></i>
+                      {{ partner.company.city }},
+                      {{ partner.company.country }}
+                    </p>
+                  </li>
+                </ul>
+                <ul class="booking-date">
+                  <li>
+                    <h3>Services</h3>
+                  </li>
+                </ul>
+                <ul class="booking-fee" *ngFor="let item of finalservices">
+                  <li>{{ item.name }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Booking Summary -->
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <!-- Checkout Form -->
+            <form>
+              <!-- Personal Information -->
+              <div class="info-widget">
+                <h4 class="card-title">Personal Information</h4>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group card-label">
+                      <label>First Name</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="firstazeaezname"
+                        [(ngModel)]="firstName"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group card-label">
+                      <label>Last Name</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="lastqsdqsdname"
+                        [(ngModel)]="lastName"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group card-label">
+                      <label>Email</label>
+                      <input
+                        class="form-control"
+                        type="email"
+                        name="emaqsdqsdil"
+                        [(ngModel)]="email"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group card-label">
+                      <label>Phone</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="qsdqsd"
+                        [(ngModel)]="phone"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="exist-customer" *ngIf="!islogged">
+                  Existing Customer?
+                  <a [routerLink]="'/login'">Click here to login</a>
+                </div>
+              </div>
+              <!-- /Personal Information -->
+              <div class="info-widget">
+                <h4 class="card-title">Intervation Date</h4>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group card-label">
+                      <label>Day</label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="firstname"
+                        [(ngModel)]="date"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group card-label">
+                      <label>Time</label>
+                      <input
+                        class="form-control"
+                        type="time"
+                        [(ngModel)]="time"
+                        name="firstname"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="info-widget">
+                <h4 class="card-title">Additional informations</h4>
+                <div class="card-body">
+                  <div class="form-group mb-0">
+                    <label>Write a little description</label>
+                    <textarea
+                      class="form-control"
+                      rows="5"
+                      name="azezeazze"
+                      [(ngModel)]="descriptionss"
+                      >{{ descriptionss }}</textarea
+                    >
+                  </div>
+                </div>
+              </div>
+              <h4 class="card-title">Intervation Address</h4>
+              <div class="payment-widget">
+                <div class="payment-list">
+                  <!-- Credit Card Payment 
+                  <div class="payment-list">
+                     
+                    <input type="checkbox" [(ngModel)]="checkedad" /> Same
+                    Adress
+                  </div>-->
+                  <div class="row" *ngIf="!checkedad">
+                    <div class="col-md-12">
+                      <div class="form-group card-label">
+                        <label for="cvv">Street Adress</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          [(ngModel)]="street"
+                          name="firssssssme"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group card-label">
+                        <label for="card_name">City</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          [(ngModel)]="city"
+                          name="fisme"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group card-label">
+                        <label for="card_number">State</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          [(ngModel)]="state"
+                          name="firstnaqdsqsdqsdssssme"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group card-label">
+                        <label for="expiry_month">Zip code</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          [(ngModel)]="zipcode"
+                          name="firstnqsdqsdqsdaqdsssssme"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group card-label">
+                        <label for="exqsdsqddsqpiry_year">Country</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          [(ngModel)]="country"
+                          name="firstnaqdsssssme"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Credit Card Payment -->
+
+                <!-- Paypal Payment -->
+                <div class="payment-list">
+                  <input type="checkbox" [(ngModel)]="checkedup" />
+                  Attach images
+                </div>
+                <!-- /Paypal Payment -->
+
+                <!-- Terms Accept -->
+                <div class="terms-accept" *ngIf="checkedup">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row form-row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Problem Images</label>
+                            <ngx-dropzone (change)="onSelect($event)">
+                              <ngx-dropzone-label
+                                ><i
+                                  class="fas fa-file-upload"
+                                  style="font-size: 40px"
+                                ></i>
+                                <br />Drop files here to
+                                upload</ngx-dropzone-label
+                              >
+                              <ngx-dropzone-image-preview
+                                ngProjectAs="ngx-dropzone-preview"
+                                *ngFor="let f of files"
+                                [file]="f"
+                                [removable]="true"
+                                (removed)="onRemove(f)"
+                              >
+                              </ngx-dropzone-image-preview>
+                            </ngx-dropzone>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Terms Accept -->
+
+                <!-- Submit Section -->
+                <div class="submit-section mt-4">
+                  <a
+                    href="javascript:void(0)"
+                    type="submit"
+                    (click)="booking()"
+                    class="btn btn-primary submit-btn"
+                    >Confirm and send request</a
+                  >
+                </div>
+                <!-- /Submit Section -->
+              </div>
+            </form>
+            <!-- /Checkout Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Content -->

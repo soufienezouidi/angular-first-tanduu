@@ -1,0 +1,1198 @@
+<!-- Page Content -->
+<div class="content stepspage pt-0">
+  <div class="container-fluid">
+    <!-- Register Content -->
+    <div class="account-content" *ngIf="showone">
+      <div class="row align-items-center">
+        <div class="login-right text-center">
+          <div class="inner-right-login text-center">
+            <div class="login-header text-center">
+              <div class="logo-icon">
+                <img src="/assets/img/tanduucrm.png" width="230px" alt="" />
+              </div>
+              <div>
+                <div>
+                  <div class="step-list">
+                    <ul>
+                      <li>
+                        <a class="active" style="color: white">1</a>
+                      </li>
+                      <li>
+                        <a style="color: white">2</a>
+                      </li>
+                      <li>
+                        <a style="color: white">3</a>
+                      </li>
+                      <li>
+                        <a style="color: white">4</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <form
+                  id="personal_details"
+                  enctype="multipart/form-data"
+                
+                  style="width: fit-content ;"
+                >
+                  <div class="text-center mt-2">
+                    <h4 class="mt-3">{{ company.languages[serviceLang] }} :</h4>
+                  </div>
+                  <div class="select-gender-col"  [ngStyle]="{
+                    border: showerrortype === true ? '1px solid red' : 'none'
+                  }">
+                    <div class="row">
+                      <div class="col-6 pr-2" (click)="setascomp()">
+                        <input type="radio" id="test1" name="gender" />
+                        <label for="test1">
+                          <span class="gender-icon"
+                            ><img src="assets/img/icons/company.png" alt=""
+                          /></span>
+                          <span>{{ select.languages[serviceLang] }}</span>
+                        </label>
+                      </div>
+                      <div class="col-6 pl-2" (click)="setasindiv()">
+                        <input type="radio" id="test2" name="gender" />
+                        <label for="test2">
+                          <span class="gender-icon"
+                            ><img src="assets/img/icons/indiv.png" alt=""
+                          /></span>
+                          <span>{{ individual.languages[serviceLang] }}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="step-process-col mt-4">
+                    <div class="form-group">
+                      <label
+                       *ngIf="!isindiv"  >{{ compname.languages[serviceLang] }} 
+                        <span class="label-required">*</span></label
+                      >
+                      <label *ngIf="isindiv" 
+                        >{{ compname.languages[serviceLang] }} {{ compname2.languages[serviceLang] }}  
+                        <span class="label-required">*</span></label
+                      >
+                      <div class="row">
+                        <div class="col-12 pr-2">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="weazeazeazeight"
+                            value=""
+                            [(ngModel)]="compnamee"
+                            id="weigazeazeazeht"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="step-process-col mt-4"
+                    *ngIf="companyConnected"
+                    hidden
+                  >
+                    <div class="form-group">
+                      <label
+                        >{{ phone.languages[serviceLang] }}
+                        <span class="label-required">*</span></label
+                      >
+                      <div class="row">
+                        <div class="col-12 pr-2">
+                          <international-phone-number
+                            [(ngModel)]="objectInfos.phone1"
+                            [defaultCountry]="countryCode ? countryCode : 'de'"
+                            [required]="true"
+                            name="weigazeazeazeht"
+                          >
+                          </international-phone-number>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-5">
+                    <a
+                      (click)="gotosecondstep()"
+                      style="color: white"
+                      class="btn btn-primary btn-block btn-lg login-btn step2_submit"
+                      >{{ continue.languages[serviceLang] }}
+                    </a>
+                  </div>
+                </form>
+              </div>
+              <div *ngIf="steptoshow == 2" style="min-width: 92%">
+                <div class="step-list">
+                  <ul>
+                    <li>
+                      <a class="active" style="color: white">1</a>
+                    </li>
+                    <li>
+                      <a style="color: white">2</a>
+                    </li>
+                    <li>
+                      <a style="color: white">3</a>
+                    </li>
+                    <li>
+                      <a style="color: white">4</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="row text-center">
+                  <div class="col-md-12 col-lg-12" style="margin-top: 20px">
+                    <div class="card" style="background-color: #f8f9fa">
+                      <div class="row">
+                        <div
+                          class="col-md-3 col-lg-3"
+                          style="margin-bottom: 15px"
+                          *ngFor="let item of listcategories"
+                        >
+                          <div class="task">
+                            <div class="abstract" style="height: 250px">
+                              <div class="flip-card-front">
+                                <img
+                                  src="https://api.aroundorder.com:1337/banners/{{
+                                    item.id
+                                  }}.png"
+                                  alt="Avatar"
+                                  style="height: 85%; width: 100%"
+                                />
+                                <p class="text-center">
+                                  {{ item.languages[serviceLang] }}
+                                </p>
+                              </div>
+                            </div>
+                            <div class="details">
+                              <div class="details__inner">
+                                <div class="card-body">
+                                  <div id="card_body10">
+                                    <cdk-accordion class="example-accordion">
+                                      <cdk-accordion-item
+                                        *ngFor="
+                                          let itemss of item.sub_categories;
+                                          let index = index
+                                        "
+                                        #accordionItem="cdkAccordionItem"
+                                        class="example-accordion-item"
+                                        role="button"
+                                        tabindex="0"
+                                        [attr.id]="'accordion-header-' + index"
+                                        [attr.aria-expanded]="
+                                          accordionItem.expanded
+                                        "
+                                        [attr.aria-controls]="
+                                          'accordion-body-' + index
+                                        "
+                                      >
+                                        <div
+                                          class="example-accordion-item-header"
+                                          (click)="accordionItem.toggle()"
+                                        >
+                                          <div
+                                            class="row"
+                                            style="margin-left: 5px"
+                                          >
+                                            {{ itemss.languages[serviceLang] }}
+                                          </div>
+                                        </div>
+                                        <div
+                                          class="example-accordion-item-body"
+                                          role="region"
+                                          [style.display]="
+                                            accordionItem.expanded ? '' : 'none'
+                                          "
+                                          [attr.id]="'accordion-body-' + index"
+                                          [attr.aria-labelledby]="
+                                            'accordion-header-' + index
+                                          "
+                                        >
+                                          <div class="card-body">
+                                            <form>
+                                              <div class="row text-left">
+                                                <div
+                                                  class="row"
+                                                  style="margin-right: 30px"
+                                                  *ngFor="
+                                                    let itemsss of itemss.services
+                                                  "
+                                                >
+                                                  <div class="form-check">
+                                                    <label
+                                                      class="form-check-label"
+                                                      for="{{
+                                                        'flexCheckChecked' +
+                                                          itemsss.id
+                                                      }}"
+                                                    >
+                                                      <input
+                                                        class="form-check-input"
+                                                        type="checkbox"
+                                                        value=""
+                                                        id="{{
+                                                          'flexCheckChecked' +
+                                                            itemsss.id
+                                                        }}"
+                                                        [checked]="
+                                                          checkitem(itemsss) ==
+                                                          true
+                                                        "
+                                                        (change)="
+                                                          checkValue(itemsss)
+                                                        "
+                                                      />{{
+                                                        itemsss.languages[
+                                                          serviceLang
+                                                        ]
+                                                      }}
+                                                    </label>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </cdk-accordion-item>
+                                    </cdk-accordion>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Booking Summary -->
+                </div>
+              </div>
+              <div *ngIf="steptoshow == 3">
+                <div class="step-list">
+                  <ul>
+                    <li>
+                      <a class="active-done" style="color: white">1</a>
+                    </li>
+                    <li>
+                      <a class="active done" style="color: white">2</a>
+                    </li>
+                    <li>
+                      <a class="active" style="color: white">3</a>
+                    </li>
+                  </ul>
+                </div>
+                <form id="personal_details" enctype="multipart/form-data">
+                  <div class="text-center mt-2">
+                    <h4 class="mt-3">{{ company.languages[serviceLang] }} :</h4>
+                  </div>
+                  <div class="select-gender-col">
+                    <div class="row">
+                      <div class="col-6 pr-2" (click)="setascomp()">
+                        <input type="radio" id="test1" name="gender" />
+                        <label for="test1">
+                          <span class="gender-icon"
+                            ><img src="assets/img/icons/company.png" alt=""
+                          /></span>
+                          <span>{{ select.languages[serviceLang] }}</span>
+                        </label>
+                      </div>
+                      <div class="col-6 pl-2" (click)="setasindiv()">
+                        <input type="radio" id="test2" name="gender" />
+                        <label for="test2">
+                          <span class="gender-icon"
+                            ><img src="assets/img/icons/indiv.png" alt=""
+                          /></span>
+                          <span>{{ individual.languages[serviceLang] }}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="step-process-col mt-4" *ngIf="companyConnected">
+                    <div class="form-group">
+                      <label
+                        >{{ compname.languages[serviceLang] }}
+                        <span class="label-required">*</span></label
+                      >
+                      <div class="row">
+                        <div class="col-12 pr-2">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="weazeazeazeight"
+                            value=""
+                            [(ngModel)]="objectInfos.company_name"
+                            id="weigazeazeazeht"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="step-process-col mt-4"
+                    *ngIf="companyConnected"
+                    hidden
+                  >
+                    <div class="form-group">
+                      <label
+                        >{{ phone.languages[serviceLang] }}
+                        <span class="label-required">*</span></label
+                      >
+                      <div class="row">
+                        <div class="col-12 pr-2">
+                          <international-phone-number
+                            [(ngModel)]="objectInfos.phone1"
+                            [defaultCountry]="countryCode ? countryCode : 'de'"
+                            [required]="true"
+                            name="weigazeazeazeht"
+                          >
+                          </international-phone-number>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-5">
+                    <a
+                      (click)="gotosecondstep()"
+                      style="color: white"
+                      class="btn btn-primary btn-block btn-lg login-btn step2_submit"
+                      >{{ continue.languages[serviceLang] }}
+                    </a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="account-content" style="min-height: 100vh" *ngIf="showtwo">
+      <div class="row align-items-center">
+        <div class="login-right text-center">
+          <div class="inner-right-login text-center" style="min-width: 90%">
+            <div class="login-header text-center">
+              <div class="logo-icon">
+                <img src="/assets/img/tanduucrm.png" width="230px" alt="" />
+              </div>
+
+              <div>
+                <div class="step-list">
+                  <ul>
+                    <li>
+                      <a
+                        class="active-done"
+                        style="color: white"
+                        (click)="gotoone()"
+                        >1</a
+                      >
+                    </li>
+                    <li>
+                      <a class="active" style="color: white">2</a>
+                    </li>
+                    <li>
+                      <a style="color: white">3</a>
+                    </li>
+                    <li>
+                      <a style="color: white">4</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card search-widget">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      {{ chooseservices.languages[serviceLang] }}
+                    </h5>
+                    <h6 class="card-title text-left" >
+                      {{ fob1.languages[serviceLang] }} <br/> <span style="color: #009fe3;" > {{ fob2.languages[serviceLang] }}</span> {{ fob3.languages[serviceLang] }}
+                    </h6>
+                    <div class="col-lg-12 col-xl-12 col-sm-12 col-md-12">
+                      <form action="#" class="search-wrap">
+                        <div class="input-group w-100">
+                          <input
+                            type="text"
+                            id="search-service"
+                            (keyup)="searchServices($event.target.value)"
+                          
+                            [(ngModel)]="searchServiceWebHeader1"
+                            placeholder="     {{ enter.languages[serviceLang] }}"
+                            class="form-control search-form"
+                            autocomplete="off"
+                          />
+                        </div>
+                      </form>
+                      <div class="search-filter" *ngIf="showSuggestion">
+                        <div class="autocom-box"></div>
+
+                        <ul
+                          id="box_result"
+                          class="list-group-filter"
+                          *ngIf="other.length > 0 && !showlooking"
+                          style="margin-left: -38px"
+                        >
+                          <li
+                            class="list-group-item sample-items"
+                            *ngFor="let item of other"
+                            (click)="onItemSelect(item)"
+                            style="cursor: pointer"
+                          >
+                            <div class="text-left" *ngIf="item">
+                              {{ item.text }}  <span class="text-right" style="    margin-left: 20px;
+                              font-size: 12px;
+                              font-weight: 500;
+                              font-family: arial;
+                              text-decoration: italic;
+                              font-style: italic;">  ({{item.textcat}}) </span>
+                            </div>
+                          </li>
+                        </ul>
+                        
+                        <ul
+                          id="box_result"
+                          class="list-group-filter"
+                          *ngIf="showlooking"
+                          style="margin-left: -38px"
+                        >
+                          <li
+                            class="list-group-item sample-items"
+                            
+                           
+                            style="cursor: pointer"
+                          >
+                          <div class="spinner">
+                            <div class="pulse-container"> <span class="p-bubble p-bubble-1"></span> <span class="p-bubble p-bubble-2"></span> <span class="p-bubble p-bubble-3"></span>  <span class="p-bubble p-bubble-3"></span><span class="p-bubble p-bubble-3"></span><span class="p-bubble p-bubble-3"></span></div>
+                        </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!--
+                    <form class="search-form" *ngIf="Allservices.length > 0">
+                      <ng-multiselect-dropdown
+                        [placeholder]="
+                          noAvailableData.selectServices[serviceLang]
+                        "
+                        [settings]="ServicesSelectSettings"
+                        [data]="Allservices"
+                        (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="onItemDeSelect($event)"
+                        (onSelectAll)="onSelectAll($event)"
+                        [(ngModel)]="ngSelectValues"
+                      >
+                      </ng-multiselect-dropdown>
+                    </form>-->
+                  </div>
+                </div>
+                <section class="clinics-section" *ngIf="selectedfieldofbuiseness.length>0">
+                  <div class="shapes"></div>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="section-heading">
+                          <h2>
+                            <span id>
+                              {{ itseemslike.languages[serviceLang] }}
+                              {{ selectedcategory.languages[serviceLang] }}
+                            </span>
+                          </h2>
+                          <p style="margin-bottom: 30px">
+                            {{ jomla.languages[serviceLang] }}
+                          </p>
+                          <p style="margin-bottom: 30px">
+                            {{ itsnot.languages[serviceLang] }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <h5
+                style="margin-top: 75px;"
+                  class="text-center separator"
+                  *ngIf="ngSelectValues.length == 0"
+                >
+                  {{noAvailableData.service3[serviceLang]}}
+                  <a
+                  href="mailto:info@tanduu.com?subject=New service suggestion"
+                    style="text-decoration: underline"
+                    >{{ ifyou.languages2[serviceLang] }}</a
+                  >
+                </h5>
+                <section
+                  class="section section-doctor"
+                  *ngIf="selectedcategory"
+                >
+                  <div class="container-fluid">
+                    <div class="row text-center">
+                      <div class="col-lg-12">
+                        <div class="doctor-slider">
+                          <ngx-slick-carousel
+                            class="carousel"
+                            #slickModal="slick-carousel"
+                            [config]="slideConfigure"
+                          >
+                            <div
+                              class="slick-slide text-center"
+                              *ngFor="
+                                let doctor of selectedcategory.sub_categories;
+                                let index;
+                                i
+                              "
+                            >
+                              <div ngxSlickItem class="text-center">
+                                <div
+                                  (click)="
+                                    displaysub(
+                                      doctor.languages[serviceLang],
+                                      doctor
+                                    )
+                                  "
+                                  class="profile-widget"
+                                  style="width: 100%; display: inline-block ; min-height: 314px;"
+
+                                  [ngStyle]="{
+                                    'background-color':
+                                      checkfield(doctor)
+                                        ? 'lightgrey'
+                                        : 'white'
+                                  }"
+                                >
+                                  <div class="doc-img">
+                                    <a tabindex="-1">
+                                      <img
+                                        src="https://api.aroundorder.com:1337/sub_categories/{{
+                                          doctor.id
+                                        }}.png"
+                                        alt="User Image"
+                                        height="157px"
+                                      />
+                                    </a>
+                                  </div>
+                                  <div class="pro-content text-center" >
+                                    <a class="title text-center" style="font-size: 15px !important;
+                                    font-weight: 500;
+                                    margin-bottom: 5px;">
+                                      <a tabindex="-1">{{
+                                        doctor.languages[serviceLang]
+                                      }}</a>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ngx-slick-carousel>
+                        </div>
+                        <div class="card" [hidden]="!subclicked">
+                          <div class="card-header">
+                            <h4 class="card-title">{{chosenones.languages[serviceLang]}}</h4>
+                          </div>
+                          <div class="card-body">
+                            <blockquote style="margin-top: -20px">
+                              <!-- /Home Banner   <button
+                _ngcontent-xoj-c125=""
+                type="button"
+                class="btn btn-rounded btn-info"
+                style="float: right"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add service
+              </button -->
+                              <div class="card-body text-left">
+                                <form>
+                                  <div class="row">
+                                    <div
+                                      class="row"
+                                      style="margin-right: 30px"
+                                      *ngFor="let item of selectedfieldofbuiseness"
+                                    >
+                                    <p href="#" class="tag" style="border: none;" (click)="displaysub(item.languages[serviceLang],item)" >{{item.languages[serviceLang]}}<i class="fas fa-times-circle" style="margin-left: 5px;"></i></p>
+                                      <!-- <div class="form-check">
+                                        <label
+                                          class="form-check-label"
+                                          for="{{
+                                            'flexCheckChecked' + item.id
+                                          }}"
+                                        >
+                                          <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value=""
+                                            id="{{
+                                              'flexCheckChecked' + item.id
+                                            }}"
+                                            
+                                            (change)="displaysub(item.languages[serviceLang],item)"
+                                          />{{ item.languages[serviceLang] }}
+                                        </label>
+                                      </div> -->
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </blockquote>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-5" *ngIf="chosenservicess.length > 0">
+                      <a
+                        (click)="gotothirdstep()"
+                        style="color: white"
+                        class="btn btn-primary btn-block btn-lg login-btn step2_submit"
+                        >{{ continue.languages[serviceLang] }}
+                      </a>
+                    </div>
+                  </div>
+                </section>
+
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="account-content" *ngIf="showthree">
+      <div class="row align-items-center">
+        <div class="login-right text-center">
+          <div class="inner-right-login text-center">
+            <div class="login-header text-center">
+              <div class="logo-icon">
+                <img src="/assets/img/tanduucrm.png" width="230px" alt="" />
+              </div>
+
+              <div>
+                <div class="step-list">
+                  <ul>
+                    <li>
+                      <a
+                        class="active-done"
+                        style="color: white"
+                        (click)="gotoone()"
+                        >1</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="active-done"
+                        style="color: white"
+                        (click)="gototwo()"
+                        >2</a
+                      >
+                    </li>
+                    <li>
+                      <a class="active" style="color: white">3</a>
+                    </li>
+                    <li>
+                      <a style="color: white">4</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal-body" style="font-size: 13px">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label
+                      >{{ "forms_plateform.forms_plateform_1" | translate }} ({{
+                        locationmsg.languages[serviceLang]
+                      }}) <span class="label-required">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="address"
+                      placeholder="{{
+                        'forms_plateform.forms_plateform_1'
+                          | translate
+                          | lowercase
+                      }}"
+                      (keyup)="checkAddress()"
+                    />
+                  </div>
+                </div>
+                <br />
+
+                <div class="row" style="margin-top: 12px">
+                  <div class="col-md-6">
+                    <label
+                      >{{ "forms_plateform.forms_plateform_4" | translate }}
+                      <span class="label-required">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="city"
+                      placeholder="{{
+                        'forms_plateform.forms_plateform_4'
+                          | translate
+                          | lowercase
+                      }}"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="latitude"
+                      [(ngModel)]="lat"
+                      placeholder="latitude"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="country"
+                      placeholder="latitude"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="state"
+                      placeholder="latitude"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="street"
+                      placeholder="latitude"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="street_nb"
+                      placeholder="latitude"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="longitude"
+                      placeholder="longitude"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label>{{
+                      "forms_plateform.forms_plateform_5" | translate
+                    }}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="zip_code"
+                      placeholder="{{
+                        'forms_plateform.forms_plateform_5'
+                          | translate
+                          | lowercase
+                      }}"
+                    />
+                  </div>
+                </div>
+
+                <div style="margin-top: 25px">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm btn-block"
+                    id="btn-yes"
+                    (click)="gotolaststep()"
+                  >
+                    {{ continue.languages[serviceLang] }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="account-content" *ngIf="showfour">
+      <div class="row align-items-center">
+        <div class="login-right text-center">
+          <div class="inner-right-login text-center">
+            <div class="login-header text-center">
+              <div class="logo-icon">
+                <img src="/assets/img/tanduucrm.png" width="230px" alt="" />
+              </div>
+           
+              <div>
+                <div class="step-list">
+                  <ul>
+                    <li>
+                      <a
+                        class="active-done"
+                        style="color: white"
+                        (click)="gotoone()"
+                        >1</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="active-done"
+                        style="color: white"
+                        (click)="gototwo()"
+                        >2</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="active-done"
+                        style="color: white"
+                        (click)="gotothree()"
+                        >3</a
+                      >
+                    </li>
+                    <li>
+                      <a class="active" style="color: white">4</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="select-gender-col" *ngIf="showincountry">
+                  <div class="row">
+                    <div class="col-6 pr-2" (click)="registermail()">
+                      <input type="radio" id="tesertert1" name="gender" [checked]="register_mail"/>
+                      <label for="test1">
+                        <span class="gender-icon"
+                          ><img src="assets/img/icons/email.png" alt=""
+                        /></span>
+                        <span>{{byemail.languages[serviceLang]}}</span>
+                      </label>
+                    </div>
+                    <div class="col-6 pl-2" (click)="registerphone()">
+                      <input type="radio" id="tesrtett2" name="gender" [checked]="register_phone" />
+                      <label for="test2">
+                        <span class="gender-icon"
+                          ><img src="assets/img/icons/phone.png" alt=""
+                        /></span>
+                        <span>{{byphone.languages[serviceLang]}}</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              <form class="text-left" *ngIf="register_mail">
+                <div class="row form-row social-login" style="display: none">
+                  <div class="col-6">
+                    <a
+                      href="javascript:void(0)"
+                      class="btn btn-facebook btn-block"
+                      ><i class="fab fa-facebook-f mr-1"></i> Login</a
+                    >
+                  </div>
+                  <div class="col-6">
+                    <a
+                      href="javascript:void(0)"
+                      class="btn btn-google btn-block"
+                      ><i class="fab fa-google mr-1"></i> Login</a
+                    >
+                  </div>
+                </div>
+                <div class="login-or" style="display: none">
+                  <span class="or-line"></span>
+                  <span class="span-or">or</span>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-control floating"
+                    [(ngModel)]="firstname"
+                    placeholder="{{
+                      'register_partner_page_plateform.register_partner_page_plateform_4'
+                        | translate
+                    }}"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="lasname"
+                    class="form-control floating"
+                    [(ngModel)]="lastname"
+                    placeholder="{{
+                      'register_partner_page_plateform.register_partner_page_plateform_5'
+                        | translate
+                    }}"
+                  />
+                </div>
+                <div class="form-group" *ngIf="mailvalid">
+                  <input
+                    type="email"
+                    name="mobile"
+                    class="form-control floating"
+                    [(ngModel)]="email"
+                    (blur)="checkifmail()"
+                    placeholder="{{
+                      'login_page_plateform.login_page_plateform_1' | translate
+                    }}"
+                    max="9"
+                  />
+                </div>
+                <div class="form-group" *ngIf="!mailvalid">
+                  <input
+                    type="email"
+                    name="mobile"
+                    class="form-control floating"
+                    style="border-color: red"
+                    [(ngModel)]="email"
+                    (blur)="checkifmail()"
+                    placeholder="{{
+                      'login_page_plateform.login_page_plateform_1' | translate
+                    }}"
+                    max="9"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control floating"
+                    [(ngModel)]="password"
+                    placeholder="{{
+                      'register_partner_page_plateform.register_partner_page_plateform_14'
+                        | translate
+                    }}"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control floating"
+                    [(ngModel)]="repassword"
+                    placeholder="{{
+                      'login_page_plateform.login_page_plateform_6' | translate
+                    }}"
+                  />
+                </div>
+
+                <div class="terms-accept">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      id="terms_accept"
+                      [checked]="commercialchecked"
+                      [(ngModel)]="commercialchecked"
+                    />
+                    <a style="font-size: 13px"
+                      >&nbsp;{{
+                        "register_partner_page_plateform.register_partner_page_plateform_7"
+                          | translate
+                      }}
+                      <a href="javascript:void(0)">{{
+                        "register_partner_page_plateform.register_partner_page_plateform_8"
+                          | translate
+                      }}</a>
+                      <span style="font-size: 10px">
+                        ({{
+                          "register_partner_page_plateform.register_partner_page_plateform_9"
+                            | translate
+                        }})</span
+                      >
+                      <i
+                        class="far fa-question-circle fa-xs"
+                        style="color: #009fe3"
+                        title="{{
+                          'register_partner_page_plateform.register_partner_page_plateform_13'
+                            | translate
+                        }}"
+                      ></i
+                    ></a>
+                  </label>
+                </div>
+                <div class="terms-accept">
+                  <label class="form-check-label">
+                    <input
+                      type="checkbox"
+                      id="terms_accept"
+                      [(ngModel)]="toschecked"
+                      [checked]="toschecked"
+                    />
+                    <a style="font-size: 13px"
+                      >&nbsp;{{
+                        "register_partner_page_plateform.register_partner_page_plateform_10"
+                          | translate
+                      }}
+                      <a href="/jobbersterms" target="_blank"
+                        >{{
+                          "register_partner_page_plateform.register_partner_page_plateform_11"
+                            | translate
+                        }}s</a
+                      ></a
+                    >
+                  </label>
+                </div>
+
+                <button
+                  style="margin-top: 10px"
+                  class="btn btn-primary btn-block btn-lg login-btn"
+                  type="submit"
+                  (click)="signup()"
+                >
+                  {{
+                    "register_partner_page_plateform.register_partner_page_plateform_6"
+                      | translate
+                  }}
+                </button>
+              </form>
+              <form class="text-left" *ngIf="register_phone">
+                  <div class="row form-row social-login" style="display: none">
+                    <div class="col-6">
+                      <a
+                        href="javascript:void(0)"
+                        class="btn btn-facebook btn-block"
+                        ><i class="fab fa-facebook-f mr-1"></i> Login</a
+                      >
+                    </div>
+                    <div class="col-6">
+                      <a
+                        href="javascript:void(0)"
+                        class="btn btn-google btn-block"
+                        ><i class="fab fa-google mr-1"></i> Login</a
+                      >
+                    </div>
+                  </div>
+                  <div class="login-or" style="display: none">
+                    <span class="or-line"></span>
+                    <span class="span-or">or</span>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="name"
+                      class="form-control floating"
+                      [(ngModel)]="firstname"
+                      placeholder="{{
+                        'register_partner_page_plateform.register_partner_page_plateform_4'
+                          | translate
+                      }}"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="lasname"
+                      class="form-control floating"
+                      [(ngModel)]="lastname"
+                      placeholder="{{
+                        'register_partner_page_plateform.register_partner_page_plateform_5'
+                          | translate
+                      }}"
+                    />
+                  </div>
+                  <div class="step-process-col" >
+                      <div class="form-group">
+                       
+                        <div class="row">
+                          <div class="col-12 pr-2">
+                            <international-phone-number
+                              [(ngModel)]="phoneee"
+                              [defaultCountry]="countryCode ? countryCode : 'tn'"
+                              [required]="true"
+                              name="weigazeazeazeht"
+                            >
+                            </international-phone-number>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                  <div class="form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control floating"
+                      [(ngModel)]="password"
+                      placeholder="{{
+                        'register_partner_page_plateform.register_partner_page_plateform_14'
+                          | translate
+                      }}"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control floating"
+                      [(ngModel)]="repassword"
+                      placeholder="{{
+                        'login_page_plateform.login_page_plateform_6' | translate
+                      }}"
+                    />
+                  </div>
+  
+                  <div class="terms-accept">
+                    <label class="form-check-label">
+                      <input
+                        type="checkbox"
+                        id="terms_accept"
+                        [checked]="commercialchecked"
+                        [(ngModel)]="commercialchecked"
+                      />
+                      <a style="font-size: 13px"
+                        >&nbsp;{{
+                          "register_partner_page_plateform.register_partner_page_plateform_7"
+                            | translate
+                        }}
+                        <a href="javascript:void(0)">{{
+                          "register_partner_page_plateform.register_partner_page_plateform_8"
+                            | translate
+                        }}</a>
+                        <span style="font-size: 10px">
+                          ({{
+                            "register_partner_page_plateform.register_partner_page_plateform_9"
+                              | translate
+                          }})</span
+                        >
+                        <i
+                          class="far fa-question-circle fa-xs"
+                          style="color: #009fe3"
+                          title="{{
+                            'register_partner_page_plateform.register_partner_page_plateform_13'
+                              | translate
+                          }}"
+                        ></i
+                      ></a>
+                    </label>
+                  </div>
+                  <div class="terms-accept">
+                    <label class="form-check-label">
+                      <input
+                        type="checkbox"
+                        id="terms_accept"
+                        [(ngModel)]="toschecked"
+                        [checked]="toschecked"
+                      />
+                      <a style="font-size: 13px"
+                        >&nbsp;{{
+                          "register_partner_page_plateform.register_partner_page_plateform_10"
+                            | translate
+                        }}
+                        <a href="/jobbersterms" target="_blank"
+                          >{{
+                            "register_partner_page_plateform.register_partner_page_plateform_11"
+                              | translate
+                          }}s</a
+                        ></a
+                      >
+                    </label>
+                  </div>
+  
+                  <button
+                    style="margin-top: 10px"
+                    class="btn btn-primary btn-block btn-lg login-btn"
+                    type="submit"
+                    (click)="signupphone()"
+                  >
+                    {{
+                      "register_partner_page_plateform.register_partner_page_plateform_6"
+                        | translate
+                    }}
+                  </button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Register Content -->
+  </div>
+  <div class="text-center" style="margin-top: 10px">
+    <a class="forgot-link" [routerLink]="'/login-page'">{{
+      "register_partner_page_plateform.register_partner_page_plateform_12"
+        | translate
+    }}</a>
+  </div>
+</div>
+<!-- /Page Content -->
+<ngx-loading-x [show]="loading"></ngx-loading-x>

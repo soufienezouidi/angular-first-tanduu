@@ -1,0 +1,254 @@
+<!-- Page Content -->
+<div class="content">
+  <div class="container">
+    <div class="card" *ngIf="company">
+      <div class="card-body">
+        <div class="doctor-widget">
+          <div class="doc-info-left">
+            <div class="doctor-img">
+              <img
+                src="assets/img/doctors/doctor-thumb-02.jpg"
+                class="img-fluid"
+                alt="User Image"
+              />
+            </div>
+            <div class="doc-info-cont">
+              <h4 class="title">
+                <a>{{ company.company_name }}</a>
+                <i
+                  style="margin-left: 3px; color: #28a745"
+                  class="fas fa-check-circle verified"
+                  *ngIf="company.is_pro"
+                ></i>
+              </h4>
+
+              <p class="doc-department">
+                {{ company.main_category }}
+              </p>
+              <div class="rating">
+                <i
+                  class="fas fa-star filled"
+                  *ngFor="
+                    let in of counter(company.average_rating);
+                    let i = index
+                  "
+                ></i>
+              </div>
+              <div class="clinic-details">
+                <p class="doc-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ company.street_number }} {{ company.street }} ,
+                  {{ company.state }} {{ company.ciry }} {{ company.country }}
+                  {{ company.zip_code }}
+                  <a href="javascript:void(0);">Get Directions</a>
+                </p>
+              </div>
+              <!-- <div class="clinic-services" *ngIf="customer">
+                <span *ngFor="let hashs of company.hashtags">{{
+                  hashs.value
+                }}</span>
+              </div>-->
+            </div>
+          </div>
+          <div class="doc-info-right">
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded"
+                ><i class="fa fa-phone fa-1x mr-2"></i>Show number</a
+              >
+            </div>
+            <div class="clinic-booking" style="margin-bottom: 15px">
+              <a class="btn btn-rounded">
+                <i class="fa fa-envelope fa-1x mr-2"></i>Send mail</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body pt-0">
+        <nav class="user-tabs mb-4">
+          <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+            <li class="nav-item">
+              <a class="nav-link active" href="#doc_overview" data-toggle="tab"
+                >Overview</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="tab-content pt-0" *ngIf="auftrag">
+          <div
+            role="tabpanel"
+            id="doc_overview"
+            class="tab-pane fade show active"
+          >
+            <div class="row">
+              <div class="col-md-9">
+                <div class="widget education-widget">
+                  <h4 class="widget-title">REF : {{ auftrag.reference }}</h4>
+
+                  <div class="experience-box">
+                    <ul class="experience-list">
+                      <li>
+                        <div class="experience-user">
+                          <div class="before-circle"></div>
+                        </div>
+                        <div class="experience-content">
+                          <div class="timeline-content">
+                            <a href="#/" class="name">Created at :</a>
+                            <div>
+                              {{ auftrag.createdAt | date: "mediumDate" }}
+                            </div>
+                            <div>
+                              {{ auftrag.createdAt | date: "shortTime" }}
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="experience-user">
+                          <div class="before-circle"></div>
+                        </div>
+                        <div class="experience-content">
+                          <div class="timeline-content">
+                            <a href="#/" class="name">Services</a>
+                            <div *ngFor="let item of services">
+                              ¤ {{ item.service.name }} (
+                              {{ item.sub_category.name }} =>
+                              {{ item.category.name }} )
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <h4 class="widget-title">Images</h4>
+                <div class="row">
+                  <div class="col-md-3" style="margin-top: 6px">
+                    <div class="thumbnail">
+                      <a href="/w3images/lights.jpg">
+                        <img
+                          src="assets/img/features/feature-01.jpg"
+                          alt="Lights"
+                          style="width: 100%"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 6px">
+                    <div class="thumbnail">
+                      <a href="/w3images/nature.jpg">
+                        <img
+                          src="assets/img/features/feature-01.jpg"
+                          alt="Nature"
+                          style="width: 100%"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 6px">
+                    <div class="thumbnail">
+                      <a href="/w3images/fjords.jpg">
+                        <img
+                          src="assets/img/features/feature-01.jpg"
+                          alt="Fjords"
+                          style="width: 100%"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 6px">
+                    <div class="thumbnail">
+                      <a href="/w3images/fjords.jpg">
+                        <img
+                          src="assets/img/features/feature-01.jpg"
+                          alt="Fjords"
+                          style="width: 100%"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="widget about-widget">
+                  <h4 class="widget-title" style="margin-top: 30px">
+                    Description
+                  </h4>
+                  <p>
+                    {{ auftrag.description }}
+                  </p>
+                </div>
+                <h4 class="widget-title" style="margin-top: 30px">
+                  Discussion
+                </h4>
+                <div class="widget review-listing">
+                  <ul class="comments-list">
+                    <li>
+                      <div class="comment">
+                        <img
+                          class="avatar avatar-sm rounded-circle"
+                          alt="User Image"
+                          src="assets/img/patients/patient2.jpg"
+                        />
+                        <div class="comment-body">
+                          <div class="meta-data">
+                            <span class="comment-author"> Sofiane zouidi</span>
+                            <span class="comment-date">written 4 Days ago</span>
+                          </div>
+                          <p class="comment-content">
+                            i didnt understand what you mean by the water is
+                            leaking in the wall
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+
+                  <div class="all-feedback text-center">
+                    <a href="#" class="btn btn-primary btn-sm">
+                      Show More <strong>(167)</strong>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="write-review">
+                  <h4>Write a Comment</h4>
+
+                  <form>
+                    <div class="form-group">
+                      <label>Your Comment</label>
+                      <textarea
+                        id="review_desc"
+                        maxlength="100"
+                        class="form-control"
+                      ></textarea>
+                      <div class="d-flex justify-content-between mt-3">
+                        <small class="text-muted"
+                          ><span id="chars">100</span> characters
+                          remaining</small
+                        >
+                      </div>
+                    </div>
+                    <hr />
+
+                    <div class="submit-section">
+                      <button type="submit" class="btn btn-primary submit-btn">
+                        Add Comment
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /Page Content -->

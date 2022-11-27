@@ -1,0 +1,365 @@
+<!-- Header -->
+<header class="header header-trans custom">
+  <section class="header-main border-bottom">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-lg-2 col-sm-4 col-md-4 col-5">
+          <a
+            class="brand-wrap"
+            data-abc="true"
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+          >
+            <!-- <img class="logo" src="http://ampexamples.com/data/upload/2017/08/bootstrap2_logo.png"> -->
+            <span class="logo">
+              <img class="img-fluid" alt="Logo" style="margin-left: 25px"
+            /></span>
+            <br />
+            <p
+              class="slogan"
+              style="margin-left: 44px; font-size: 10px; color: white"
+            >
+              {{
+                "header_section_plateform.header_section_plateform_8"
+                  | translate
+              }}
+            </p>
+          </a>
+        </div>
+        <div
+          class="col-lg-6 col-xl-6 col-sm-8 col-md-4 d-none d-md-block"
+          *ngIf="Allserviceslist"
+        >
+          <form action="#" class="search-wrap">
+            <div class="input-group w-100">
+              <input
+                type="text"
+            
+                name="search6"
+                (keyup)="searchServices($event.target.value)"
+                [(ngModel)]="searchServiceWebHeader6"
+                placeholder="{{
+                  'header_section_plateform.header_section_plateform_17'
+                    | translate
+                }}"
+                class="form-control search-form"
+                autocomplete="off"
+              />
+              <!--
+              <input
+                type="text"
+                id="search-location"
+                (keyup)="searchLocation()"
+                class="form-control search-form"
+                style="width: 55%"
+                (blur.enter)="goToSearchP()"
+                placeholder="{{
+                  'header_section_plateform.header_section_plateform_16'
+                    | translate
+                }}"
+              />
+              <input type="hidden" id="search_zip" />
+              <input type="hidden" id="search_city" />
+              <input type="hidden" id="search_lng" />
+              <input type="hidden" id="search_ltd" />-->
+              <div class="input-group-append">
+                <button
+                  type="submit"
+                  class="btn btn-secondary"
+                  (click)="gotoresults()"
+                >
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="search-filter" *ngIf="showSuggestion && !isMobile">
+            <div class="autocom-box"></div>
+            <ul
+              id="box_result"
+              class="list-group-filter"
+              *ngIf="results1.length > 0"
+            >
+              <li
+                class="list-group-item sample-items"
+                *ngFor="let item of results1"
+                (click)="selectService(item.id, item.name, item)"
+              >
+                {{ item.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xl-4 col-sm-7 col-md-4 col-7">
+          <div class="d-flex justify-content-end">
+            <div class="dropdown btn-group">
+              <a
+                class="nav-link nav-icons"
+                id="navbarDropdownMenuLink12"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-abc="true"
+                style="color: #009fe3; margin-top: -2px"
+                (click)="showmodal()"
+                data-target="#languageModal"
+                data-toggle="modal"
+                ><span class="user-img" style="margin-left: 2px">
+                  <img
+                    *ngIf="currentLanguage"
+                    class=""
+                    src="assets/img/flags/{{ currentLanguage }}.png"
+                    style="
+                      height: 20px;
+                      -o-object-fit: cover;
+                      object-fit: cover;
+                      width: 30px;
+                      margin-right: 3px;
+                      border: 1px solid;
+                      border-color: #272b41;
+                    "
+                    alt="Richard Wilson"
+                  /> </span
+              ></a>
+              <ul
+                id="languages_list"
+                class="dropdown-menu dropdown-menu-right noti-dropdown"
+                [ngStyle]="{
+                  display: showlangdropdown === true ? 'block' : 'none'
+                }"
+              >
+                <li>
+                  <a class="dropdown-item" style="cursor: pointer">
+                    <span class="user-img" style="margin-left: 2px">
+                      <img
+                        class=""
+                        src="assets/img/langs/france.png"
+                        style="
+                          height: 20px;
+                          -o-object-fit: cover;
+                          object-fit: cover;
+                          width: 20px;
+                        "
+                        alt="Richard Wilson"
+                      /> </span
+                    >FR</a
+                  >
+                  <a class="dropdown-item" style="cursor: pointer">
+                    <span class="user-img" style="margin-left: 2px">
+                      <img
+                        class=""
+                        src="assets/img/langs/ger.png"
+                        style="
+                          height: 20px;
+                          -o-object-fit: cover;
+                          object-fit: cover;
+                          width: 20px;
+                        "
+                        alt="Richard Wilson"
+                      /> </span
+                    >DE</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <span class="vl"></span>
+            <div class="dropdown btn-group" *ngIf="auth">
+              <!-- <a
+                class="nav-link nav-icons"
+                aria-haspopup="true"
+                aria-expanded="false"
+                (click)="changeshowme()"
+                data-toggle="dropdown"
+                data-abc="true"
+                ><i class="fas fa fa-bell fa-sm"></i
+              ></a>-->
+              <ul
+                id="list_notifications"
+                class="dropdown-menu dropdown-menu-right notification-dropdown"
+                [ngStyle]="{
+                  display: showme === true ? 'block' : 'none'
+                }"
+              >
+                <li>
+                  <div class="notification-list">
+                    <div class="list-group" style="width: 250px">
+                      <a href="javascript:void(0)">
+                        <div class="media">
+                          <span class="avatar avatar-sm">
+                            <img
+                              class="avatar-img rounded-circle"
+                              alt="User Image"
+                              src="assets/img/doctors/doctor-thumb-02.jpg"
+                            />
+                          </span>
+                          <div class="media-body">
+                            <p class="noti-details">
+                              <span class="noti-title">Dr. Ruby Perrin</span>
+                              Schedule
+                              <span class="noti-title">her appointment</span>
+                            </p>
+                            <p class="noti-time">
+                              <span class="notification-time">4 mins ago</span>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a href="javascript:void(0)">
+                        <div class="media">
+                          <span class="avatar avatar-sm">
+                            <img
+                              class="avatar-img rounded-circle"
+                              alt="User Image"
+                              src="assets/img/doctors/doctor-thumb-02.jpg"
+                            />
+                          </span>
+                          <div class="media-body">
+                            <p class="noti-details">
+                              <span class="noti-title">Dr. Ruby Perrin</span>
+                              Schedule
+                              <span class="noti-title">her appointment</span>
+                            </p>
+                            <p class="noti-time">
+                              <span class="notification-time">4 mins ago</span>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                      <a href="javascript:void(0)">
+                        <div class="media">
+                          <span class="avatar avatar-sm">
+                            <img
+                              class="avatar-img rounded-circle"
+                              alt="User Image"
+                              src="assets/img/doctors/doctor-thumb-02.jpg"
+                            />
+                          </span>
+                          <div class="media-body">
+                            <p class="noti-details">
+                              <span class="noti-title">Dr. Ruby Perrin</span>
+                              Schedule
+                              <span class="noti-title">her appointment</span>
+                            </p>
+                            <p class="noti-time">
+                              <span class="notification-time">4 mins ago</span>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="dropdown btn-group" *ngIf="auth">
+              <a
+                class="nav-link nav-icons input-group-append"
+                (click)="showprofile()"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-abc="true"
+                ><span class="avatar avatar-sm">
+                  <img
+                    class="avatar-img rounded-circle"
+                    alt="tanduu"
+                    width="35px"
+                    width="35px"
+                    style="width: 35px; height: 35px"
+                    src="assets/img/logo3n.png"
+                  /> </span
+              ></a>
+              <ul
+                id="profile_menu"
+                class="dropdown-menu dropdown-menu-right notification-dropdown"
+                [ngStyle]="{
+                  display: showprofiledropdown === true ? 'block' : 'none'
+                }"
+              >
+                <li>
+                  <div class="user-header">
+                    <div class="avatar avatar-sm">
+                      <img
+                      src="assets/img/logo3n.png"
+                        alt="User Image"
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <div class="user-text">
+                      <h6>{{ infos.first_name }} {{ infos.last_name }}</h6>
+                    </div>
+                  </div>
+                  <a
+                    class="dropdown-item"
+                    (click)="gotodashbard()"
+                    style="cursor: pointer"
+                    >{{
+                      "header_section_plateform.header_section_plateform_9"
+                        | translate
+                    }}</a
+                  >
+                  <a
+                    class="dropdown-item"
+                    *ngIf="showprofsets"
+                    (click)="gotoprofilesetting()"
+                    style="cursor: pointer"
+                    >{{
+                      "header_section_plateform.header_section_plateform_10"
+                        | translate
+                    }}</a
+                  >
+
+                  <a
+                    class="dropdown-item"
+                    (click)="logout()"
+                    style="cursor: pointer"
+                    >{{
+                      "header_section_plateform.header_section_plateform_11"
+                        | translate
+                    }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <span class="vl"></span>
+            <a
+              class="nav-link header-login white-bg text-center nav-icons input-group-append"
+              id="navbarDropdownMenuLink1"
+              aria-haspopup="true"
+              *ngIf="!auth"
+              aria-expanded="false"
+              (click)="gotologins()"
+              [routerLink]="['/login-page']"
+              style="color: #009fe3 !important"
+              routerLinkActive="router-link-active"
+              data-abc="true"
+              ><i class="fas fa fa-sign-in-alt fa-sm"> </i>
+              {{
+                "header_section_plateform.header_section_plateform_2"
+                  | translate
+              }}</a
+            >
+            <a
+              class="nav-link header-login white-bg text-center nav-icons"
+              id="navbarDropdownMenuLink1"
+              aria-haspopup="true"
+              *ngIf="!auth"
+              (click)="gotologins()"
+              style="color: #009fe3 !important"
+              aria-expanded="false"
+              [routerLink]="['/choose_register']"
+              routerLinkActive="router-link-active"
+              data-abc="true"
+              ><i class="fas fa fa-user-plus fa-sm"> </i>
+              {{
+                "header_section_plateform.header_section_plateform_3"
+                  | translate
+              }}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>

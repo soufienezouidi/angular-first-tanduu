@@ -1,0 +1,38 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+
+    <div class="page-header" *ngIf="userConnected">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Shop</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/dashboard'">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Shop</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="text-right">
+              <button class="btnadd btn-primary" type="submit">
+                <i class="fas fa-plus-circle"></i>
+                bjj
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <strong>{{
+              "profile_page_crm.profile_page_crm_74" | translate
+            }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

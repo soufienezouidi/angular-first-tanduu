@@ -1,0 +1,77 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Translation</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/admin/'">Tanduu</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:(0);">Translate</a></li>
+                        <li class="breadcrumb-item active">CRM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body custom-edit-service">                        
+                        <div class="row mb-5">
+                            <div class="col">
+                                <ul class="nav nav-tabs nav-tabs-solid">
+                                    <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="'/admin/translate'" >CRM & Plateform</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" [routerLink]="'/admin/translate/crm'">CRM</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" [routerLink]="'/admin/translate/plateform'">Plateform</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-primary btn-sm" [routerLink]="'/admin/add-blog'"><i class="fas fa-plus mr-1"></i> Add new text</a>
+                            </div>
+                        </div> 
+                
+                    <!-- Texts Table -->
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>English Texts</th>
+                                <th>Frensh Texts</th>
+                                <th>Deutsch Texts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John</td>
+                                <td>Doe</td>
+                                <td>john@example.com</td>
+                            </tr>
+                            <tr>
+                                <td>Mary</td>
+                                <td>Moe</td>
+                                <td>mary@example.com</td>
+                            </tr>
+                            <tr>
+                                <td>July</td>
+                                <td>Dooley</td>
+                                <td>july@example.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>			
+        </div>
+        
+    </div>			
+</div>
+<!-- /Page Wrapper -->

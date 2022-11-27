@@ -1,0 +1,559 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper" *ngIf="currentrequest">
+  <div class="content container-fluid">
+    <div class="row">
+      <div class="col-md-3 col-lg-3" *ngIf="requester">
+        <!-- Booking Summary -->
+        <div class="card booking-card">
+          <div class="card-header">
+            <h4 class="card-title">Pending Company</h4>
+          </div>
+          <div class="card-body">
+            <!-- Booking Doctor Info -->
+            <div class="booking-doc-info">
+              <a
+                [routerLink]="'/patients/doctor-profile'"
+                class="booking-doc-img"
+              >
+                <img
+                  alt="User Image"
+                  src="https://api.aroundorder.com:1337/api/user/{{
+                    requester.userId
+                  }}/profilepic.png"
+                />
+              </a>
+              <div class="booking-info">
+                <h4>
+                  <a>{{ requester.company_name }}</a>
+                </h4>
+
+                <div class="clinic-details">
+                  <p class="doc-location"></p>
+                </div>
+              </div>
+            </div>
+            <!-- Booking Doctor Info -->
+
+            <div class="booking-summary">
+              <div class="booking-item-wrap">
+                <ul class="booking-date">
+                  <li>
+                    <p class="doc-location">
+                      <i class="fas fa-map-marker-alt"></i>
+                      {{ requester.city }},{{ requester.state }}.
+                      {{ requester.country }}
+                    </p>
+                  </li>
+                </ul>
+                <ul class="booking-date" *ngIf="showapproveform">
+                  <ng-multiselect-dropdown
+                    [placeholder]="'add services to user'"
+                    [settings]="dropdownSettings"
+                    [data]="allservicesindatabase"
+                    [(ngModel)]="selectedItems"
+                    (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)"
+                  >
+                  </ng-multiselect-dropdown>
+                </ul>
+                <ul class="booking-fee">
+                  <li>
+                    <a
+                      class="btn bg-success-light"
+                      style="max-width: 50%"
+                      (click)="approveuserrequest()"
+                      *ngIf="showapproveform && selectedItems.length > 0"
+                      ><i class="fa fa-check"></i> Approve request</a
+                    >
+                    <a
+                      class="btn bg-danger-light"
+                      style="max-width: 50%"
+                      (click)="refuserequest()"
+                      ><i class="fa fa-times"></i> decline request</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Booking Summary -->
+      </div>
+
+      <div class="col-md-9 col-lg-9" style="margin-top: 20px">
+        <div class="card">
+          <div class="card-body">
+            <!-- Checkout Form -->
+            <form>
+              <!-- Personal Information -->
+              <div class="form-group row" *ngIf="suggestedcategory">
+                <label class="col-form-label col-md-2">
+                  category
+                  <i
+                    class="fas fa-check"
+                    style="color: green"
+                    *ngIf="categoryapproved"
+                  ></i
+                ></label>
+                <div class="col-md-5" *ngIf="!showlistexistcategory">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="suggestedcategory.name"
+                    disabled
+                  />
+                </div>
+                <div class="col-md-5" *ngIf="showlistexistcategory">
+                  <div class="form-group">
+                    <select
+                      class="form-control"
+                      name="category"
+                      required=""
+                      [(ngModel)]="categoryselected"
+                      (change)="onChange($event.target.value)"
+                    >
+                      <option *ngFor="let item of categs" value="{{ item.id }}">
+                        {{ item.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <a
+                    class="btn bg-success-light"
+                    style="max-width: 50%"
+                    (click)="approvecateg(edittemplate)"
+                    ><i class="fa fa-check"></i> Approve
+                  </a>
+
+                  <a
+                    class="btn bg-info-light"
+                    *ngIf="!existingcategory"
+                    (click)="switchcategory()"
+                    ><i class="fa fa-pencil"></i>
+                    replace by existing
+                  </a>
+                  <a
+                    class="btn bg-info-light"
+                    *ngIf="existingcategory && !showlistexistcategory"
+                    (click)="changecategory()"
+                    ><i class="fa fa-pencil"></i>
+                    change category
+                  </a>
+                </div>
+              </div>
+              <div class="card" *ngIf="existingcategory">
+                <div class="card-body">
+                  <div class="doctor-widget">
+                    <div class="doc-info-left">
+                      <div class="doctor-img">
+                        <img
+                          src="https://api.aroundorder.com:1337/categories/{{
+                            suggestedcategory.id
+                          }}.png"
+                          class="img-fluid"
+                          style="height: 119px; width: 360px"
+                          alt="User Image"
+                        />
+                      </div>
+                      <div class="doc-info-cont">
+                        <a class="doc-name">{{
+                          suggestedcategory.languages.name_en
+                        }}</a>
+                        <br />
+                        <a class="doc-name">{{
+                          suggestedcategory.languages.name_fr
+                        }}</a
+                        ><br />
+                        <a class="doc-name">{{
+                          suggestedcategory.languages.name_de
+                        }}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Personal Information -->
+            </form>
+            <form>
+              <!-- sub -->
+              <div class="form-group row" *ngIf="suggestedsubcategory">
+                <label class="col-form-label col-md-2"
+                  >Subcategory
+                  <i
+                    class="fas fa-check"
+                    style="color: green"
+                    *ngIf="subcategoryapproved"
+                  ></i
+                ></label>
+                <div class="col-md-5" *ngIf="!showlistexistsubcategory">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="suggestedsubcategory.name"
+                    disabled
+                  />
+                </div>
+                <div class="col-md-5" *ngIf="showlistexistsubcategory">
+                  <div class="form-group">
+                    <select
+                      class="form-control"
+                      name="category"
+                      required=""
+                      (change)="onChangesub($event.target.value)"
+                      [(ngModel)]="subcategoryselected.name"
+                    >
+                      <option
+                        *ngFor="let item of listsubcategories"
+                        value="{{ item.id }}"
+                      >
+                        {{ item.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <a
+                    class="btn bg-success-light"
+                    style="max-width: 50%"
+                    (click)="approvesubcateg(edit2template)"
+                    *ngIf="categoryapproved"
+                    ><i class="fa fa-check"></i> Approve
+                  </a>
+
+                  <a
+                    class="btn bg-info-light"
+                    *ngIf="categoryapproved && listsubcategories.length > 0"
+                    (click)="switchsubcategory()"
+                    ><i class="fa fa-pencil"></i>
+                    replace by existing
+                  </a>
+                </div>
+              </div>
+              <div class="card" *ngIf="existingsubcategory">
+                <div class="card-body">
+                  <div class="doctor-widget">
+                    <div class="doc-info-left">
+                      <div class="doctor-img">
+                        <img
+                          src="https://api.aroundorder.com:1337/sub_categories/{{
+                            suggestedsubcategory.id
+                          }}.png"
+                          class="img-fluid"
+                          style="height: 119px; width: 360px"
+                          alt="User Image"
+                        />
+                      </div>
+                      <div class="doc-info-cont" *ngIf="suggestedsubcategory">
+                        <a class="doc-name">{{
+                          suggestedsubcategory.languages.name_en
+                        }}</a>
+                        <br />
+                        <a class="doc-name">{{
+                          suggestedsubcategory.languages.name_fr
+                        }}</a
+                        ><br />
+                        <a class="doc-name">{{
+                          suggestedsubcategory.languages.name_de
+                        }}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Personal Information -->
+            </form>
+            <div *ngIf="allservicessuggested.length > 0">
+              <h4 class="card-title">Services</h4>
+              <div
+                class="form-group row"
+                *ngFor="let item of allservicessuggested; let index = index"
+              >
+                <label class="col-form-label col-md-2"
+                  >Service {{ index + 1 }}
+                  <i
+                    class="fas fa-check"
+                    style="color: green"
+                    *ngIf="allservicessuggested[index].approved"
+                  ></i
+                ></label>
+                <div class="col-md-5" *ngIf="!showlistexistservices">
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">en</div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="allservicessuggested[index].name_en"
+                      id="inlineFormInputGroup"
+                    />
+                  </div>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">FR</div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="allservicessuggested[index].name_fr"
+                      id="inlineFormInputGroup"
+                    />
+                  </div>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">de</div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inlineFormInputGroup"
+                      [(ngModel)]="allservicessuggested[index].name_de"
+                    />
+                  </div>
+                  <hr style="border: 2px solid" />
+                </div>
+
+                <div class="col-md-4">
+                  <a
+                    class="btn bg-success-light"
+                    style="max-width: 50%"
+                    *ngIf="subcategoryapproved"
+                    (click)="approveservice(item, index)"
+                    ><i class="fa fa-check"></i> Approve
+                  </a>
+
+                  <a
+                    class="btn bg-danger-light"
+                    *ngIf="subcategoryapproved"
+                    (click)="rejectservice(item, index)"
+                    ><i class="fa fa-times"></i>
+                    reject
+                  </a>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-success si_accept_cancel"
+              *ngIf="finalservicesforuser.length > 0"
+              (click)="savechanges()"
+            >
+              save changes
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger si_accept_cancel"
+              (click)="reset()"
+            >
+              reset
+            </button>
+            <!-- /Checkout Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /Page Wrapper -->
+<ng-template #edittemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Category</h4>
+
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label> Name francais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speciality"
+              [(ngModel)]="categfrname"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name englais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speciazeality"
+              [(ngModel)]="categengname"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name Allmand</label>
+            <input type="text" class="form-control" [(ngModel)]="categdename" />
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="addcategory()"
+      >
+        Add new category
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- /Page Wrapper -->
+<ng-template #edit2template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Subcategory</h4>
+
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label> Name francais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="specialiqsdqsdty"
+              [(ngModel)]="subnamefr"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name englais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="speciazeality"
+              [(ngModel)]="subnameeng"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name Allmand</label>
+            <input type="text" class="form-control" [(ngModel)]="subnamede" />
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="addnewsubcategory()"
+      >
+        Add subcateogry
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #edit3template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Service</h4>
+
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label> Name francais</label>
+            <input type="text" class="form-control" name="speciality" />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name englais</label>
+            <input type="text" class="form-control" name="speciazeality" />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name Allmand</label>
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+      >
+        Add subcateogry
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>

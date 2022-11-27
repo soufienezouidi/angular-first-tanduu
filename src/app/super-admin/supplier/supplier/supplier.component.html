@@ -1,0 +1,104 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-7 col-auto">
+          <h3 class="page-title">Royality partner</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/'">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Royality partenr</li>
+          </ul>
+        </div>
+        <div class="col-sm-5 col">
+          <a
+            [routerLink]="'/tanduu-admin/add-branch'"
+            class="btn btn-primary float-right mt-2"
+            >Add New</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Recent Orders -->
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="datatable table table-hover table-center mb-0">
+                <thead>
+                  <tr>
+                    <th>Country</th>
+                    <th>Name</th>
+
+                    <th>Email</th>
+                    <th>Provision</th>
+                    <th>company</th>
+                    <th>Liscense expiration date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of royaltypartners">
+                    <td>
+                      <h2 class="table-avatar">
+                        <span class="avatar avatar-sm mr-2"
+                          ><img
+                            class="avatar-img"
+                            src="assets/img/flags/{{ item.country_code }}.png"
+                            alt="product image"
+                        /></span>
+                        {{ item.coutryname }}
+                      </h2>
+                    </td>
+                    <td>{{ item.coutryname }}</td>
+
+                    <td>tnd{{ item.coutryname }}@tanduu.com</td>
+                    <td>20%</td>
+                    <td>Tanduu</td>
+                    <td>27-05-2022</td>
+                    <td>
+                      <div class="actions">
+                        <a
+                          class="btn btn-sm bg-success-light"
+                          [routerLink]="'edit-supplier'"
+                        >
+                          <i class="fe fe-pencil"></i> Edit
+                        </a>
+                        <a
+                          class="btn btn-sm bg-primary-light"
+                          (click)="facturation(item.provision)"
+                        >
+                          <i class="fas fa-file-invoice-dollar"></i> facturation
+                        </a>
+                        <a
+                          class="btn btn-sm bg-warning-light"
+                          *ngIf="item.is_active"
+                        >
+                          <i class="fe fe-play"></i> Activate
+                        </a>
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-sm bg-danger-light"
+                          *ngIf="!item.is_active"
+                        >
+                          <i class="fe fe-trash"></i> Delete
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- /Recent Orders -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->

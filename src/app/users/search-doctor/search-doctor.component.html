@@ -1,0 +1,440 @@
+<!-- Breadcrumb -->
+			<!-- <div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-8 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a [routerLink]="''">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Search</li>
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">2245 matches found for : Dentist In Bangalore</h2>
+						</div>
+						<div class="col-md-4 col-12 d-md-block d-none">
+							<div class="sort-by">
+								
+								<span class="sort-title">Sort by</span>
+								<span class="sortby-fliter">
+									<ng-select2  width="100%">
+										<option>Select</option>
+											<option class="sorting">Rating</option>
+											<option class="sorting">Popular</option>
+											<option class="sorting">Latest</option>
+											<option class="sorting">Free</option>
+									</ng-select2>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+				
+						<div class="col-md-12 col-lg-12 col-xl-12"> <div id="map" class="map-listing" *ngIf="showmap" style="  max-height: 271px;">
+							<agm-map [zoom]="4">
+							  <div *ngFor="let item of filtred">
+								<agm-marker
+								  *ngIf="item.destination"
+								  [latitude]="item.destination.lat"
+								  [longitude]="item.destination.lng"
+								>
+								  <agm-info-window
+									#window
+									class="map-listing"
+									[isOpen]="true"
+									style="width: 100%"
+									class="gm-style-iw gm-style-iw-c"
+								  >
+									<!--Card image-->
+									<div class="doc-info-right">
+									  <div class="clini-infos">
+										<ul>
+										  <!--  <li>
+										  <span style="align-self: center !important"
+											><img
+											  class="rounded-circle"
+											  src="assets/img/profile.png"
+											  width="31"
+											  style="margin-bottom: 8"
+										  /></span>
+										</li>-->
+										  <li>
+											<div class="media">
+											  <div class="media-img-wrap">
+												<div class="avatar avatar-online">
+												  <img
+													src="https://api.aroundorder.com:1337/api/user/{{
+													  item.userId
+													}}/{{ item.id }}/logo.png"
+													alt="User Image"
+													class="avatar-img rounded-circle"
+												  />
+												</div>
+											  </div>
+											  <div class="media-body" style="margin-left: 6px">
+												<div
+												  class="user-name"
+												  (click)="gotoprofile(item)"
+												  href="javascript:void(0)"
+												  style="cursor: pointer"
+												>
+												  {{ item.company_name }}
+												</div>
+												<p class="speciality">
+												  {{ item.main_category }}
+												</p>
+											  </div>
+											</div>
+										  </li>
+				  
+										  <li>
+											<i class="fas fa-route"></i>
+											{{ item.distance }} km away
+										  </li>
+										</ul>
+									  </div>
+									</div>
+								  </agm-info-window>
+								</agm-marker>
+							  </div>
+							</agm-map>
+						  </div></div>
+						  <div class="col-md-12 col-lg-2 col-xl-2 theiaStickySidebar">
+						
+							<!-- Search Filter -->
+							<div class="card search-filter" hidden>
+								<div class="card-header">
+									<h4 class="card-title mb-0">Search Filter</h4>
+								</div>
+								<div class="card-body">
+								<div class="filter-widget">
+									<div class="cal-icon">
+										<input type="text" class="form-control" name="dp"  ngbDatepicker #d="ngbDatepicker" placeholder="Select Date">
+									</div>			
+								</div>
+								
+								
+									<div class="btn-search">
+										<button type="button" class="btn btn-block" >Search</button>
+									</div>	
+								</div>
+							</div>
+						
+							<!-- /Search Filter -->
+							
+						</div>
+						<div class="cold-md-12 col-lg-12 col-xl-12" *ngIf="nbrpartners == 0">
+							<div class="call-wrapper" >
+								<div class="call-main-row">
+								  <div class="call-main-wrapper">
+									<div class="call-view">
+									  <div class="call-window" style="background: none; height: 82%">
+										<!-- Call Contents -->
+										<div class="call-contents">
+										  <div class="call-content-wrap">
+											<div class="user-video">
+											  <img src="assets/img/no-resf.png" alt="User Image" st />
+											</div>
+										  </div>
+										</div>
+										<div class="row">
+										  <div
+										  style="cursor: pointer;"
+											class="col-md-6"
+							
+										  >
+											<div class="set-category">
+											  <div class="d-flex align-items-center">
+												<div class="img-holder">
+												  <a    style="cursor: pointer;"
+													><img src="assets/img/icons/icons.png" alt=""
+												  /></a>
+												</div>
+												<div class="info-holder">
+												  <h5 style="color: white">
+													<br />
+													{{
+													  "search_result_page_plateform.search_result_page_plateform_11"
+														| translate
+													}}
+													<br />
+													<p style="color: #1860ca">
+													  {{
+														"search_result_page_plateform.search_result_page_plateform_13"
+														  | translate
+													  }}
+													</p>
+												  </h5>
+												</div>
+											  </div>
+											</div>
+										  </div>
+										  <div
+											class="col-md-6"
+											[routerLink]="['/pre-register_partner']"
+											style="cursor: pointer;"
+											routerLinkActive="router-link-active"
+										  >
+											<div class="set-category"    style="cursor: pointer;">
+											  <div class="d-flex align-items-center">
+												<div class="img-holder">
+												  <a href="javascript:void(0);"
+													><img
+													  src="assets/img/icons/professional-services.png"
+													  alt=""
+												  /></a>
+												</div>
+												<div class="info-holder">
+												  <h5 style="color: white ; cursor: pointer;">
+													<br />
+													{{
+													  "search_result_page_plateform.search_result_page_plateform_12"
+														| translate
+													}}
+													<br />
+													<p>
+													  {{
+														"search_result_page_plateform.search_result_page_plateform_13"
+														  | translate
+													  }}
+													</p>
+												  </h5>
+												</div>
+											  </div>
+											</div>
+										  </div>
+										</div>
+					  
+										<!-- Call Contents -->
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+						</div>
+						
+						<div class="col-md-12 col-lg-12 col-xl-12" *ngIf="isMobile"><div class="row" >
+							<div class="col-md-12 col-auto"  >
+								<div class="view-icons" style="margin-bottom: 15px;margin-top: 10px;">
+								  <a
+									(click)="showmapview()" style="width: fit-content; font-size: 14px;"
+									id="list-view"
+									class="list-view active"
+									><i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i
+								  >show results in map</a>
+							
+								</div>
+							  </div>
+							<div
+							  class="col-sm-6 col-md-6 col-xl-6"
+							  *ngFor="let item of results1"
+							  style="margin-bottom: 10px"
+							>
+							  <div class="profile-widget">
+								<div class="pro-content">
+								  <div class="user-name text-left">
+									<h2
+									  class="text-left"
+									  style="cursor: pointer ; font-size: 1.1rem;"
+									  (click)="gotoprofile(item)"
+									>
+									  {{ item.company_name }}
+									</h2>
+								  </div>
+								  <h4 class="speciality text-left" style="font-size: 0.8rem;">
+									{{ item.category.languages[serviceLang2] }}
+								  </h4>
+				
+								  <p class="text-left">
+									<i class="fas fa-map-marker-alt"></i> {{ item.city }} .
+									{{ item.state }}, {{ item.country }}
+								  </p>
+								  <div class="media">
+									<div class="media-img-wrap">
+									  <div class="avatar" style="width: 100px; height: 100px" (click)="gotoprofile(item)">
+										<img
+										  src="https://api.aroundorder.com:1337/api/user/{{
+											item.userId
+										  }}/{{ item.id }}/logo.png"
+										  alt="User Image"
+										/>
+									  </div>
+									</div>
+									<div class="media-body" style="margin-left: 6px">
+									  <div class="service-list text-center">
+										<ul class="clearfix" style="margin-top: 8px">
+										  <li
+											class="text-left"
+											*ngFor="let hashs of item.services | slice: 0:3"
+											style="
+											  float: left;
+											  margin: 4px 0;
+											  padding-left: 20px;
+											  position: relative;
+											  width: fit-content;
+											  margin-left: 12px;
+											"
+										  >
+											{{ hashs.service.languages[serviceLang2] }}
+										  </li>
+										</ul>
+									  </div>
+									</div>
+								  </div>
+								  <button (click)="gotoprofile(item)" type="button" class="btn btn-info" style="    width: 100%;
+								  margin-top: 10px;">{{
+									"search_result_page_plateform.search_result_page_plateform_2"
+									  | translate
+								  }}</button>
+								</div>
+							  </div>
+							</div>
+						  </div></div>
+						<div class="col-md-8 col-lg-6 col-xl-8" 	*ngIf="!isMobile" 	>
+							<div class="col-md-12 col-auto" *ngIf="nbrpartners > 0" >
+								<div class="view-icons" style="margin-bottom: 15px;margin-top: 10px;">
+								  <a
+									(click)="showmapview()" style="width: fit-content; font-size: 14px;"
+									id="list-view" *ngIf="!notweb"
+									class="list-view active"
+									><i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i
+								  >show results in map</a>
+							
+								</div>
+							  </div>
+							<!-- Doctor Widget -->
+							<div
+							class="blog-card"
+							*ngFor="let item of results1"
+							style="
+							  width: 100%;
+							  max-width: 100% !important;
+							  min-height: 191px;
+							  cursor: pointer;
+							  border: 1px solid lightgrey;
+							  max-height: 222px;
+							"
+						  >
+							<div class="meta" style="max-width: 100% !important">
+							  <div class="photo" style="width: 100%px !important">
+								<div style="height: 95%" (click)="gotoprofile(item)">
+								  <img
+									src="https://api.aroundorder.com:1337/api/user/{{
+									  item.userId
+									}}/{{ item.id }}/logo.png"
+									alt="User Image"
+									style="width: 240px; height: 240px"
+									class=" "
+								  />
+								</div>
+							  </div>
+							</div>
+							<div class="description">
+							  <h1
+								class="text-center"
+								style="cursor: pointer ; font-size: 1.1rem;"
+								(click)="gotoprofile(item)"
+								
+							  >
+								{{ item.company_name }}
+							  </h1>
+							  <h2 class="text-center">
+								{{ item.category.languages[serviceLang2] }}
+							  </h2>
+							  <p>
+								<i class="fas fa-map-marker-alt"></i> {{ item.city }} .
+								{{ item.state }}, {{ item.country }}
+							  </p>
+							  <div class="service-list" style="margin-bottom: 5px !important;">
+								<ul class="clearfix" style="margin-top: 8px">
+								  <h5>
+									<i
+									  class="fas fa-shopping-cart"
+									  style="margin-right: 5px"
+									></i
+									>Services :
+								  </h5>
+								  <li
+									*ngFor="let hashs of item.services"
+									style="
+									  float: left;
+									  margin: 4px 0;
+									  padding-left: 20px;
+									  position: relative;
+									  width: fit-content;
+									  margin-left: 12px;
+									"
+								  >
+									{{ hashs.service.languages[serviceLang2] }}
+								  </li>
+								</ul>
+							  </div>
+							  <div class="post-left" style="margin-top: 10px">
+								<ul>
+								  <li *ngFor="let z of item.hashtags">
+									<i class="fa fa-tags" style="color: #20c0f3"></i
+									>{{ z.value }}
+								  </li>
+								</ul>
+							  </div>
+							  <p
+								class="read-more text-center"
+								style="width: 100%"
+								*ngIf="notweb"
+							  >
+								<a (click)="gotoprofile(item)">{{
+								  "search_result_page_plateform.search_result_page_plateform_2"
+									| translate
+								}}</a>
+							  </p>
+			  
+							  <p class="read-more" style="width: 100%" *ngIf="!notweb">
+								<a (click)="gotoprofile(item)">{{
+								  "search_result_page_plateform.search_result_page_plateform_2"
+									| translate
+								}}</a>
+							  </p>
+							</div>
+						  </div>					
+
+							<div class="load-more text-center" *ngIf="results1.length !== 0">
+								<a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>	
+							</div>	
+						</div>
+						<div class="col-md-12 col-lg-2 col-xl-2 theiaStickySidebar">
+						
+							<!-- Search Filter -->
+							<div class="card search-filter" hidden>
+								<div class="card-header">
+									<h4 class="card-title mb-0">Search Filter</h4>
+								</div>
+								<div class="card-body">
+								<div class="filter-widget">
+									<div class="cal-icon">
+										<input type="text" class="form-control" name="dp"  ngbDatepicker #d="ngbDatepicker" placeholder="Select Date">
+									</div>			
+								</div>
+								
+								
+									<div class="btn-search">
+										<button type="button" class="btn btn-block" >Search</button>
+									</div>	
+								</div>
+							</div>
+						
+							<!-- /Search Filter -->
+							
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->

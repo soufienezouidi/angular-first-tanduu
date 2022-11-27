@@ -1,0 +1,240 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Edit Blog</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/'">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item"><a href="javascript:(0);">Pages</a></li>
+            <li class="breadcrumb-item active">Edit Blog</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="card services-card">
+      <div class="card-body">
+        <div class="form-group">
+          <label>Tags</label>
+          <div style="margin: 30px">
+            <div class="form-group">
+              <label>enter tags for search purposes </label>
+              <tag-input [(ngModel)]="items"></tag-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="submit-section" style="margin-bottom: 10px">
+        <button
+          class="btn btn-primary submit-btn"
+          (click)="updatetags()"
+          name="form_submit"
+          value="submit"
+        >
+          edit tags
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body custom-edit-service">
+            <div class="row mb-5">
+              <div class="col">
+                <ul class="nav nav-tabs nav-tabs-solid">
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'/admin/blog'"
+                      >Acitive Blog</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'/admin/pending-blog'"
+                      >Pending Blog</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="col-auto">
+                <a
+                  class="btn btn-primary btn-sm"
+                  [routerLink]="'/admin/add-blog'"
+                  ><i class="fas fa-plus mr-1"></i> Add Blog</a
+                >
+              </div>
+            </div>
+
+            <!-- Add Blog -->
+            <form
+              method="post"
+              enctype="multipart/form-data"
+              autocomplete="off"
+              id="update_service"
+            >
+              <input
+                type="hidden"
+                name="csrf_token_name"
+                value="0146f123a4c7ae94253b39bca6bd5a5e"
+              />
+
+              <div class="service-fields mb-3" *ngIf="blog">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label
+                        >Blog Title <span class="text-danger">*</span></label
+                      >
+                      <input
+                        type="hidden"
+                        name="service_id"
+                        id="service_id"
+                        value="18"
+                      />
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="service_title"
+                        id="service_title"
+                        value="Doccure – Making your clinic painless visit?"
+                        required=""
+                        [(ngModel)]="blog.title"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="service-fields mb-3" *ngIf="blog">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Category <span class="text-danger">*</span></label>
+                      <select
+                        class="form-control"
+                        name="category"
+                        id="category"
+                        required=""
+                        [(ngModel)]="categoryselected"
+                        (change)="onChange($event.target.value)"
+                      >
+                        <option value="0" selected="selected">
+                          Select a category
+                        </option>
+                        <option
+                          *ngFor="let item of categories"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label
+                        >Sub Category <span class="text-danger">*</span></label
+                      >
+                      <select
+                        class="form-control"
+                        id="subCategory"
+                        name="subcategory"
+                        [(ngModel)]="subcategoryselected"
+                      >
+                        <option value="0" selected="selected">
+                          Select a sub category
+                        </option>
+                        <option
+                          *ngFor="let item of SubCategories"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="service-fields mb-3" *ngIf="blog">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label
+                        >Descriptions <span class="text-danger">*</span></label
+                      >
+                      <angular-editor
+                        placeholder="'Enter text here...'"
+                        id="description"
+                        [(ngModel)]="blog.description"
+                        [config]="editorConfig"
+                      >
+                      </angular-editor>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="service-fields mb-3" *ngIf="blog">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label
+                        >Introduction <span class="text-danger">*</span></label
+                      >
+                      <textarea
+                        id="about"
+                        [(ngModel)]="blog.introduction"
+                        class="form-control service-desc"
+                        name="about"
+                        style="min-height: 120px !important; max-height: 180px"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="service-fields mb-3">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <label>Blog photo <span class="text-danger">*</span></label>
+                    <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+                    <div>
+                      <img
+                        [src]="url"
+                        *ngIf="url"
+                        style="width: 300px; margin-left: 30%"
+                      />
+                    </div>
+                    <p>
+                      <input
+                        type="file"
+                        name="picture"
+                        (change)="selectFile($event)"
+                      />
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="submit-section">
+                <button
+                  class="btn btn-primary submit-btn"
+                  (click)="updateBlog(blog.id)"
+                  name="form_submit"
+                  value="submit"
+                >
+                  submit edit
+                </button>
+              </div>
+            </form>
+            <!-- /Add Blog -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->

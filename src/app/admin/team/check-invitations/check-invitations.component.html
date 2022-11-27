@@ -1,0 +1,98 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="isLoading">
+            <div class="col-lg-6">
+
+                <!-- Success Card -->
+                <div class="card warning-card">
+                    <div class=" card-body">
+                        <div class="success-cont">
+                            <i class="fa fa-spinner fa-spin"
+                                style="font-size:24px; background-color: white;color: grey; border: white solid;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center" *ngIf="!isLoading">
+            <div class="col-lg-6">
+
+                <!-- Success Card -->
+                <div class="card warning-card" *ngIf="isAccepted ==='already accepted'">
+                    <div class="card-body">
+                        <div class="success-cont">
+                            <i class="fa fa-exclamation"
+                                style="background-color: crimson; border: 1px solid crimson;"></i>
+                            <h3>You already joined {{ invitationSelected.userSender.first_name }}
+                                {{ invitationSelected.userSender.last_name }}'s team.</h3>
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card warning-card" *ngIf="isAccepted ==='already declined'">
+                    <div class="card-body">
+                        <div class="success-cont">
+                            <i class="fa fa-exclamation"
+                                style="background-color: crimson; border: 1px solid crimson;"></i>
+                            <h3>You already declined {{ invitationSelected.userSender.first_name }}
+                                {{ invitationSelected.userSender.last_name }}'s invitation.</h3>
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card success-card" *ngIf="isAccepted ==='accepted'">
+                    <div class="card-body">
+                        <div class="success-cont">
+                            <i class="fas fa-check"></i>
+                            <h3>Congratulations!! You are joined {{ invitationSelected.userSender.first_name }}
+                                {{ invitationSelected.userSender.last_name }}'s team.</h3>
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card success-card" *ngIf="isAccepted ==='declined'">
+                    <div class="card-body">
+                        <div class="success-cont">
+                            <i class="fa fa-trash" style="background-color: crimson; border: 1px solid crimson;"></i>
+                            <h3>The invitation from {{ invitationSelected.userSender.first_name }}
+                                {{ invitationSelected.userSender.last_name }} was rejected.</h3>
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card success-card" *ngIf="isAccepted ==='not found'">
+                    <div class="card-body">
+                        <div class="success-cont">
+                            <i class="fa fa-exclamation"
+                                style="background-color: crimson; border: 1px solid crimson;"></i>
+                            <h3>The invitation that you are looking for not found. Thank you !!</h3>
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card success-card">
+                    <div class="card-body">
+                        <div class="success-cont">
+                            <a [routerLink]="'/admin/team/invitations-received'"
+                                class="btn btn-block btn-sm btn-primary">Back
+                                to received invitations list</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Success Card -->
+
+            </div>
+        </div>
+    </div>
+</div>

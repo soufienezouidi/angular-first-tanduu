@@ -1,0 +1,350 @@
+cd <div class="page-wrapper">
+  <div class="content container-fluid">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Orders Sent</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item active">Orders/sent</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center mb-4">
+              <div class="col-md-6 col">
+              </div>
+              <div class="col-md-6 col-auto">
+                <div class="view-icons ">
+                  <a [routerLink]="'create_order'" class="grid-view"><i class="fa fa-plus-square"></i></a>
+                  <a (click)="GridClick()" id="grid-view" class="grid-view"><i class="fas fa-th-large"></i></a>
+                  <a (click)="tableClick()" id="list-view" class="list-view active"><i class="fas fa-bars"></i></a>
+
+                </div>
+              </div>
+            </div>
+            <div class="separator"></div>
+            <div class="table-responsive" id="table_list">
+              <table class="display" id="cashbook_tb" style="width: 100%">
+                <thead>
+                  <tr>
+                    <th style="">Contact</th>
+                    <th style="">Status</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of list_orders">
+                    <td><strong>Object Address</strong> <i class="fa fa-question-circle question_circle"></i><br />
+                      <strong class="object-name">{{ item.outerCustomer.first_name }}
+                        {{ item.outerCustomer.last_name }}</strong> <span
+                        class="object-name">(ID-000{{ item.outerCustomer.id }})</span> <i
+                        class="far fa-edit fa-icon-size"></i><br />
+                      <span class="full-address">{{ item.outerCustomer.location.street }}
+                        {{ item.outerCustomer.location.street_nb }}{{ item.outerCustomer.location.bloc }}
+                        <span *ngIf="item.outerCustomer.location.appartment">
+                          Appart N°
+                          {{ item.outerCustomer.location.appartment }}
+                        </span></span><br />
+                      <span class="full-address">{{ item.outerCustomer.location.zip_code  }} | state:
+                        {{ item.outerCustomer.location.state }} {{ item.outerCustomer.location.country }}</span>
+                      <div class="separator"></div>
+                      <span *ngIf="item.outerCustomer.phone">
+                        <i class="fa fa-phone fa-icon-size green"></i> <a class="contact"
+                          href="tel:{{item.outerCustomer.phone}}">{{item.outerCustomer.phone}}</a> <input
+                          type="checkbox" [checked]="item.show_phone">
+                        <br />
+                      </span>
+                      <span *ngIf="item.outerCustomer.mobile">
+                        <i class="fa fa-mobile fa-icon-size green"></i> <a class="contact"
+                          href="tel:{{item.outerCustomer.mobile}}">{{item.outerCustomer.mobile}}</a> <input
+                          type="checkbox" [checked]="item.show_mobile">
+                        <br />
+                      </span>
+                      <span *ngIf="item.outerCustomer.email">
+                        <i class="fa fa-envelope fa-icon-size orange"></i> <a class="contact"
+                          href="mailto:{{item.outerCustomer.email}}">{{item.outerCustomer.email}}</a>
+                      </span>
+                      <p class="details-control">See more details <i class="fa fa-angle-double-down fa-icon-size"></i>
+                      </p>
+                    </td>
+                    <td>
+
+                      <div *ngIf="item.status === 'New'">
+                        <span class="sender-receiver">Sent to: <strong>Not accepted yet</strong>
+                          <br>
+                        </span>
+                        <div id="hr" style="border-bottom:1px dotted #CCCCCC;"></div>
+                        <span class="sender-receiver"><span class="sender-receiver" style="font-size: 11px">Order
+                            from: <strong>{{ item.jobberSender.company_name}}</strong>
+                            <img class="sender-receiver" src="assets/img/users/user.png" alt="Soufiene zouidi"
+                              style="border-radius: 10px ; width: 21px ; height: 21px ;"><br>
+                            <br>
+                          </span>
+                        </span>
+                      </div>
+                      <div *ngIf="item.status === 'Accepted'">
+                        <span class="sender-receiver">Sent to: <strong>{{ item.jobberAccepted.company_name}}</strong>
+                          <img class="sender-receiver" src="assets/img/users/user.png" alt="kais lengliz"
+                            style="border-radius: 10px ; width: 21px ; height: 21px ;">
+                          <br>
+                          taken by : <strong>P000-12</strong><br>
+                        </span>
+                        <div id="hr" style="border-bottom:1px dotted #CCCCCC;"></div>
+                        <span class="sender-receiver"><span class="sender-receiver" style="font-size: 11px">Order
+                            from:
+                            <strong>{{ item.jobberSender.company_name}}</strong> ;
+                            <img class="sender-receiver" src="assets/img/users/user.png" alt="Soufiene zouidi"
+                              style="border-radius: 10px ; width: 21px ; height: 21px ;"><br>
+                            <br>
+                            <span class="appointment-details blue-sky"><b>Information on order acceptance</b></span><br>
+                            <span class="red"
+                              style="width:400px;word-wrap:break-word; font-size: 13px;">{{ item.check_order_status}}</span>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        *ngIf="item.status === 'In process' || item.status === 'Paid' || item.status === 'Transfer' || item.status === 'Transfer'">
+                        <span class="sender-receiver">Sent to: <strong>{{ item.jobberAccepted.company_name}}</strong>
+                          <img class="sender-receiver" src="assets/img/users/user.png" alt="kais lengliz"
+                            style="border-radius: 10px ; width: 21px ; height: 21px ;">
+                        </span>
+                        <div id="hr" style="border-bottom:1px dotted #CCCCCC;"></div>
+                        <span class="sender-receiver"><span class="sender-receiver" style="font-size: 11px">Order
+                            from: <strong>{{ item.jobberSender.company_name}}</strong>
+                            <img class="sender-receiver" src="assets/img/users/user.png" alt="Soufiene zouidi"
+                              style="border-radius: 10px ; width: 21px ; height: 21px ;"><br>
+                            <br>
+                          </span>
+                        </span>
+                        <span class="appointment-details orange"><b>Appointment order</b></span><br>
+                        <span class="appointment-details orange">
+                          {{item.appointment_date | date:'d-M-yyyy'}} {{item.appointment_date | date:'h:mm a'}} <i
+                            class="fa fa-calendar fa-icon-size"
+                            (click)="openModalEditAppointment(editAppointmentOrder, item.id, item.appointment_date)"></i><br />
+                        </span>
+                      </div>
+
+                    </td>
+                    <td>
+                      <span class="last-note" *ngIf="item.note.length > 0">
+                        <div *ngFor="let note of item.note; let i=index; let lastcall=last">
+                          <span *ngIf="lastcall" id="lastNote{{item.id}}" style="display: inline;">{{note.note}} <i
+                              class="far fa-edit fa-icon-size" (click)="openUpdateNote(item.id)"></i>
+                            <i class="far fa-plus-square fa-icon-size"
+                              (click)="openModal(addtemplate, item.id)"></i><br /><br />
+                          </span>
+                          <textarea class="form-control form-required" style="display: none;"
+                            (blur)="updateNote(item.id, note.id, $event.target.value)" *ngIf="lastcall"
+                            id="note_update{{item.id}}">{{note.note}}
+                          </textarea>
+                        </div>
+                      </span>
+
+                      <span class="last-note" *ngIf="item.note.length < 1">
+
+                        <span>No notes found <i class="far fa-plus-square fa-icon-size"></i><br /></span>
+
+                      </span>
+
+
+                      <div class="section-sources">Order-ID: <strong> {{ item.reference}}</strong><br />
+                        Created: <strong> {{item.createdAt | date:'d-M-yyyy'}}
+                          {{item.createdAt | date:'h:mm a'}}</strong><br />
+                        Source: <strong *ngIf="item.sourceId"> {{ item.sourceId }}</strong>
+                        <strong *ngIf="!item.sourceId"> No source selected</strong>
+                        <i class="far fa-edit fa-icon-size"
+                          (click)="openModalSources(sourceList, item.id, item.sourceId)"></i>
+                        <i class="fa fa-question-circle question_circle"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="separator"></div>
+            <div id="grid-view-orders" style="display: none">
+              <div class="row">
+                <div class="col-sm-4 col-md-4 col-xl-4" *ngFor="let i of image">
+                  <div class="profile-widget" [style]="{'border-left':'6px solid orange'}">
+                    <div class="pro-content">
+                      <h3 class="title">
+                        <strong>Soufiene Zouidi </strong>
+                        <span class="badge badge-warning badge-sm fa-right" style="color: white">In process</span>
+                      </h3>
+                      <p class="speciality">
+                        Nordallee 25a Appart. N° 25<br />
+                        85356 | state: München-Flughafen Germany<br />
+                        <i class="fa fa-mobile green"></i><span class="contact fa-right">+21640084210</span> <input
+                          type="checkbox" class="fa-right" checked> approved!! <br />
+                        <i class="fa fa-phone green"></i><span class="contact fa-right">+21620074851</span> <input
+                          type="checkbox" class="fa-right"> <br />
+                        <i class="fa fa-envelope  orange"></i><span
+                          class="contact fa-right">soufienezouidi@gmail.com</span><br /><br />
+                      </p>
+
+                      <ul class="available-info">
+                        <li>
+                          <span [style]="{'display':'block'}">Sent to: <strong>Kais Company</strong>
+                            <span style="display:block; font-size:12px">Order from: <strong>soufiene
+                                zouidi</strong></span>
+                            <i class="fa fa-user fa-custom-list"></i>
+                            <i class="fa fa-chart-bar fa-custom-list"></i>
+                            <i class="fa fa-comments fa-custom-list"></i>
+                            <i class="fa fa-clone fa-custom-list"></i>
+                          </span>
+                        </li>
+                        <li>
+                          <i class="fas fa-info-circle"></i> ID-1000{{i}} <i
+                            class="fa fa-clone fa-right font-weight-bold"></i>
+                        </li>
+                        <li>
+                          <i class="fas fa-calendar"></i> 20.11.2020 10:12
+                        </li>
+                        <li>
+                          <i class="far fa-money-bill-alt"></i> <strong>0 €</strong>
+                        </li>
+                      </ul>
+                      <div class="row row-sm">
+                        <div class="col-6">
+                          <a [routerLink]="'view-order'" [queryParams]="{order_id: 1}" class="btn book-btn">View <i
+                              class="fas fa-eye"></i></a>
+                        </div>
+                        <div class="col-6">
+                          <a [routerLink]="'edit-order'" [queryParams]="{order_id: 1}" class="btn book-btn">Edit <i
+                              class="fas fa-edit"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMPLATE TO ADD NEW NOTE-->
+    <ng-template #addtemplate>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Note</h4>
+        <button type="button" class="close" (click)="closeNote()" data-dismiss="modal" aria-label="Close"
+          (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <form>
+          <div class="row form-row">
+            <div class="col-12">
+              <div class="form-group">
+                <textarea type="text" id="newNoteText"
+                  [class]="noteFailed ? 'form-control is-invalid' : 'form-control form-required' "
+                  placeholder="new note"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div style="margin-top:25px">
+          <button type="button" class="btn btn-primary btn-sm" id="btn-yes" (click)="addNewNote()">Add note</button>
+          <button type="button" class="btn btn-danger btn-sm" (click)="closeNote()">Cancel</button>
+        </div>
+      </div>
+    </ng-template>
+    <!-- END TEMPLATE TO ADD NEW NOTE-->
+
+    <!-- TEMPLATE TO SHOW SOURCE -->
+    <ng-template #sourceList>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Source list <i class="fa fa-plus-square fa-icon-size"
+            (click)="openNewSource()"></i></h4>
+        <button type="button" class="close" (click)="closeSourceList()" data-dismiss="modal" aria-label="Close"
+          (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <div *ngIf="sources.length > 0">
+              <span *ngFor="let source of sources; let i = index ">
+                <span class="block-list" *ngIf="source.is_deleted ===0">
+                  <input type="checkbox" [checked]="sourceSelected === source.name" value="{{source.name}}"
+                    (change)="associateSourceToOrder($event.target)">
+                  {{source.name}} <i *ngIf="sourceSelected !== source.name" class="fa fa-trash fa-icon-size"
+                    (click)="openAlertdeleteSource(i,source.id)"></i><br />
+                  <div class="alert alert-danger alert-dismissible fade show" *ngIf="sourceSelected !== source.name"
+                    id="{{'alertMessage_'+i+'_'+source.id}}" role="alert" style="display: none;">
+                    <strong></strong>Are you sure?
+                    <p>
+                      <u class="red fa-icon-size" style="cursor: pointer" (click)="deleteSource(i,source.id)">yes,
+                        delete</u>
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                      (click)="closeAlertdeleteSource(i,source.id)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </span>
+
+              </span>
+            </div>
+            <div *ngIf="sources.length < 1 ">
+              No sources found
+            </div>
+            <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate *ngIf="showFormAddSource">
+              <div class="form-group">
+                <input type="text" name="new_source"
+                  [ngClass]="f.submitted && new_source.invalid ? 'form-control is-invalid' : 'form-control form-required'"
+                  id="new_source" placeholder="new source" ngModel required #new_source="ngModel" />
+                <div class="red" role="alert" *ngIf="f.submitted && new_source.invalid">Source
+                  is required <i class="fa fa-exclamation-circle"></i>
+                </div>
+                <div class="red" role="alert" *ngIf="f.submitted && sourceFailed">Source was already exist <i
+                    class="fa fa-exclamation-circle"></i>
+                </div>
+              </div>
+              <div class="text-right">
+                <button class="btn btn-primary btn-sm btn-block">save source</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <!-- END TEMPLATE TO SHOW SOURCE-->
+
+    <!-- TEMPLATE TO ADD NEW SOURCE -->
+    <ng-template #editAppointmentOrder>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Edit appointment</h4>
+        <button type="button" class="close" (click)="closeSourceList()" data-dismiss="modal" aria-label="Close"
+          (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmitAppointment(f)" #f="ngForm" novalidate>
+          <div class="form-group">
+            <input type="datetime-local" name="new_app" min="{{today | date}}"
+              [ngClass]="f.submitted && new_app.invalid ? 'form-control is-invalid' : 'form-control form-required'"
+              id="app" placeholder="appointment" ngModel required #new_app="ngModel" />
+            <div class="red" role="alert" *ngIf="f.submitted && new_app.invalid">appointment field
+              is required <i class="fa fa-exclamation-circle"></i>
+            </div>
+
+          </div>
+          <div class="text-right">
+            <button class="btn btn-primary btn-sm btn-block">save</button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+    <!-- END TEMPLATE TO ADD NEW SOURCE-->
+
+  </div>

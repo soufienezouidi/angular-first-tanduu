@@ -1,0 +1,755 @@
+<section class="section section-features">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="section-header" *ngIf="textTilte">
+          <h2 class="mt-2" *ngIf="categorysel && textTilte"></h2>
+          <span
+            style="text-align: justify"
+            [innerHTML]="textTilte[servicedesc]"
+            *ngIf="!isMobile"
+          ></span>
+          <div
+            class="container-description"
+            style="text-align: justify"
+            [class.show-description]="textTilte.visible"
+            [innerHTML]="textTilte[servicedesc]"
+            *ngIf="isMobile"
+          ></div>
+          <span
+            *ngIf="isMobile"
+            style="color: #009fe3; text-decoration: underline; cursor: pointer"
+            (click)="textTilte.visible = !textTilte.visible"
+          >
+            {{
+              textTilte.visible
+                ? showLessText[serviceLang]
+                : showMoreText[serviceLang]
+            }}
+          </span>
+
+          <i
+            class="fas fa-edit fa-icon-size"
+            style="cursor: pointer; margin-left: 10px"
+            (click)="openModalDescription(categorysel.id, AddDescription)"
+            *ngIf="isAdmin"
+          ></i>
+        </div>
+        <div class="app-form" style="display: none">
+          <form action="#" class="doctor-search-form">
+            <div class="row">
+              <div class="col-md-3 col-lg-4">
+                <div class="form-group">
+                  <div class="form-custom">
+                    <input
+                      type="text"
+                      class="form-control"
+                      value=""
+                      placeholder="{{
+                        'sub_categories_page_plateform.sub_categories_page_plateform_2'
+                          | translate
+                          | lowercase
+                      }}"
+                    />
+                    <i class="far fa-compass"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-lg-6" style="display: none">
+                <div class="form-group">
+                  <div class="form-custom">
+                    <input
+                      type="text"
+                      class="form-control"
+                      value=""
+                      placeholder="{{
+                        'sub_categories_page_plateform.sub_categories_page_plateform_3'
+                          | translate
+                          | lowercase
+                      }}"
+                    />
+                    <i class="far fa-smile"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-5 col-lg-4">
+                <a
+                  [routerLink]="'/patients/search-doctor'"
+                  class="btn banner-btn"
+                  >{{ "buttons_plateform.buttons_plateform_1" | translate }}</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-5 features-img" *ngIf="categorysel">
+        <img
+          src="https://api.aroundorder.com:1337/banners/{{
+            categorysel.id
+          }}.png"
+          class="img-fluid"
+          alt="Feature"
+        />
+        <div class="text-center" style="margin-top: 5px">
+          <label for="terms_accept" style="font-size: 15px"
+            >&nbsp;{{ doyou.languages[serviceLang] }}
+            <span>{{ categorysel.languages[serviceLang] }}</span> ?
+            <a
+              routerLink="/register_partner"
+              style="font-size: 14px; font-weight: 651"
+              >Register now</a
+            ></label
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-doctor">
+  <div class="container-fluid">
+    <div class="section-header text-center">
+      <h2 *ngIf="categorysel">
+        {{ textTilte[serviceLang] }}
+      </h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="doctor-slider">
+          <ngx-slick-carousel
+            class="carousel"
+            #slickModal="slick-carousel"
+            [config]="slideConfigure"
+          >
+            <div
+              class="slick-slide text-center"
+              *ngFor="let doctor of sub_categories; let index; i"
+            >
+              <div ngxSlickItem class="text-center">
+                <div
+                  (click)="displaysub(doctor.languages[serviceLang], doctor)"
+                  class="profile-widget"
+                  style="width: 100%; display: inline-block; min-height: 314px"
+                  [ngStyle]="{
+                    'background-color': checkfield(doctor)
+                      ? 'lightgrey'
+                      : 'white'
+                  }"
+                >
+                  <div class="doc-img">
+                    <a tabindex="-1">
+                      <img
+                        src="https://api.aroundorder.com:1337/sub_categories/{{
+                          doctor.id
+                        }}.png"
+                        alt="User Image"
+                        height="157px"
+                      />
+                    </a>
+                  </div>
+                  <div class="pro-content text-center">
+                    <a
+                      class="title text-center"
+                      style="
+                        font-size: 15px !important;
+                        font-weight: 500;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      <a tabindex="-1">{{ doctor.languages[serviceLang] }}</a>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="view-all-more text-center"
+    *ngIf="selectedfieldofbuiseness.length > 0"
+  >
+    <a
+      href="javascript:void()"
+      *ngIf="selectedfieldofbuiseness.length > 0"
+      (click)="openModalAddress(addAddress)"
+      class="btn btn-primary"
+    >
+      {{ "buttons_plateform.buttons_plateform_4" | translate }}
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+</section>
+
+<section class="our-blog-section" *ngIf="finalblogs.length > 0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="section-heading">
+          <h2>
+            {{ currentcateg.languages[serviceLang] }}
+            {{ "home_page_plateform.home_page_plateform_11" | translate }}
+          </h2>
+          <p>{{ "home_page_plateform.home_page_plateform_12" | translate }}</p>
+        </div>
+      </div>
+      <div class="col-md-6 text-right">
+        <div class="owl-nav slide-nav-4 text-right nav-control"></div>
+      </div>
+    </div>
+    <owl-carousel-o [options]="blogsOptions" class="blogs">
+      <ng-container *ngFor="let slide of finalblogs">
+        <ng-template carouselSlide>
+          <div class="item">
+            <div class="our-blogs">
+              <div class="blogs-img">
+                <a
+                  ><img
+                    src="https://api.aroundorder.com:1337/blogs/{{
+                      slide.id
+                    }}.jpg"
+                    class="lazyload"
+                    alt="blogs"
+                    style="height: 160px; width: 100%"
+                    class="img-fluid"
+                /></a>
+                <div
+                  class="blogs-overlay d-flex"
+                  style="background-color: lightgrey"
+                >
+                  <img
+                    src="https://api.aroundorder.com:1337/blogs/hayfajarray.jpeg"
+                    alt=""
+                    class="lazyload"
+                    class="img-fluid"
+                  />
+                  <span class="blogs-writter" style="color: black"
+                    >{{ slide.author.first_name }} {{ slide.author.last }}</span
+                  >
+                </div>
+              </div>
+              <div class="blogs-info" style="min-height: 150; max-height: 150">
+                <a [routerLink]="'/blog-details'">
+                  <h4
+                    style="
+                      overflow: hidden;
+
+                      display: -webkit-box;
+                      line-height: 22px;
+
+                      -webkit-line-clamp: 2;
+                      -webkit-box-orient: vertical;
+                      word-break: break-word;
+                      min-height: 43px;
+                    "
+                  >
+                    {{ slide.title }}
+                  </h4>
+                </a>
+                <p
+                  style="
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    line-height: 16px;
+                    max-height: 50px;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    word-break: break-word;
+                  "
+                >
+                  {{ slide.introduction }}
+                </p>
+                <span class="blogs-time"
+                  ><i class="far fa-clock"></i>
+                  {{ slide.createdAt | date: "d MMM yyyy" }}</span
+                >
+              </div>
+              <div class="blogs-nav text-center">
+                <a
+                  [routerLink]="['/blog-details', slide.id]"
+                  class="blogs-btn"
+                  >{{
+                    "home_page_plateform.home_page_plateform_13" | translate
+                  }}</a
+                >
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</section>
+<section class="our-blog-section" *ngIf="showdesc">
+  <div class="container" style="padding: 0px !important">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="section-heading">
+          <h2>
+            {{ currentcateg.languages[serviceLang] }}
+          </h2>
+        </div>
+      </div>
+      <div class="col-md-6 text-right">
+        <div class="owl-nav slide-nav-4 text-right nav-control"></div>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="padding-left: 0px; padding-right: 0px">
+      <div class="card" style="border: 0px solid #f0f0f0">
+        <div class="card-body" style="display: contents">
+          <div class="container" style="width: 100%">
+            <div class="row">
+              <div class="col-md-12" style="width: fit-content">
+                <p
+                  [innerHTML]="desctoshow"
+                  style="
+                    overflow: hidden;
+
+                    display: -webkit-box;
+                    line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                  "
+                ></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="our-blog-section" hidden>
+  <div class="container">
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="sec-header">
+              <h2>cateogry frequently asked questions</h2>
+              <span class="bottom-border"></span>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div
+            class="container-fluid"
+            style="padding-left: 0px; padding-right: 0px"
+          >
+            <div class="card" style="border: 0px solid #f0f0f0">
+              <div class="card-body" style="display: contents">
+                <section style="padding-top: 0px !important">
+                  <div class="container" style="width: 100%">
+                    <div class="row">
+                      <div class="col-md-12" style="width: fit-content">
+                        <cdk-accordion class="example-accordion">
+                          <cdk-accordion-item
+                            *ngFor="let item of items; let index = index"
+                            #accordionItem="cdkAccordionItem"
+                            class="example-accordion-item"
+                            role="button"
+                            tabindex="0"
+                            [attr.id]="'accordion-header-' + index"
+                            [attr.aria-expanded]="accordionItem.expanded"
+                            [attr.aria-controls]="'accordion-body-' + index"
+                          >
+                            <div
+                              class="example-accordion-item-header"
+                              (click)="accordionItem.toggle()"
+                            >
+                              <div class="row" style="margin-left: 5px">
+                                {{ item }}
+                              </div>
+
+                              <span class="example-accordion-item-description">
+                                <i
+                                  class="fa fa-arrow-down"
+                                  *ngIf="!accordionItem.expanded"
+                                >
+                                  open</i
+                                >
+                                <i
+                                  class="fa fa-arrow-up"
+                                  *ngIf="accordionItem.expanded"
+                                >
+                                  close</i
+                                >
+                              </span>
+                            </div>
+                            <div
+                              class="example-accordion-item-body"
+                              role="region"
+                              [style.display]="
+                                accordionItem.expanded ? '' : 'none'
+                              "
+                              [attr.id]="'accordion-body-' + index"
+                              [attr.aria-labelledby]="
+                                'accordion-header-' + index
+                              "
+                            >
+                              <div class="blog blog-single-post">
+                                <div class="blog-content">
+                                  <p>
+                                    Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                    Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip
+                                    ex ea commodo consequat. Duis aute irure
+                                    dolor in reprehenderit in voluptate velit
+                                    esse cillum dolore eu fugiat nulla pariatur.
+                                    Excepteur sint occaecat cupidatat non
+                                    proident, sunt in culpa qui officia deserunt
+                                    mollit anim id est laborum.
+                                  </p>
+                                  <p>
+                                    Sed ut perspiciatis unde omnis iste natus
+                                    error sit voluptatem accusantium doloremque
+                                    laudantium, totam rem aperiam, eaque ipsa
+                                    quae ab illo inventore veritatis et quasi
+                                    architecto beatae vitae dicta sunt
+                                    explicabo. Nemo enim ipsam
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </cdk-accordion-item>
+                        </cdk-accordion>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #edittemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{ "modals_plateform.modals_plateform_5" | translate }}
+    </h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>
+              {{ "modals_plateform.modals_plateform_6" | translate }}</label
+            >
+            <input type="text" class="form-control" name="speciality" />
+          </div>
+        </div>
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>
+              {{ "modals_plateform.modals_plateform_4" | translate }}
+            </label>
+            <textarea class="form-control" name="speciality"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="sendprop()"
+      >
+        {{ "buttons_plateform.buttons_plateform_3" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        {{ "buttons_plateform.buttons_plateform_2" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #suggestservice>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{ "modals_plateform.modals_plateform_2" | translate }}
+    </h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>{{
+              "modals_plateform.modals_plateform_3" | translate
+            }}</label>
+            <input type="text" class="form-control" name="speciality" />
+          </div>
+        </div>
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>
+              {{ "modals_plateform.modals_plateform_4" | translate }}
+            </label>
+            <textarea class="form-control" name="speciality"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="sendprop()"
+      >
+        {{ "buttons_plateform.buttons_plateform_3" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        {{ "buttons_plateform.buttons_plateform_2" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- TEMPLATE ADD ADDRESS-->
+<ng-template #addAddress>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{ "modals_plateform.modals_plateform_1" | translate }}
+      <i
+        class="fa fa-question-circle"
+        style="cursor: pointer"
+        title="{{ 'help_plateform.help_plateform_1' | translate }}"
+      ></i>
+    </h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="font-size: 13px">
+    <div class="row">
+      <div class="col-md-12">
+        <label
+          >{{ "forms_plateform.forms_plateform_1" | translate }} ({{
+            locationmsg.languages[serviceLang]
+          }}) <span class="label-required">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="{{
+            'forms_plateform.forms_plateform_1' | translate | lowercase
+          }}"
+          (keyup)="checkAddress()"
+        />
+      </div>
+    </div>
+    <br />
+
+    <div class="row" style="margin-top: 12px">
+      <div class="col-md-6">
+        <label
+          >{{ "forms_plateform.forms_plateform_4" | translate }}
+          <span class="label-required">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="{{
+            'forms_plateform.forms_plateform_4' | translate | lowercase
+          }}"
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="latitude"
+          placeholder="latitude"
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="longitude"
+          placeholder="longitude"
+        />
+      </div>
+      <div class="col-md-6">
+        <label>{{ "forms_plateform.forms_plateform_5" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="zip_code"
+          placeholder="{{
+            'forms_plateform.forms_plateform_5' | translate | lowercase
+          }}"
+        />
+      </div>
+    </div>
+
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-primary btn-sm btn-block"
+        (click)="goToSearchPage()"
+        id="btn-yes"
+      >
+        {{ "buttons_plateform.buttons_plateform_1" | translate }}
+        <i class="fa fa-search"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger btn-sm btn-block"
+        (click)="modalRef.hide()"
+      >
+        {{ "buttons_plateform.buttons_plateform_2" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #AddDescription>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <img src="assets/img/flags/en.png" width="25" />
+      {{ currentcateg.languages.name_en }} |
+      <img src="assets/img/flags/fr.png" width="25" />
+      {{ currentcateg.languages.name_fr }} |
+      <img src="assets/img/flags/de.png" width="25" />
+      {{ currentcateg.languages.name_de }}
+    </h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div
+    class="modal-body"
+    style="font-size: 13px; overflow-y: scroll; max-height: 450px"
+  >
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h6>
+              <img src="assets/img/flags/en.png" width="25" />
+              {{ currentcateg.languages.name_en }}
+            </h6>
+          </div>
+          <div class="card-body">
+            <angular-editor
+              placeholder="description EN"
+              [(ngModel)]="desc_en"
+              [config]="editorConfig"
+            >
+            </angular-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h6>
+              <img src="assets/img/flags/fr.png" width="25" />
+              {{ currentcateg.languages.name_fr }}
+            </h6>
+          </div>
+          <div class="card-body">
+            <angular-editor
+              placeholder="description FR"
+              [(ngModel)]="desc_fr"
+              [config]="editorConfig"
+            >
+            </angular-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h6 style="font-size: 16px">
+              <img src="assets/img/flags/de.png" width="25" />
+              {{ currentcateg.languages.name_de }}
+            </h6>
+          </div>
+          <div class="card-body">
+            <angular-editor
+              placeholder="description FR"
+              [(ngModel)]="desc_de"
+              [config]="editorConfig"
+            >
+            </angular-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-primary btn-sm btn-block"
+        (click)="addDescription()"
+        id="btn-yes"
+      >
+        save
+        <i class="fa fa-save"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger btn-sm btn-block"
+        (click)="modalRef.hide()"
+      >
+        cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- ADDRESS -->

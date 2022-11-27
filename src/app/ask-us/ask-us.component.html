@@ -1,0 +1,207 @@
+<div class="main-wrapper">
+  <div class="breadcrumb-bar">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a [routerLink]="''">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Blank Page
+              </li>
+            </ol>
+          </nav>
+          <h2 class="breadcrumb-title">Blank Page</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="section-heading">
+              <h2>Frequently asked questions</h2>
+              <p>we provide you with answers about our product ....</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
+            <div class="blog-sticky">
+              <!-- Search -->
+              <div class="card search-widget">
+                <div class="card-body">
+                  <form class="search-form">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        placeholder="Search..."
+                        class="form-control"
+                      />
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-body">
+                <button
+                  type="button"
+                  class="btn btn-rounded btn-outline-info"
+                  style="margin-bottom: 10px"
+                  data-toggle="modal"
+                  data-target="#myModalas"
+                >
+                  <i class="fa fa-plus fa-1x"> ADD SUBJECT</i>
+                </button>
+                <cdk-accordion class="example-accordion">
+                  <cdk-accordion-item
+                    *ngFor="let item of items; let index = index"
+                    #accordionItem="cdkAccordionItem"
+                    class="example-accordion-item"
+                    role="button"
+                    tabindex="0"
+                    [attr.id]="'accordion-header-' + index"
+                    [attr.aria-expanded]="accordionItem.expanded"
+                    [attr.aria-controls]="'accordion-body-' + index"
+                  >
+                    <div
+                      class="example-accordion-item-header"
+                      (click)="accordionItem.toggle()"
+                    >
+                      <div class="row" style="margin-left: 5px">
+                        {{ item }}
+                        <i
+                          class="fa fa-pen fa-0x"
+                          style="margin-left: 12px"
+                        ></i>
+                      </div>
+
+                      <span class="example-accordion-item-description">
+                        <i
+                          class="fa fa-arrow-down"
+                          *ngIf="!accordionItem.expanded"
+                        >
+                          open</i
+                        >
+                        <i
+                          class="fa fa-arrow-up"
+                          *ngIf="accordionItem.expanded"
+                        >
+                          close</i
+                        >
+                      </span>
+                    </div>
+                    <div
+                      class="example-accordion-item-body"
+                      role="region"
+                      [style.display]="accordionItem.expanded ? '' : 'none'"
+                      [attr.id]="'accordion-body-' + index"
+                      [attr.aria-labelledby]="'accordion-header-' + index"
+                    >
+                      <cdk-accordion class="example-accordion">
+                        <cdk-accordion-item
+                          style="background-color: lightgrey"
+                          *ngFor="let item of itemss; let index = index"
+                          #accordionItem="cdkAccordionItem"
+                          class="example-accordion-item"
+                          role="button"
+                          tabindex="0"
+                          [attr.id]="'accordion-header-' + index"
+                          [attr.aria-expanded]="accordionItem.expanded"
+                          [attr.aria-controls]="'accordion-body-' + index"
+                        >
+                          <div
+                            class="example-accordion-item-header"
+                            (click)="accordionItem.toggle()"
+                          >
+                            <div class="row" style="margin-left: 5px">
+                              {{ item }}
+                              <i
+                                class="fa fa-pen fa-1x"
+                                style="margin-left: 12px"
+                              ></i>
+                            </div>
+                            <span class="example-accordion-item-description">
+                              Click to
+                              {{ accordionItem.expanded ? "close" : "open" }}
+                            </span>
+                          </div>
+                          <div
+                            class="example-accordion-item-body"
+                            role="region"
+                            [style.display]="
+                              accordionItem.expanded ? '' : 'none'
+                            "
+                            [attr.id]="'accordion-body-' + index"
+                            [attr.aria-labelledby]="'accordion-header-' + index"
+                          >
+                            <div class="blog blog-single-post">
+                              <div class="blog-content">
+                                <p>
+                                  Lorem ipsum dolor sit amet, consectetur
+                                  adipiscing elit, sed do eiusmod tempor
+                                  incididunt ut labore et dolore magna aliqua.
+                                  Ut enim ad minim veniam, quis nostrud
+                                  exercitation ullamco laboris nisi ut aliquip
+                                  ex ea commodo consequat. Duis aute irure dolor
+                                  in reprehenderit in voluptate velit esse
+                                  cillum dolore eu fugiat nulla pariatur.
+                                  Excepteur sint occaecat cupidatat non
+                                  proident, sunt in culpa qui officia deserunt
+                                  mollit anim id est laborum.
+                                </p>
+                                <p>
+                                  Sed ut perspiciatis unde omnis iste natus
+                                  error sit voluptatem accusantium doloremque
+                                  laudantium, totam rem aperiam, eaque ipsa quae
+                                  ab illo inventore veritatis et quasi
+                                  architecto beatae vitae dicta sunt explicabo.
+                                  Nemo enim ipsam
+                                </p>
+                                <div class="clinic-details">
+                                  <ul class="clinic-gallery" lightbox-group>
+                                    <li *ngFor="let image of images">
+                                      <a
+                                        ><img
+                                          [src]="image.path"
+                                          lightbox
+                                          style="height: 190px; width: 190px"
+                                      /></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </cdk-accordion-item>
+                      </cdk-accordion>
+                      <button
+                        data-toggle="modal"
+                        data-target="#myModalaq"
+                        type="button"
+                        class="btn btn-rounded btn-outline-info"
+                        style="margin-bottom: 10px"
+                      >
+                        <i class="fa fa-plus"> Add question</i>
+                      </button>
+                    </div>
+                  </cdk-accordion-item>
+                </cdk-accordion>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

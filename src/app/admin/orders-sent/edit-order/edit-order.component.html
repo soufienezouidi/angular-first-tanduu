@@ -1,0 +1,224 @@
+<div class="page-wrapper">
+   <div class="content container-fluid">
+      <div class="page-header">
+         <div class="row">
+            <div class="col-sm-12">
+               <h3 class="page-title">Edit Order</h3>
+               <ul class="breadcrumb">
+                  <li class="breadcrumb-item active">Orders/Edit order</li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-4">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header" [ngStyle]="styles" *ngIf="order.status">
+                        {{ order.status }}<i class="fas fa-edit fa-right" [ngStyle]="styles"
+                           (click)="openStatusSetting()"></i>
+                     </div>
+                     <div class="card-header" *ngIf="bodySelectStatus">
+                        <strong>Change status: </strong>
+                        <select name="seleccionados" class="form-control" (change)="updateStatus($event.target.value)">
+                           <option [value]="item" *ngFor="let item of statusTab">
+                              {{item}}
+                           </option>
+                        </select>
+                     </div>
+                     <div class="card-body">
+                        <h5 class="title">
+                           <strong>Soufiene Zouidi</strong> <i class="fas fa-edit fa-right"></i>
+                        </h5>
+                        <p class="speciality">
+                           Nordallee 25a Appart. N° 25<br />
+                           85356 | state: München-Flughafen Germany
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header header-bg bold">
+                        Description
+                     </div>
+                     <div class="card-body">
+                        <span *ngIf="hideDescription">{{ order.description }} <i class="fas fa-edit fa-right"
+                              (click)="openDescriptionSetting()"></i></span>
+                        <textarea class="form-control form-required" (blur)="updateDescription($event.target.value)"
+                           *ngIf="descriptionSetting">{{ order.description }}</textarea>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header header-bg bold" *ngIf="!serviceSetting">
+                        Services <i class="fas fa-plus-square fa-right" (click)="openSettingAddService()"></i>
+                     </div>
+                     <div class="card-header header-bg bold" *ngIf="serviceSetting">
+                        <input type="text" autocomplete="true" id="search-filter" class="form-control"
+                           (keyup)="searchEngineFunction($event.target.value)" placeholder="searchh service">
+                        <ul class="list-group">
+                           <li class="list-group-item sample-items"
+                              (click)="addServiceToOrder(s.id, s.categoryId, s.subCategoryId)"
+                              style="font-weight: normal !important" *ngFor="let s of resultSearch">
+                              {{s.name}}</li>
+                        </ul>
+                     </div>
+                     <ul class="list-group" *ngIf="ordersServices?.length > 0">
+                        <li class="list-group-item selected-item" *ngFor="let service of ordersServices">
+                           {{ service.service.name }}
+                           <i class="fa fa-trash red" (click)="openDialogDeleteService(service.service.id)"></i>
+                        </li>
+                     </ul>
+                     <ul class="list-group" *ngIf="ordersServices?.length < 1">
+                        <li class="list-group-item">
+                           No services associated here.
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header header-bg bold">
+                        Company Info <button type="button" (click)="sendAgain()">send again</button>
+                     </div>
+                     <div class="card-body">
+                        <div class="block-list"><span class="bold">Company: </span> Kais Company
+                           <i class="fa fa-user fa-right"></i>
+                           <i class="fa fa-chart-bar fa-right"></i>
+                           <i class="fa fa-clone fa-right"></i>
+                        </div>
+                        <div class="block-list"><span class="bold">Order ID: </span> 100-210002</div>
+                     </div>
+                     <div class="card-footer">
+                        <a [routerLink]="'#'">All companies Associated</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header header-bg bold">
+                        Appointment
+                     </div>
+                     <div class="card-body">
+                        20.11.2021 12:45 <i class="fas fa-edit fa-right"></i>
+                        <div class="form-group">
+                           <div class='input-group date' id='datetimepicker3'>
+                              <input type='text' class="form-control" />
+                              <span class="input-group-addon">
+                                 <span class="glyphicon glyphicon-time"></span>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header header-bg bold">
+                        Information <i class="fas fa-plus-square fa-right"></i>
+                     </div>
+                     <div class="card-body" *ngIf="informations?.length > 0">
+                        <span class="block-list" *ngFor="let info of informations">
+                           <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="{{'info'+info.id}}">
+                              <label class="custom-control-label" for="{{'info'+info.id}}">{{ info.name }}></label>
+                           </div>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card" *ngIf="order.is_payed">
+                     <div class="card-header header-bg bold">
+                        Invoice
+                     </div>
+                     <div class="card-body">
+                        <span class="block-list-invoice">
+                           <span class="bold">Amount: </span> 150 €
+                        </span>
+                        <hr />
+                        <span class="block-list-invoice">
+                           <span class="bold">Deducation Amount: </span> 50 €
+                        </span>
+                        <hr />
+                        <span class="block-list-invoice">
+                           <span class="bold">Materials: </span> exmaple
+                        </span>
+                        <hr />
+                        <span class="block-list-invoice">
+                           <span class="bold">Total amount: </span> 100 €
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header bold">
+                        uploaded invoices
+                     </div>
+                     <div class="card-body">
+                        <i>
+                           No Invoices uploaded
+                        </i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-header header-bg bold">
+                        Notes
+                     </div>
+                     <div class="card-body">
+                        <textarea class="form-control" placeholder="add note" (blur)="addNote($event.target.value)"
+                           *ngIf="notes?.length > 0">{{ lastNote.note }}</textarea>
+                        <textarea class="form-control" placeholder="add note" (blur)="addNote($event.target.value)"
+                           *ngIf="notes?.length <1"></textarea>
+                     </div>
+                     <div class="card-footer">
+                        <a [routerLink]="'#'" (click)="showAllNotes()" *ngIf="!showNotes">Show all notes</a>
+                        <a [routerLink]="'#'" (click)="hideAllNotes()" *ngIf="showNotes">Hide all notes </a>
+                        <div class="card-body" *ngIf="notes?.length > 0 && showNotes">
+                           <ul class="list-group">
+                              <li class="list-group-item" *ngFor="let note of notes">
+                                 <i class="fa fa-check-square"></i> {{ note.note }}
+                                 <span class="block-list" style="font-size: 11px; margin-left: 15px">
+                                    {{ note.created }}</span>
+                              </li>
+                           </ul>
+                        </div>
+                        <div class="card-body" *ngIf="notes?.length < 1 && showNotes">
+                           <ul class="list-group">
+                              <li class="list-group-item selected-items">No notes Found</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

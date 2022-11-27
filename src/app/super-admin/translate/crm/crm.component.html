@@ -1,0 +1,345 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Translation</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/'">Tanduu</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="javascript:(0);">Translate</a>
+            </li>
+            <li class="breadcrumb-item">CRM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body custom-edit-service">
+            <div class="row mb-5">
+              <div class="col">
+                <ul class="nav nav-tabs nav-tabs-solid">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      href="https://tanduu.com/tanduu-admin/translate"
+                      >CRM & Plateform</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      href="https://tanduu.com/tanduu-admin/translate/crm"
+                      >CRM</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      href="https://tanduu.com/tanduu-admin/translate/plateform"
+                      >Plateform</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="col-auto">
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="openModalAddText(TranslationModal)"
+                  *ngIf="!isDisabled"
+                >
+                  <i class="fas fa-plus mr-1"></i> Add new text
+                </button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  disabled
+                  *ngIf="isDisabled"
+                >
+                  <i class="fas fa-plus mr-1"></i> Add new text
+                </button>
+              </div>
+            </div>
+
+            <!-- Texts Table -->
+            <table class="display" id="crm_plateform">
+              <thead>
+                <tr>
+                  <th style="width: 111px !important">Page</th>
+                  <th style="width: 111px !important">URL</th>
+                  <th>Section</th>
+                  <th>English Texts</th>
+                  <th>Frensh Texts</th>
+                  <th>Deutsch Texts</th>
+                  <th>Options</th>
+                  <th>Id</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of allTexts">
+                  <td style="width: 111px !important">{{ item.page }}</td>
+                  <td style="width: 111px !important">{{ item.url }}</td>
+                  <td style="width: 111px !important">{{ item.section }}</td>
+                  <td>{{ item.original_text_en }}</td>
+                  <td>{{ item.original_text_fr }}</td>
+                  <td>{{ item.original_text_de }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-success"
+                      (click)="openModalEdit(editText, item)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </td>
+                  <td>{{ item.id }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- End Table -->
+          </div>
+        </div>
+        <!-- Add New Text To Translate -->
+
+        <!-- /Add New Text To Translate -->
+      </div>
+    </div>
+    <ng-template #TranslationModal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="acc_title">Add New Text</h5>
+        <button
+          type="button"
+          class="close"
+          (click)="modalRef.hide()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form
+              name="form"
+              (ngSubmit)="f.form.valid && onSubmit(f)"
+              #f="ngForm"
+              novalidate
+            >
+              <div class="form-group">
+                <label for="de" class="form-label"
+                  >Page<span class="label-required">*</span></label
+                >
+                <select
+                  [class]="
+                    f.submitted && page.invalid
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  "
+                  name="page"
+                  ngModel
+                  required
+                  #page="ngModel"
+                >
+                  <option value="">-select page-</option>
+                  <option *ngFor="let page of pages" value="{{ page }}">
+                    {{ page }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="de" class="form-label"
+                  >URL<span class="label-required">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="url"
+                  ngModel
+                  #url="ngModel"
+                />
+                <span class="red" *ngIf="f.submitted && page.invalid"
+                  >URL is required <i class="fe fe-warning"></i
+                ></span>
+              </div>
+              <div class="form-group">
+                <label for="de" class="form-label"
+                  >Type <span class="label-required">*</span></label
+                >
+                <select
+                  name="section"
+                  [class]="
+                    f.submitted && section.invalid
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  "
+                  ngModel
+                  required
+                  #section="ngModel"
+                >
+                  <option value="crm" selected>CRM</option>
+                </select>
+                <span class="red" *ngIf="f.submitted && section.invalid"
+                  >Section name is required <i class="fe fe-warning"></i
+                ></span>
+              </div>
+              <div class="form-group">
+                <label for="en" class="form-label"
+                  >English text<span class="label-required">*</span></label
+                >
+                <textarea
+                  [class]="
+                    f.submitted && english_text.invalid
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  "
+                  name="english_text"
+                  ngModel
+                  required
+                  #english_text="ngModel"
+                ></textarea>
+                <span class="red" *ngIf="f.submitted && english_text.invalid"
+                  >English is required <i class="fe fe-warning"></i
+                ></span>
+              </div>
+
+              <div class="form-group">
+                <label for="fr" class="form-label"
+                  >Frensh text<span class="label-required">*</span></label
+                >
+                <textarea
+                  [class]="
+                    f.submitted && frensh_text.invalid
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  "
+                  name="frensh_text"
+                  ngModel
+                  required
+                  #frensh_text="ngModel"
+                ></textarea>
+                <span class="red" *ngIf="f.submitted && frensh_text.invalid"
+                  >Frensh text is required <i class="fe fe-warning"></i
+                ></span>
+              </div>
+              <div class="form-group">
+                <label for="fr" class="form-label"
+                  >Deutsch text<span class="label-required">*</span></label
+                >
+                <textarea
+                  [class]="
+                    f.submitted && deutsch_text.invalid
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  "
+                  name="deutsch_text"
+                  ngModel
+                  required
+                  #deutsch_text="ngModel"
+                ></textarea>
+                <span class="red" *ngIf="f.submitted && deutsch_text.invalid"
+                  >Frensh text is required <i class="fe fe-warning"></i
+                ></span>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #editText>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Edit Text</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          name="form"
+          (ngSubmit)="f.form.valid && onSubmit2(f)"
+          #f="ngForm"
+          novalidate
+        >
+          <div class="form-group">
+            <label for="en" class="form-label"
+              >English text<span class="label-required">*</span></label
+            >
+            <textarea
+              [class]="
+                f.submitted && english_text.invalid
+                  ? 'form-control is-invalid'
+                  : 'form-control'
+              "
+              name="english_text"
+              [(ngModel)]="enText"
+              required
+              #english_text="ngModel"
+            ></textarea>
+            <span class="red" *ngIf="f.submitted && english_text.invalid"
+              >English is required <i class="fe fe-warning"></i
+            ></span>
+          </div>
+
+          <div class="form-group">
+            <label for="fr" class="form-label"
+              >Frensh text<span class="label-required">*</span></label
+            >
+            <textarea
+              [class]="
+                f.submitted && frensh_text.invalid
+                  ? 'form-control is-invalid'
+                  : 'form-control'
+              "
+              name="frensh_text"
+              [(ngModel)]="frText"
+              required
+              #frensh_text="ngModel"
+            ></textarea>
+            <span class="red" *ngIf="f.submitted && frensh_text.invalid"
+              >Frensh text is required <i class="fe fe-warning"></i
+            ></span>
+          </div>
+          <div class="form-group">
+            <label for="fr" class="form-label"
+              >Deutsch text<span class="label-required">*</span></label
+            >
+            <textarea
+              [class]="
+                f.submitted && deutsch_text.invalid
+                  ? 'form-control is-invalid'
+                  : 'form-control'
+              "
+              name="deutsch_text"
+              [(ngModel)]="deText"
+              required
+              #deutsch_text="ngModel"
+            ></textarea>
+            <span class="red" *ngIf="f.submitted && deutsch_text.invalid"
+              >Frensh text is required <i class="fe fe-warning"></i
+            ></span>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block">Edit</button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<!-- /Page Wrapper -->

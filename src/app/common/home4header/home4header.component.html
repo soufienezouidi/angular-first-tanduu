@@ -1,0 +1,173 @@
+<!-- Header -->
+<header class="header header-four">
+  <nav class="navbar navbar-expand-lg header-nav">
+    <div class="navbar-header">
+      <a id="mobile_btn" href="javascript:void(0);">
+        <span class="bar-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </a>
+      <a [routerLink]="'/home'" class="navbar-brand logo">
+        <img src="assets/img/logo1.png" class="img-fluid" alt="Logo" />
+      </a>
+    </div>
+    <div class="main-menu-wrapper">
+      <div class="menu-header">
+        <a [routerLink]="'/home'" class="menu-logo">
+          <img src="assets/img/logo1.png" class="img-fluid" alt="Logo" />
+        </a>
+        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+          <i class="fas fa-times"></i>
+        </a>
+      </div>
+      <ul class="main-nav">
+        <li class="has-submenu active">
+          <a href="">Home <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="'/home'">Home</a></li>
+            <li><a [routerLink]="'/home-one'">Home 1</a></li>
+            <li><a [routerLink]="'/home-two'">Home 2</a></li>
+            <li><a [routerLink]="'/home-slider-one'">Home 3</a></li>
+            <li class="active"><a [routerLink]="'/home-four'">Home 4</a></li>
+            <li><a [routerLink]="'/home-slider-two'">Home 5</a></li>
+            <li><a [routerLink]="'/home-six'">Home 6</a></li>
+            <li><a [routerLink]="'/home-seven'">Home 7</a></li>
+            <li><a [routerLink]="'/home-eight'">Home 8</a></li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="">Doctors <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="'/users/dashboard'">Doctor Dashboard</a></li>
+            <li><a [routerLink]="'/doctor/appointment'">Appointments</a></li>
+            <li>
+              <a [routerLink]="'/doctor/scheduletiming'">Schedule Timing</a>
+            </li>
+            <li><a [routerLink]="'/doctor/patients'">Patients List</a></li>
+            <li>
+              <a [routerLink]="'/patients/patient-profile'">Patients Profile</a>
+            </li>
+            <li><a [routerLink]="'/doctor/message'">Chat</a></li>
+            <li><a [routerLink]="'/doctor/invoice'">Invoices</a></li>
+            <li><a [routerLink]="'/doctor/settings'">Profile Settings</a></li>
+            <li><a [routerLink]="'/doctor/reviews'">Reviews</a></li>
+            <li>
+              <a [routerLink]="'doctor/doctor-register'">Doctor Register</a>
+            </li>
+            <li class="has-submenu">
+              <a href="javascript:void(0)">Blog</a>
+              <ul class="submenu">
+                <li><a [routerLink]="'/doctor/doctor-blog'">Blog</a></li>
+                <li><a [routerLink]="'/blog'">Blog view</a></li>
+                <li>
+                  <a [routerLink]="'/doctor/doctor-add-blog'">Add Blog</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="">Patients <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li class="has-submenu">
+              <a href="#">Doctors</a>
+              <ul class="submenu">
+                <li><a [routerLink]="'/map-grid'">Map Grid</a></li>
+                <li><a [routerLink]="'/map-list'">Map List</a></li>
+              </ul>
+            </li>
+            <li>
+              <a [routerLink]="'/patients/search-doctor'">Search Doctor</a>
+            </li>
+            <li>
+              <a [routerLink]="'/patients/doctor-profile'">Doctor Profile</a>
+            </li>
+            <li><a [routerLink]="'/patients/booking'">Booking</a></li>
+            <li><a [routerLink]="'/patients/checkout'">Checkout</a></li>
+            <li><a [routerLink]="'/patients/success'">Booking Success</a></li>
+            <li>
+              <a [routerLink]="'/patients/dashboard'">Patient Dashboard</a>
+            </li>
+            <li><a [routerLink]="'/patients/favourites'">Favourites</a></li>
+            <li><a [routerLink]="'/patients/message'">Chat</a></li>
+            <li><a [routerLink]="'/patients/settings'">Profile Settings</a></li>
+            <li>
+              <a [routerLink]="'patients/patients-change-password'"
+                >Change Password</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="">Pharmacy <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="'/pharmacy/pharmacy-index'">Pharmacy</a></li>
+            <li>
+              <a [routerLink]="'/pharmacy/pharmacy-details'"
+                >Pharmacy Details</a
+              >
+            </li>
+            <li>
+              <a [routerLink]="'/pharmacy/pharmacy-search'">Pharmacy Search</a>
+            </li>
+            <li><a [routerLink]="'/pharmacy/products'">Product</a></li>
+            <li>
+              <a [routerLink]="'/pharmacy/product-desc'">Product Description</a>
+            </li>
+            <li><a [routerLink]="'/pharmacy/cart'">Cart</a></li>
+            <li><a [routerLink]="'/pharmacy/checkout'">Product Checkout</a></li>
+            <li><a [routerLink]="'/pharmacy/success'">Payment Success</a></li>
+            <li>
+              <a [routerLink]="'/pharmacy/pharmacy-register'"
+                >Pharmacy Register</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="">Pages <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="'/voice-call'">Voice Call</a></li>
+            <li><a [routerLink]="'/video-call'">Video Call</a></li>
+            <li>
+              <a [routerLink]="'/patients/search-doctor'">Search Doctors</a>
+            </li>
+            <li><a [routerLink]="'/calender'">Calendar</a></li>
+            <li><a [routerLink]="'/patients/component'">Components</a></li>
+            <li class="has-submenu">
+              <a href="javascript:void(0)">Invoices</a>
+              <ul class="submenu">
+                <li><a [routerLink]="'/doctor/invoice'">Invoices</a></li>
+                <li><a [routerLink]="'/invoice-details'">Invoice View</a></li>
+              </ul>
+            </li>
+            <li><a [routerLink]="'/blank'">Starter Page</a></li>
+            <li><a [routerLink]="'/login-page'">Login</a></li>
+            <li><a [routerLink]="'/Register'">Register</a></li>
+            <li><a [routerLink]="'/forgot-password'">Forgot Password</a></li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="">Blog <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="'/blog'">Blog List</a></li>
+            <li><a [routerLink]="'/blog-grid'">Blog Grid</a></li>
+            <li><a [routerLink]="'/blog-details'">Blog Details</a></li>
+          </ul>
+        </li>
+        <li><a [routerLink]="'/admin/dashboard'">Admin</a></li>
+        <li class="login-link">
+          <a [routerLink]="'/login-page'">Login / Signup</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header-login" [routerLink]="'/login-page'"
+            ><i class="fas fa-user-circle"></i> login / Signup
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- /Header -->

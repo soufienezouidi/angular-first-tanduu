@@ -1,0 +1,18 @@
+.required {
+	color : red;
+	padding-left: 3px;
+}
+.content {
+	padding-bottom: 50px;
+	 
+	 min-height: calc(100vh - 21vh);
+	 	
+	
+
+}
+.form-focus .focus-label {
+    font-size: 13px; 
+}
+.form-control {
+    font-size: 14px !important;
+}

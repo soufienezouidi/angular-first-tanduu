@@ -1,0 +1,24 @@
+.dot-slider .slick-slide {
+  height: auto;
+}
+
+.dot-slider .slick-slide img {
+  width: 100%;
+  height: auto;
+}
+.dot-slider .slick-slide .test img {
+  width: 100%;
+  height: 400px;
+}
+.aze {
+   width: 100% !important;
+   height: 280px !important;
+}
+
+.dot-slider .slick-dots {
+  position: absolute;
+  top: 30%;
+  right: 15px !important;
+  bottom: unset;
+  width: unset;
+}

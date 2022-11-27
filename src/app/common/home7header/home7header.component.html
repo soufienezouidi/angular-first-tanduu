@@ -1,0 +1,185 @@
+<!-- Header -->
+<header class="header header-trans custom">
+  <nav
+    class="navbar navbar-expand-lg header-nav no-border"
+    style="background: white"
+  >
+    <div class="navbar-header">
+      <a id="mobile_btn" href="javascript:void(0);">
+        <span class="bar-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </a>
+      <a class="navbar-brand logo">
+        <img src="assets/img/logo1.png" class="img-fluid" alt="Logo" />
+      </a>
+    </div>
+    <div class="main-menu-wrapper">
+      <div class="menu-header">
+        <a class="menu-logo">
+          <img src="assets/img/logo1.png" class="img-fluid" alt="Logo" />
+        </a>
+        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+          <i class="fas fa-times"></i>
+        </a>
+      </div>
+      <ul class="main-nav white-font">
+        <li class="has-submenu">
+          <a
+            [routerLink]="['/askforservice']"
+            routerLinkActive="router-link-active"
+            >ASK FOR SERVICE
+          </a>
+        </li>
+
+        <li
+          class="has-submenu"
+          [routerLink]="['/pre-register_partner']"
+          routerLinkActive="router-link-active"
+        >
+          <a [routerLink]="['/pre-register_partner']">BECOME A JOBBER </a>
+        </li>
+        <li
+          class="has-submenu"
+          [routerLink]="['/blog']"
+          routerLinkActive="router-link-active"
+        >
+          <a [routerLink]="'/blog'">OUR BLOG </a>
+        </li>
+      </ul>
+    </div>
+    <ul class="nav header-navbar-rht right-menu">
+      <li class="nav-item dropdown logged-item">
+        <a
+          href="javascript:void(0)"
+          class="dropdown-toggle nav-link"
+          data-toggle="dropdown"
+        >
+          Language :
+          <span class="user-img" style="margin-left: 4px">
+            <img
+              class=""
+              src="assets/img/langs/uk.png"
+              style="
+                height: 20px;
+                -o-object-fit: cover;
+                object-fit: cover;
+                width: 20px;
+              "
+              alt="Richard Wilson"
+            />
+          </span>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          style="right: 14px; left: auto; top: 64px"
+        >
+          <a class="dropdown-item" style="cursor: pointer">
+            <span class="user-img" style="margin-left: 2px">
+              <img
+                class=""
+                src="assets/img/langs/france.png"
+                style="
+                  height: 20px;
+                  -o-object-fit: cover;
+                  object-fit: cover;
+                  width: 20px;
+                "
+                alt="Richard Wilson"
+              /> </span
+            >FR</a
+          >
+          <a class="dropdown-item" style="cursor: pointer">
+            <span class="user-img" style="margin-left: 2px">
+              <img
+                class=""
+                src="assets/img/langs/ger.png"
+                style="
+                  height: 20px;
+                  -o-object-fit: cover;
+                  object-fit: cover;
+                  width: 20px;
+                "
+                alt="Richard Wilson"
+              /> </span
+            >DE</a
+          >
+        </div>
+      </li>
+      <li class="nav-item" *ngIf="!auth">
+        <a class="nav-link header-login white-bg" [routerLink]="'/login-page'"
+          ><i class="fas fa-user-circle mr-2"></i>login</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="!auth">
+        <a class="nav-link header-login" [routerLink]="'/choose_register'"
+          ><i class="fas fa-lock mr-2"></i>Sign up</a
+        >
+      </li>
+
+      <li class="nav-item dropdown has-arrow logged-item" *ngIf="auth">
+        <a
+          href="javascript:void(0)"
+          class="dropdown-toggle nav-link"
+          data-toggle="dropdown"
+        >
+          <span class="user-img">
+            <img
+              class="rounded-circle"
+              src="assets/img/patients/patient.jpg"
+              width="31"
+              alt="Richard Wilson"
+            />
+          </span>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          style="right: 0; left: auto"
+        >
+          <div class="user-header">
+            <div class="avatar avatar-sm">
+              <img
+                src="assets/img/patients/patient.jpg"
+                alt="User Image"
+                class="avatar-img rounded-circle"
+              />
+            </div>
+            <div class="user-text">
+              <h6>{{ infos.first_name }} {{ infos.last_name }}</h6>
+            </div>
+          </div>
+          <a
+            class="dropdown-item"
+            [routerLink]="'/users/dashboard'"
+            style="cursor: pointer"
+            >Dashboard</a
+          >
+          <a
+            class="dropdown-item"
+            [routerLink]="'/users/settings'"
+            style="cursor: pointer"
+            >Profile Settings</a
+          >
+
+          <a class="dropdown-item" (click)="logout()" style="cursor: pointer"
+            >Logout</a
+          >
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <mat-toolbar *ngIf="!auth">
+    <div
+      class="alert alert-info alert-dismissible fade show text-center"
+      role="alert"
+      style="background-color: white; border-color: white"
+    >
+      <strong>Good news! </strong> you can create a
+      <a href="#" class="alert-link">Free</a> account.
+    </div>
+  </mat-toolbar>
+</header>
+
+<!-- /Header -->

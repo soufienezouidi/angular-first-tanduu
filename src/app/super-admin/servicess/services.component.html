@@ -1,0 +1,727 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container" style="min-width: 1500px !important">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-6 col-auto">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/tanduu-admin/categories'">     {{ category.languages["name_en"] }}</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a (click)="gotosubs()" >     {{ subcategory }}</a>
+            </li>
+            <li class="breadcrumb-item active" >
+              Services
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+    <div class="row">
+      <div class="col-sm-6 col float-right mt-2" style="margin-bottom: 10px">
+        <a
+          class="btn btn-primary"
+          href="javascript:void(0);"
+          (click)="openModal(addtemplate)"
+          ><i class="fe fe-plus"></i> Add new service
+        </a>
+        <a
+          class="btn bg-danger-light"
+          href="javascript:void(0);"
+          style="margin-left: 10px"
+          ><i class="fa fa-close"></i> Disable all</a
+        >
+        <a
+          class="btn bg-success-light"
+          href="javascript:void(0);"
+          style="margin-left: 10px"
+          ><i class="fa fa-check"></i>Enable all</a
+        >
+      </div>
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body pt-0">
+            <!-- Tab Menu -->
+            <nav class="user-tabs mb-4">
+              <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    href="#doc_overview"
+                    data-toggle="tab"
+                    >Active services</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#doc_locations" data-toggle="tab"
+                    >disabled services</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#doc_reviews" data-toggle="tab"
+                    >Pending services</a
+                  >
+                </li>
+              </ul>
+            </nav>
+            <!-- /Tab Menu -->
+
+            <!-- Tab Content -->
+            <div class="tab-content pt-0">
+              <!-- Overview Content -->
+              <div
+                role="tabpanel"
+                id="doc_overview"
+                class="tab-pane fade show active"
+              >
+                <table
+                  mat-table
+                  [dataSource]="services"
+                  class="mat-elevation-z8"
+                >
+                  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef>No.</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.id }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name-en">
+                    <th mat-header-cell *matHeaderCellDef>Name-en</th>
+                    <td
+                      mat-cell
+                      *matCellDef="let element"
+                      style="max-width: 286px"
+                    >
+                      <p
+                        style="
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          display: -webkit-box;
+                          line-height: 25px;
+                          min-height: 25px;
+                          max-height: 50px;
+                          -webkit-line-clamp: 3;
+                          -webkit-box-orient: vertical;
+                          word-break: break-word;
+                        "
+                      >
+                        {{ element.languages.name_en }}
+                      </p>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="name-fr">
+                    <th mat-header-cell *matHeaderCellDef>Name-fr</th>
+                    <td
+                      mat-cell
+                      *matCellDef="let element"
+                      style="max-width: 286px"
+                    >
+                      <p
+                        style="
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          display: -webkit-box;
+                          line-height: 25px;
+                          min-height: 25px;
+                          max-height: 50px;
+                          -webkit-line-clamp: 3;
+                          -webkit-box-orient: vertical;
+                          word-break: break-word;
+                        "
+                      >
+                        {{ element.languages.name_fr }}
+                      </p>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="name-de">
+                    <th mat-header-cell *matHeaderCellDef>Name-de</th>
+                    <td
+                      mat-cell
+                      *matCellDef="let element"
+                      style="max-width: 286px"
+                    >
+                      <p
+                        style="
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          display: -webkit-box;
+                          line-height: 25px;
+                          min-height: 25px;
+                          max-height: 50px;
+                          -webkit-line-clamp: 3;
+                          -webkit-box-orient: vertical;
+                          word-break: break-word;
+                        "
+                      >
+                        {{ element.languages.name_de }}
+                      </p>
+                    </td>
+                  </ng-container>
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="row">
+                        <a
+                          class="btn btn-primary"
+                          href="javascript:void(0);"
+                          (click)="editModal(edittemplate, element)"
+                          ><i class="fe fe-pencil"></i> edit service
+                        </a>
+                        <a
+                          class="btn bg-danger-light"
+                          href="javascript:void(0);"
+                          *ngIf="!element.is_deleted"
+                          (click)="disablservice(element)"
+                          style="margin-left: 10px"
+                          ><i class="fa fa-trash"></i> Disable
+                        </a>
+                        <a
+                          class="btn bg-success-light"
+                          *ngIf="element.is_deleted"
+                          href="javascript:void(0);"
+                          (click)="enableservice(element)"
+                          style="margin-left: 10px"
+                          ><i class="fa fa-check"></i>Enable
+                        </a>
+                        <a
+                          class="btn bg-success-light"
+                          id="lll"
+                          name="sdfsdfsdf"
+                          href="javascript:void(0);"
+                          *ngIf="!element.havekeywords"
+                          (click)="addkeywords(addkeywordstemplate, element)"
+                          style="margin-left: 10px"
+                          ><i class="fa fa-key" style="margin-right: 2px"></i>
+                          add keywords
+                        </a>
+                        <a
+                          class="btn bg-success-light"
+                          id="lll"
+                          name="sdfsdfsdf"
+                          *ngIf="element.havekeywords"
+                          href="javascript:void(0);"
+                          (click)="addkeywords(addkeywordstemplate, element)"
+                          style="margin-left: 10px"
+                          ><i class="fa fa-pen" style="margin-right: 2px"></i>
+                          edit keywords
+                        </a>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+                </table>
+
+                <!-- Tab Content
+                <div class="card search-widget">
+                  <div class="card-body">
+                    <form class="search-form">
+                      <div class="input-group">
+                        <input
+                          (input)="filtera($event.target.value)"
+                          type="text"
+                          placeholder="Search..."
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div> -->
+              </div>
+              <!-- /Overview Content -->
+
+              <!-- Locations Content -->
+              <div role="tabpanel" id="doc_locations" class="tab-pane fade">
+                <!-- Location List 
+                <div class="card search-widget">
+                  <div class="card-body">
+                    <form class="search-form">
+                      <div class="input-group">
+                        <input
+                          (input)="filterd($event.target.value)"
+                          type="text"
+                          placeholder="Search..."
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>-->
+
+                <!-- /Location List -->
+              </div>
+              <!-- /Locations Content -->
+
+              <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+                <!-- 
+                <div class="card search-widget">
+                  <div class="card-body">
+                    <form class="search-form">
+                      <div class="input-group">
+                        <input
+                          (input)="filterp($event.target.value)"
+                          type="text"
+                          placeholder="Search..."
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>/Locations Content -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="datatable table table-hover table-center mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name fr</th>
+                    <th>Name eng</th>
+                    <th>Name de</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <h2 class="table-avatar">NAME FR</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME ENG</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME DE</h2>
+                    </td>
+                    <td class="text-right">
+                      <div class="actions">
+                        <a
+                          class="btn btn-sm bg-primary-light"
+                          data-some-value="some value"
+                        >
+                          <i class="fa fa-upload"></i> add photo
+                        </a>
+                        <a
+                          class="btn btn-sm bg-success-light"
+                          (click)="showmodaladdsub()"
+                        >
+                          <i class="fe fe-plus"></i> Add sub-categ
+                        </a>
+                        <a
+                          (click)="disablecateg()"
+                          class="btn btn-sm bg-danger-light"
+                        >
+                          <i class="fe fe-close"></i> Disbale
+                        </a>
+                        <a
+                          (click)="enablecateg()"
+                          class="btn btn-sm bg-warning-light"
+                        >
+                          <i class="fe fe-check"></i> Accept
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <h2 class="table-avatar">NAME FR</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME ENG</h2>
+                    </td>
+                    <td>
+                      <h2 class="table-avatar">NAME DE</h2>
+                    </td>
+                    <td class="text-right">
+                      <div class="actions">
+                        <a
+                          class="btn btn-sm bg-primary-light"
+                          data-some-value="some value"
+                          (click)="uploadimageforcategory()"
+                        >
+                          <i class="fa fa-upload"></i> add photo
+                        </a>
+                        <a
+                          class="btn btn-sm bg-success-light"
+                          (click)="showmodaladdsub()"
+                        >
+                          <i class="fe fe-plus"></i> Add sub-categ
+                        </a>
+                        <a
+                          (click)="disablecateg()"
+                          class="btn btn-sm bg-danger-light"
+                        >
+                          <i class="fe fe-close"></i> Disbale
+                        </a>
+                        <a
+                          (click)="enablecateg()"
+                          class="btn btn-sm bg-warning-light"
+                        >
+                          <i class="fe fe-check"></i> Accept
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content container-fluid">
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. ium"
+      #input
+    />
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+      multiTemplateDataRows
+      matSort
+      matSortDisableClear
+      matSortDisableClear
+    >
+
+      <ng-container matColumnDef="position">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by number"
+        >
+          No.
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by name"
+        >
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="weight">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by weight"
+        >
+          Weight
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="symbol">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by symbol"
+        >
+          Symbol
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplay.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-diagram">
+              <div class="example-element-position">{{ element.position }}</div>
+              <div class="example-element-symbol">{{ element.symbol }}</div>
+              <div class="example-element-name">{{ element.name }}</div>
+              <div class="example-element-weight">{{ element.weight }}</div>
+            </div>
+            <div class="example-element-description">
+              {{ element.description }}
+              <span class="example-element-description-attribution">
+                -- Wikipedia
+              </span>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplay"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+  </div>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>Reviews Content -->
+    </div>
+  </div>
+</div>
+<ng-template #addtemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add service</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label> Name francais</label>
+            <input type="text" class="form-control" [(ngModel)]="sernamefr" />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name englais</label>
+            <input type="text" class="form-control" [(ngModel)]="sernameen" />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name Allmand</label>
+            <input type="text" class="form-control" [(ngModel)]="sernamede" />
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="addnewservice()"
+      >
+        add service
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #edittemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">edit service {{ servicetoedit.name }}</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label> Name francais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="azeaezazeqsdqsd"
+              [(ngModel)]="servicetoedit.languages.name_fr"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name englais</label>
+            <input
+              type="text"
+              class="form-control"
+              name="azeaezazeazeaze"
+              [(ngModel)]="servicetoedit.languages.name_en"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>Name Allmand</label>
+            <input
+              type="text"
+              name="azeaezaze"
+              class="form-control"
+              [(ngModel)]="servicetoedit.languages.name_de"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="updateserinfos()"
+      >
+        add service
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #addkeywordstemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add keywords</h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="decline()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>keywords </label>
+            <div class="card services-card">
+              <div class="card-body">
+                <div class="form-group">
+                  <div style="margin: 30px">
+                    <div class="form-group">
+                      <label>enter keywords</label>
+                      <tag-input
+                        [(ngModel)]="keywordstoadd"
+                        (onAdd)="onItemAdded($event)"
+                        (onRemove)="onItemRemoved($event)"
+                        >></tag-input
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        id="btn-yes"
+        (click)="addkeywordtoservice()"
+      >
+        add keywords
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>

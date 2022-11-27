@@ -1,0 +1,177 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3 class="page-title">Add Description</h3>
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="'/admin/'">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item"><a href="javascript:(0);">TOS</a></li>
+              <li class="breadcrumb-item active">Add Description</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /Page Header -->
+  
+      <div class="row">
+        <div class="col-sm-12">
+          <ng-multiselect-dropdown
+          *ngIf="allcategories.length>0"
+          [settings]="categorySuggestSettings"
+          [data]="allcategories"
+          (onSelect)="getValue($event)"
+          (onDeSelect)="RemoveValueCatg()"
+          [(ngModel)]="ngSelectValue"
+        >
+        </ng-multiselect-dropdown>
+          <div class="card"  *ngIf="ngSelectValue">
+            <div class="card-body custom-edit-service">
+              <!-- Add Blog -->
+              <div class="card-body pt-0">
+                <!-- Tab Menu -->
+                <nav class="user-tabs mb-4">
+                  <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        href="#doc_overview"
+                        data-toggle="tab"
+                        >Description fr</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#doc_locations" data-toggle="tab"
+                        >Description en</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#doc_reviews" data-toggle="tab"
+                        >Description de</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <!-- /Tab Menu -->
+  
+                <!-- Tab Content -->
+                <div class="tab-content pt-0" >
+                  <!-- Overview Content -->
+                  <div
+                    role="tabpanel"
+                    id="doc_overview"
+                    class="tab-pane fade show active"
+                  >
+                    <div class="service-fields mb-3">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label
+                              >Description text
+                              <span class="text-danger">*</span></label
+                            >
+                            <angular-editor
+                              placeholder="'Enter text here...'"
+                              id="1"
+                              [(ngModel)]="descfr"
+                              [config]="editorConfig"
+                            ></angular-editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="submit-section" >
+                      <button
+                        class="btn btn-primary submit-btn"
+                        type="button"
+                        (click)="updatedescfr()"
+                      >
+                        update
+                      </button>
+                    </div>
+                  </div>
+  
+                  <!-- /Overview Content -->
+  
+                  <!-- Locations Content -->
+                  <div role="tabpanel" id="doc_locations" class="tab-pane fade">
+                    <!-- Location List -->
+                    <div class="service-fields mb-3">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label
+                              >Description text
+                              <span class="text-danger">*</span></label
+                            >
+                            <angular-editor
+                              placeholder="'Enter text here...'"
+                              id="2"
+                              [(ngModel)]="descen"
+                              [config]="editorConfig"
+                            ></angular-editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+               
+                    <div class="submit-section" >
+                      <button
+                        class="btn btn-primary submit-btn"
+                        type="button"
+                        (click)="updatedescen()"
+                      >
+                        update
+                      </button>
+                    </div>
+                    <!-- /Location List -->
+                  </div>
+  
+                  <!-- /Locations Content -->
+  
+                  <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+                    <div class="service-fields mb-3">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label
+                              >Description text
+                              <span class="text-danger">*</span></label
+                            >
+                            <angular-editor
+                              placeholder="'Enter text here...'"
+                             
+                              id="3"
+                              [(ngModel)]="descde"
+                              [config]="editorConfig"
+                            ></angular-editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                   
+                    <div class="submit-section" >
+                      <button
+                        class="btn btn-primary submit-btn"
+                        type="button"
+                        (click)="updatedescde()"
+                      >
+                        update
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- /Add Blog -->
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>

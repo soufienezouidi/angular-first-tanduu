@@ -1,0 +1,42 @@
+<section class="about-section">
+  <div class="container">
+    <div class="row">
+      <div class="content-column col-lg-7 col-md-12 col-sm-12 order-2">
+        <div class="inner-column">
+          <div class="sec-title">
+            <span class="title" *ngIf="!isMobile">{{about.languages[serviceLang]}} Tanduu</span>
+            <span class="title text-center" *ngIf="isMobile">{{about.languages[serviceLang]}} Tanduu</span>
+            <h2>{{best.languages[serviceLang]}}</h2>
+          </div>
+          <div class="text">
+            {{aboutus.languages[serviceLang]}}
+          </div>
+          <ul class="list-style-one">
+            <li>{{qualif.languages[serviceLang]}}</li>
+            <li>{{aff.languages[serviceLang]}}</li>
+            <li>{{pro.languages[serviceLang]}}</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Image Column -->
+      <div class="image-column col-lg-5 col-md-12 col-sm-12" *ngIf="!isMobile">
+        <div class="inner-column wow fadeInLeft">
+          <figure class="image-1">
+            <a href="#" class="lightbox-image" data-fancybox="images"
+              ><img
+                src="assets/img/about-us/aboutus1.png"
+                alt=""
+                height=" 600px;"
+            /></a>
+          </figure>
+          <figure class="image-2">
+            <a href="#" class="lightbox-image" data-fancybox="images"
+              ><img src="assets/img/about-us/aboutus2.png" alt=""
+            /></a>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

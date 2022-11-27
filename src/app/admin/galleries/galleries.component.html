@@ -1,0 +1,653 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Gallery</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/dashboard'">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Gallery</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="text-right">
+              <button
+                class="btnadd btn-primary"
+                type="submit"
+                (click)="showModalAddGallery(AddGallery)"
+              >
+                <i class="fas fa-plus-circle"></i>
+                {{ addGallery[serviceLang] }}
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <strong>{{
+              "profile_page_crm.profile_page_crm_76" | translate
+            }}</strong>
+            <dx-data-grid
+              id="gridContainer"
+              class="separator"
+              [dataSource]="GalleriesList"
+              [noDataText]="GalleriesList ? '' : GalleryEmpty[serviceLang]"
+              keyExpr="id"
+              [allowColumnReordering]="true"
+              [showBorders]="true"
+            >
+              <dxo-load-panel [enabled]="true"></dxo-load-panel>
+              <dxi-column
+                dataField="id"
+                alignment="left"
+                cellTemplate="cellTemplate"
+                caption="{{ catalogNameTitle[serviceLang] }}"
+              >
+              </dxi-column>
+
+              <dxi-column
+                [width]="300"
+                dataField="catalog_name"
+                groupCellTemplate="groupLocation"
+                caption="{{ catalogNameTitle[serviceLang] }}"
+                [groupIndex]="1"
+              ></dxi-column>
+
+              <div *dxTemplate="let d of 'groupLocation'">
+                {{ d.key }}
+              </div>
+              <div *dxTemplate="let d of 'cellTemplate'">
+                <button
+                  class="btnadd btn-primary"
+                  style="min-width: 150px"
+                  type="submit"
+                  (click)="openModalNewCatalog(AddGalleryInCatalog, d.data)"
+                >
+                  <i class="fas fa-plus-circle"></i>
+                  {{ addGalleryPic[serviceLang] }}
+                </button>
+                <p *ngIf="isMobile"></p>
+                <span *ngIf="!isMobile" style="margin-right: 10px"></span>
+                <button
+                  class="btnadd btn-primary"
+                  type="submit"
+                  style="min-width: 150px"
+                  (click)="openModalEditInfoCatalog(EditCatalogInfo, d.data)"
+                >
+                  <i class="fas fa-edit"></i>
+                  {{ editCatalog[serviceLang] }}
+                </button>
+                <p *ngIf="isMobile"></p>
+                <span *ngIf="!isMobile" style="margin-right: 10px"></span>
+                <button
+                  class="btnadd btn-danger"
+                  type="submit"
+                  style="min-width: 150px"
+                  (click)="openModalDeleteAllCatalog(DeleteAllCatalog, d.data)"
+                >
+                  <i class="fas fa-trash"></i>
+                  {{ deleteCatalog[serviceLang] }}
+                </button>
+                <br />
+                <br />
+                <span class="separator" *ngIf="d.data.galleries.length < 1">{{
+                  catalogEmpty[serviceLang]
+                }}</span>
+                <div class="seaparator" *ngIf="d.data.galleries.length > 0">
+                  <div class="row blog-grid-row">
+                    <div
+                      class="col-md-12 col-xl-3 col-sm-12"
+                      *ngFor="let item1 of d.data.galleries"
+                    >
+                      <div class="profile-widget">
+                        <div class="doc-img" *ngIf="item1.type === 'image'">
+                          <a [routerLink]="'/team/member-profile'">
+                            <img
+                              class="img-fluid"
+                              alt="User Image"
+                              style="height: 271px"
+                              src="{{
+                                'https://api.aroundorder.com:1337/api/user/gallery/' +
+                                  userConnected.id +
+                                  '/' +
+                                  companyConnected.id +
+                                  '/' +
+                                  item1.file_name
+                              }}"
+                              alt="{{ item1.file_name }}"
+                              title="{{ item1.file_name }}"
+                              name="{{ item1.file_name }}"
+                              lightbox
+                            />
+                          </a>
+                        </div>
+                        <div class="doc-img" *ngIf="item1.type === 'video'">
+                          <video width="400" style="height: 271px" controls>
+                            <source
+                              src="{{
+                                'https://api.aroundorder.com:1337/api/user/gallery/' +
+                                  userConnected.id +
+                                  '/' +
+                                  companyConnected.id +
+                                  '/' +
+                                  item1.file_name
+                              }}"
+                              lightbox
+                              type="video/mp4"
+                              title="{{ item1.file_name }}"
+                            />
+                          </video>
+                        </div>
+                        <div class="pro-content">
+                          <div class="row row-sm">
+                            <div class="col-6">
+                              <a
+                                href="javascript:void(0)"
+                                (click)="
+                                  openEditGallery(EditCatalog, item1, d.data)
+                                "
+                                class="btn book-btn"
+                                ><i class="fas fa-edit fa-icon-size"></i
+                                >{{
+                                  "profile_page_crm.profile_page_crm_14"
+                                    | translate
+                                }}
+                              </a>
+                            </div>
+                            <div class="col-6">
+                              <a
+                                href="javascript:void(0)"
+                                (click)="
+                                  openDeletionPictureFromCatlog(
+                                    DeletePictureCatalog,
+                                    d.data,
+                                    item1
+                                  )
+                                "
+                                class="btn book-btn"
+                                ><i class="fa fa-trash"></i>
+                                {{
+                                  "profile_page_crm.profile_page_crm_57"
+                                    | translate
+                                }}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <dxo-search-panel
+                [visible]="true"
+                placeholder="{{ placeholderFilter[serviceLang] }}"
+              ></dxo-search-panel>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+              <dxo-pager
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[10, 25, 50, 100]"
+              ></dxo-pager>
+              <dxo-group-panel [visible]="true"></dxo-group-panel>
+              <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ADD NEW CATALOG-->
+    <ng-template #AddGallery>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_86" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditGallery()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_87" | translate
+              }}</label>
+              <input
+                type="text"
+                [class]="classNames"
+                (keyup)="showCarc($event.target.value)"
+                [(ngModel)]="catalogName"
+                maxlength="30"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_87' | translate
+                }}"
+              />
+              <span style="float: right">{{ this.countCarc }} / 30</span>
+            </div>
+          </div>
+        </div>
+        <div class="row" hidden>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_106" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control form-required"
+                [(ngModel)]="catalogLink"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_106'
+                    | translate
+                    | lowercase
+                }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_88" | translate
+              }}</label>
+              <div>
+                <span
+                  style="color: crimson; font-weight: bold"
+                  *ngIf="msgCatalogFile"
+                  >{{ msgCatalogFile[serviceLang] }}</span
+                >
+              </div>
+              <ngx-dropzone
+                (change)="onSelectCatatlogFile($event)"
+                accept="image/*, video/*"
+                [multiple]="true"
+              >
+                <ngx-dropzone-label>{{
+                  labelGallery[serviceLang]
+                }}</ngx-dropzone-label>
+                <ngx-dropzone-image-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of PicsCatalogs"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveCatalogFile(f)"
+                >
+                </ngx-dropzone-image-preview>
+                <ngx-dropzone-video-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of videosCatalogs"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveCatalogFile(f)"
+                >
+                </ngx-dropzone-video-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 25px" class="text-center">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="addNewGallery()"
+            id="btn-yes"
+          >
+            {{ "profile_page_crm.profile_page_crm_12" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="closeEditGallery()"
+          >
+            {{ "profile_page_crm.profile_page_crm_52" | translate | lowercase }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <!-- END NEW CATALOG-->
+    <!-- TELMPLATE TO ADD PRODUCT -->
+    <ng-template #EditCatalog>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_89" | translate }}
+        </h4>
+        <button
+          type=" button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditGallery()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="overflow-y: scroll; max-height: 450px">
+        <input type="hidden" id="catalogPicId" />
+        <input type="hidden" id="catalogId" />
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required"> </label>
+              <div>
+                <span
+                  style="color: crimson; font-weight: bold"
+                  *ngIf="msgCatalogFile"
+                  >{{ msgCatalogFile[serviceLang] }}</span
+                >
+              </div>
+              <ngx-dropzone
+                (change)="onSelectCatatlogFile($event)"
+                accept="image/*, video/*"
+                [multiple]="false"
+              >
+                <ngx-dropzone-label>{{
+                  labelGallery[serviceLang]
+                }}</ngx-dropzone-label>
+                <ngx-dropzone-image-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of PicsCatalogs"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveCatalogFile(f)"
+                >
+                </ngx-dropzone-image-preview>
+                <ngx-dropzone-video-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of videosCatalogs"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveCatalogFile(f)"
+                >
+                </ngx-dropzone-video-preview>
+              </ngx-dropzone>
+              <p>
+                <input
+                  hidden
+                  type="file"
+                  name="picture"
+                  (change)="selectFromGallery($event)"
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 25px" class="text-center modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          (click)="confirmEditGallery()"
+          id="btn-yes"
+        >
+          {{ "profile_page_crm.profile_page_crm_12" | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          (click)="closeEditGallery()"
+        >
+          {{ "profile_page_crm.profile_page_crm_52" | translate | lowercase }}
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #EditCatalogInfo>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_89" | translate }}
+        </h4>
+        <button
+          type=" button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditGallery()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="overflow-y: scroll; max-height: 450px">
+        <input type="hidden" id="catalogPicId" />
+        <input type="hidden" id="catalogId" />
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_87" | translate
+              }}</label>
+              <input
+                type="text"
+                [class]="classNames"
+                (keyup)="showCarc($event.target.value)"
+                [(ngModel)]="catalogName"
+                maxlength="30"
+                placeholder="{{
+                  'profile_page_crm.profile_page_crm_87' | translate
+                }}"
+              />
+              <span style="float: right">{{ this.countCarc }} / 30</span>
+            </div>
+          </div>
+        </div>
+        <div class="row" hidden>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label required">{{
+                "profile_page_crm.profile_page_crm_106" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control form-required"
+                [(ngModel)]="catalogLink"
+                placeholder="catalog link"
+              />
+              <input
+                type="hidden"
+                class="form-control form-required"
+                [(ngModel)]="idCatalog"
+                placeholder="catalog link"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 25px" class="text-center modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          (click)="confirmEditGalleryInfo()"
+          id="btn-yes"
+        >
+          {{ "profile_page_crm.profile_page_crm_12" | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          (click)="closeEditGallery()"
+        >
+          {{ "profile_page_crm.profile_page_crm_52" | translate | lowercase }}
+        </button>
+      </div>
+    </ng-template>
+
+    <!-- END TELMPLATE TO ADD PRODUCT -->
+    <!-- END TEMPLATE TO DELETE ALL CATALOG -->
+
+    <ng-template #DeleteAllCatalog>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_57" | translate }}
+          {{ catalogName }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeDeleteProduct()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ textDeleteCatalog[serviceLang] }}
+        <input type="hidden" id="idDeleteAllCatlog" />
+        <div style="margin-top: 25px" class="text-center">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="confirmDeleteAllCategory()"
+            id="btn-yes"
+          >
+            {{ "profile_page_crm.profile_page_crm_57" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="closeDeleteProduct()"
+          >
+            {{ "profile_page_crm.profile_page_crm_52" | translate }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #DeletePictureCatalog>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ "profile_page_crm.profile_page_crm_57" | translate }}
+          {{ catalogName }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeDeleteProduct()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="deletePicFromCatg" />
+        <input type="hidden" id="deleteCatgId" />
+        {{ textDeleteCatalogPic[serviceLang] }}
+
+        <div style="margin-top: 25px" class="text-center">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="confirmDeletePictureFromCatalog()"
+            id="btn-yes"
+          >
+            {{ "profile_page_crm.profile_page_crm_57" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="closeDeleteProduct()"
+          >
+            {{ "profile_page_crm.profile_page_crm_52" | translate }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #AddGalleryInCatalog>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          {{ textAddFilesTitle[serviceLang] }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="closeEditGallery()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              <input type="hidden" id="newPicInCatlg" />
+
+              {{ textAddFiles[serviceLang] }}
+            </p>
+            <div class="form-group">
+              <div>
+                <span
+                  style="color: crimson; font-weight: bold"
+                  *ngIf="msgCatalogFile"
+                  >{{ msgCatalogFile[serviceLang] }}</span
+                >
+              </div>
+              <ngx-dropzone
+                (change)="onSelectCatatlogFile($event)"
+                accept="image/*, video/*"
+                [multiple]="true"
+              >
+                <ngx-dropzone-label>{{
+                  labelGallery[serviceLang]
+                }}</ngx-dropzone-label>
+                <ngx-dropzone-image-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of PicsCatalogs"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveCatalogFile(f)"
+                >
+                </ngx-dropzone-image-preview>
+                <ngx-dropzone-video-preview
+                  ngProjectAs="ngx-dropzone-preview"
+                  *ngFor="let f of videosCatalogs"
+                  [file]="f"
+                  [removable]="true"
+                  (removed)="onRemoveCatalogFile(f)"
+                >
+                </ngx-dropzone-video-preview>
+              </ngx-dropzone>
+
+              <p *ngIf="filesMsg" class="red">{{ this.filesMsg }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 25px" class="text-center">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="addNewGalleryToCatalog()"
+            id="btn-yes"
+          >
+            {{ "profile_page_crm.profile_page_crm_12" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="closeEditGallery()"
+          >
+            {{ "profile_page_crm.profile_page_crm_52" | translate | lowercase }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <!-- END TEMPLATE TO DELETE ALL CATALOG -->
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="page-title">Add Royality partenr</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/admin/'">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Add Royality partenr</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body custom-edit-service">
+            <!-- Add Medicine -->
+            <form>
+              <input
+                type="hidden"
+                name="csrf_token_name"
+                value="0146f123a4c7ae94253b39bca6bd5a5e"
+              />
+
+              <div class="service-fields mb-3">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <label
+                      >Company name<span class="text-danger">*</span></label
+                    >
+                    <input type="hidden" name="email" id="email" value="18" />
+                    <input
+                      class="form-control"
+                      type="email"
+                      name="email"
+                      id="email"
+                      [(ngModel)]="companyy"
+                      value=""
+                      required=""
+                    />
+                  </div>
+                  <div class="col-lg-6">
+                    <label>Email<span class="text-danger">*</span></label>
+                    <input type="hidden" name="email" id="email" value="18" />
+                    <input
+                      class="form-control"
+                      type="email"
+                      name="email"
+                      id="email"
+                      [(ngModel)]="companymail"
+                      value=""
+                      required=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="service-fields mb-3">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <label>Country<span class="text-danger">*</span></label>
+                    <form>
+                      <div fxLayoutAlign="center">
+                        <select
+                          class="custom-select"
+                          required
+                          (change)="onChange($event.target.value)"
+                        >
+                          <option value="">Select Country</option>
+                          <option
+                            *ngFor="let country of countries"
+                            [value]="country.name"
+                          >
+                            {{ country.name }}
+                          </option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label
+                        >Branch name<span class="text-danger">*</span></label
+                      >
+                      <input type="hidden" name="name" id="name" value="18" />
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="name"
+                        [(ngModel)]="branch"
+                        id="name"
+                        value=""
+                        required=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="service-fields mb-3">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Passowrd<span class="text-danger">*</span></label>
+                      <input type="hidden" name="phone" id="phone" value="18" />
+                      <input
+                        class="form-control"
+                        type="password"
+                        [(ngModel)]="pass1"
+                        value=""
+                        required=""
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label
+                      >confirm Passowrd<span class="text-danger">*</span></label
+                    >
+                    <input type="hidden" value="18" />
+                    <input
+                      class="form-control"
+                      type="password"
+                      [(ngModel)]="pass2"
+                      value=""
+                      required=""
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="submit-section">
+                <button
+                  class="btn btn-primary submit-btn"
+                  type="button"
+                  name="form_submit"
+                  value="submit"
+                  (click)="createbranch()"
+                >
+                  Add Branch
+                </button>
+              </div>
+            </form>
+            <!-- /Add Medicine -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->

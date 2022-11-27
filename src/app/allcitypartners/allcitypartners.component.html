@@ -1,0 +1,907 @@
+<!-- Page Content -->
+
+<div class="content" id="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div
+        class="col-xl-6 col-lg-12 order-md-last order-sm-last order-last map-left"
+        style="scroll-behavior: auto; max-height: calc(100%-200px)"
+      >
+        <div class="row align-items-center mb-4">
+          <div class="col-md-6 col">
+            <h4 *ngIf="nbrpartners > 1">
+              {{ nbrpartners }}
+              {{
+                "search_result_page_plateform.search_result_page_plateform_1"
+                  | translate
+              }}
+            </h4>
+            <h4 *ngIf="nbrpartners == 1">
+              {{ nbrpartners }}
+              {{
+                "search_result_page_plateform.search_result_page_plateform_1"
+                  | translate
+              }}
+            </h4>
+          </div>
+
+          <div class="col-md-6 col-auto" *ngIf="nbrpartners > 0">
+            <div class="view-icons">
+              <a
+                (click)="mapListClick()"
+                id="list-view"
+                class="list-view active"
+                ><i class="fas fa-bars"></i
+              ></a>
+              <a (click)="mapGridClick()" id="grid-view" class="grid-view"
+                ><i class="fas fa-th-large"></i
+              ></a>
+              <a
+                id="list-view"
+                class="list-view"
+                (click)="suggservice(suggestservice)"
+                ><i class="fas fa-filter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="mapGrid">
+          <div class="row" style="max-height: 700px; overflow: auto">
+            <div
+              class="col-sm-6 col-md-6 col-xl-6"
+              *ngFor="let item of results1"
+            >
+              <div class="profile-widget" *ngIf="item.company.show_card">
+                <div class="pro-content">
+                  <div class="media">
+                    <div class="media-img-wrap">
+                      <div class="avatar avatar-online">
+                        <img
+                          src="https://api.aroundorder.com:1337/api/user/{{
+                            item.company.userId
+                          }}/profilepic.png"
+                          alt="User Image"
+                          class="avatar-img rounded-circle"
+                        />
+                      </div>
+                    </div>
+                    <div class="media-body" style="margin-left: 6px">
+                      <div class="user-name">
+                        {{ item.company.company_name }}
+                      </div>
+                      <p class="speciality">{{ item.company.main_category }}</p>
+                    </div>
+                  </div>
+
+                  <ul class="tags" style="margin-bottom: 5px">
+                    <li>
+                      <i class="fas fa-map-marker-alt"></i>
+                      {{ item.city }} . {{ item.state }},
+                      {{ item.country }}
+                    </li>
+                  </ul>
+                  <ul class="tags" style="margin-bottom: 5px">
+                    <li></li>
+                  </ul>
+                  <!-- <ul class="available-info">
+                    <div class="call-icons" style="right: 0px">
+                      <ul class="call-items">
+                        <li class="call-item">
+                          <a
+                            href="javascript:void(0)"
+                            tooltip="Send email"
+                            placement="top"
+                            ><i class="fas fa-envelope"></i
+                          ></a>
+                        </li>
+                        <li
+                          class="call-item"
+                          style="width: fit-content !important"
+                        >
+                          <a
+                            tooltip="+216222222222"
+                            style="width: fit-content !important"
+                            href="tel:{{ +21622222222 }}"
+                            placement="top"
+                            ><i
+                              class="fa fa-phone"
+                              style="
+                                margin-left: 2px;
+                                width: fit-content;
+                                margin-right: 2px;
+                              "
+                            >
+                            </i
+                            ><span
+                              style="width: fit-content; margin-right: 4px"
+                            >
+                              22 222 222</span
+                            >
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </ul>-->
+                  <div class="row row-sm" style="margin-bottom: 10px">
+                    <div class="col-6">
+                      <a *ngIf="item.company.show_email" class="btn view-btn"
+                        ><i class="fas fa-envelope"></i
+                      ></a>
+                    </div>
+                    <div class="col-6" *ngIf="item.company.show_phone">
+                      <a
+                        class="btn view-btn"
+                        href="tel:{{ item.company.phone1 }}"
+                        ><i class="fas fa-phone"></i>
+                        {{ item.company.phone1 }}</a
+                      >
+                    </div>
+                  </div>
+                  <div class="row row-sm">
+                    <div class="col-6">
+                      <a
+                        (click)="gotoprofile(item)"
+                        href="javascript:void(0)"
+                        style="cursor: pointer"
+                        class="btn book-btn"
+                        >{{
+                          "search_result_page_plateform.search_result_page_plateform_2"
+                            | translate
+                        }}</a
+                      >
+                    </div>
+                    <div class="col-6">
+                      <a
+                        class="btn book-btn"
+                        (click)="gotobooking1(item)"
+                        href="javascript:void(0)"
+                        >{{
+                          "footer_section_plateform.footer_section_plateform_3"
+                            | translate
+                            | uppercase
+                        }}</a
+                      >
+                    </div>
+                  </div>
+
+                  <div class="post-left" style="margin-top: 10px">
+                    <ul>
+                      <li *ngFor="let z of item.company.hashtags">
+                        <i class="fa fa-tags" style="color: #20c0f3"></i
+                        >{{ z.value }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="clinic-details" *ngIf="item.company.website">
+                    <div class="clinic-services" style="margin-top: 12px">
+                      <ul class="social-share">
+                        <li *ngIf="item.company.socials.fb.is_shown">
+                          <a
+                            href="{{ item.company.socials.fb.link }}"
+                            target="_blank"
+                            title="Facebook"
+                            ><i class="fab fa-facebook"></i
+                          ></a>
+                        </li>
+                        <li *ngIf="item.company.socials.twt.is_shown">
+                          <a
+                            href="{{ item.company.socials.twt.link }}"
+                            target="_blank"
+                            title="Twitter"
+                            ><i class="fab fa-twitter"></i
+                          ></a>
+                        </li>
+                        <li *ngIf="item.company.socials.lnk.is_shown">
+                          <a
+                            href="{{ item.company.socials.lnk.link }}"
+                            target="_blank"
+                            title="Linkedin"
+                            ><i class="fab fa-linkedin"></i
+                          ></a>
+                        </li>
+                        <li *ngIf="item.company.socials.inst.is_shown">
+                          <a
+                            href="{{ item.company.socials.inst.link }}"
+                            target="_blank"
+                            title="instagram"
+                            ><i class="fab fa-instagram"></i
+                          ></a>
+                        </li>
+                        <li *ngIf="item.company.website">
+                          <a
+                            href="{{ item.company.website }}"
+                            target="_blank"
+                            title="website"
+                            ><i class="fas fa-globe"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-top: 6px;
+                    "
+                  >
+                    <p
+                      *ngFor="let hashs of item.services"
+                      style="
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        line-height: 25px;
+                        max-height: 47px;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        word-break: break-word;
+                      "
+                      [ngClass]="checkitem(hashs) == true ? 'tag1' : 'tag2'"
+                    >
+                      {{ hashs.service.languages[serviceLang2] }}
+                    </p>
+                    <p
+                      *ngIf="item.services.length > 3"
+                      style="
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        line-height: 25px;
+                        max-height: 47px;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        word-break: break-word;
+                      "
+                      class="tag2"
+                    >
+                      ...
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="call-wrapper" *ngIf="nbrpartners == 0">
+          <div class="call-main-row">
+            <div class="call-main-wrapper">
+              <div class="call-view">
+                <div class="call-window" style="background: none; height: 82%">
+                  <!-- Call Contents -->
+                  <div class="call-contents">
+                    <div class="call-content-wrap">
+                      <div class="user-video">
+                        <img src="assets/img/no-resf.png" alt="User Image" st />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="col-md-6"
+                      (click)="openModalAddress(addAddress)"
+                    >
+                      <div class="set-category">
+                        <div class="d-flex align-items-center">
+                          <div class="img-holder">
+                            <a href="javascript:void(0);"
+                              ><img src="assets/img/icons/icons.png" alt=""
+                            /></a>
+                          </div>
+                          <div class="info-holder">
+                            <h5 style="color: white">
+                              <br />
+                              {{
+                                "search_result_page_plateform.search_result_page_plateform_11"
+                                  | translate
+                              }}
+                              <br />
+                              <p style="color: #1860ca">
+                                {{
+                                  "search_result_page_plateform.search_result_page_plateform_13"
+                                    | translate
+                                }}
+                              </p>
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-md-6"
+                      [routerLink]="['/pre-register_partner']"
+                      routerLinkActive="router-link-active"
+                    >
+                      <div class="set-category">
+                        <div class="d-flex align-items-center">
+                          <div class="img-holder">
+                            <a href="javascript:void(0);"
+                              ><img
+                                src="assets/img/icons/professional-services.png"
+                                alt=""
+                            /></a>
+                          </div>
+                          <div class="info-holder">
+                            <h5 style="color: white">
+                              <br />
+                              {{
+                                "search_result_page_plateform.search_result_page_plateform_12"
+                                  | translate
+                              }}
+                              <br />
+                              <p>
+                                {{
+                                  "search_result_page_plateform.search_result_page_plateform_13"
+                                    | translate
+                                }}
+                              </p>
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Call Contents -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          *ngIf="mapList"
+          style="overflow: auto; max-height: 700px"
+        >
+          <div class="col-lg-12">
+            <div class="card" *ngFor="let item of results1">
+              <div class="card-body">
+                <div class="doctor-widget">
+                  <div class="doc-info-left">
+                    <div class="doctor-img">
+                      <a [routerLink]="'/patients/doctor-profile'">
+                        <img
+                          src="https://api.aroundorder.com:1337/api/user/{{
+                            item.company.userId
+                          }}/profilepic.png"
+                          alt="User Image"
+                          class="img-fluid"
+                        />
+                      </a>
+                    </div>
+                    <div class="doc-info-cont">
+                      <h4 class="doc-name" style="margin-bottom: 10px">
+                        <a [routerLink]="'/patients/doctor-profile'">
+                          {{ item.company.company_name }}</a
+                        >
+                      </h4>
+
+                      <h5 class="doc-department">
+                        {{ item.company.main_category }}
+                      </h5>
+
+                      <div class="clinic-details">
+                        <p class="doc-location">
+                          <i class="fas fa-map-marker-alt"></i>
+                          {{ item.city }} . {{ item.state }},
+                          {{ item.country }}
+                        </p>
+                      </div>
+                      <div
+                        class="clinic-services"
+                        style="margin-top: 8px; margin-left: 10px"
+                      >
+                        <div
+                          style="display: flex; justify-content: space-between"
+                        >
+                          <p
+                            *ngFor="let hashs of item.services"
+                            style="
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              display: -webkit-box;
+                              line-height: 25px;
+                              max-height: 47px;
+                              -webkit-line-clamp: 1;
+                              -webkit-box-orient: vertical;
+                              word-break: break-word;
+                            "
+                            [ngClass]="
+                              checkitem(hashs) == true ? 'tag1' : 'tag2'
+                            "
+                          >
+                            {{ hashs.service.languages[serviceLang2] }}
+                          </p>
+                          <p
+                            *ngIf="item.services.length > 3"
+                            style="
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              display: -webkit-box;
+                              line-height: 25px;
+                              max-height: 47px;
+                              -webkit-line-clamp: 1;
+                              -webkit-box-orient: vertical;
+                              word-break: break-word;
+                            "
+                            class="tag2"
+                          >
+                            ...
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="clinic-services"
+                        style="margin-left: 10px; margin-top: 12px"
+                      >
+                        <div
+                          style="display: flex; justify-content: space-between"
+                        >
+                          <p
+                            *ngFor="let z of item.company.hashtags"
+                            style="
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              display: -webkit-box;
+                              line-height: 25px;
+                              max-height: 47px;
+                              -webkit-line-clamp: 1;
+                              -webkit-box-orient: vertical;
+                              word-break: break-word;
+                              margin-left: 4px;
+                            "
+                          >
+                            <i class="fa fa-tags" style="color: #20c0f3"></i
+                            >{{ z.value }}
+                          </p>
+                          <p
+                            style="
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              display: -webkit-box;
+                              line-height: 25px;
+                              max-height: 47px;
+                              -webkit-line-clamp: 1;
+                              -webkit-box-orient: vertical;
+                              word-break: break-word;
+                              margin-left: 4px;
+                            "
+                          >
+                            <i class="fa fa-tags" style="color: #20c0f3"></i>...
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="doc-info-right">
+                    <div class="clinic-booking">
+                      <a
+                        class="apt-btn"
+                        (click)="gotoprofile(item)"
+                        href="javascript:void(0)"
+                        style="cursor: pointer"
+                        >{{
+                          "search_result_page_plateform.search_result_page_plateform_2"
+                            | translate
+                        }}</a
+                      >
+                      <a
+                        class="apt-btn"
+                        (click)="gotobooking1(item)"
+                        href="javascript:void(0)"
+                        >{{
+                          "footer_section_plateform.footer_section_plateform_3"
+                            | translate
+                            | uppercase
+                        }}</a
+                      >
+                      <a
+                        class="view-pro-btn"
+                        *ngIf="item.company.show_phone"
+                        href="tel:{{ item.company.phone1 }}"
+                        ><i class="fas fa-phone"></i> {{ item.company.phone1 }}
+                      </a>
+                      <a class="view-pro-btn" *ngIf="item.company.show_email"
+                        ><i class="fas fa-envelope"></i>
+                      </a>
+                    </div>
+                    <div
+                      class="clinic-details text-center"
+                      *ngIf="item.company.website"
+                    >
+                      <div class="clinic-services" style="margin-top: 12px">
+                        <ul class="social-share">
+                          <li *ngIf="item.company.socials.fb.is_shown">
+                            <a
+                              href="{{ item.company.socials.fb.link }}"
+                              target="_blank"
+                              title="Facebook"
+                              ><i class="fab fa-facebook"></i
+                            ></a>
+                          </li>
+                          <li *ngIf="item.company.socials.twt.is_shown">
+                            <a
+                              href="{{ item.company.socials.twt.link }}"
+                              target="_blank"
+                              title="Twitter"
+                              ><i class="fab fa-twitter"></i
+                            ></a>
+                          </li>
+                          <li *ngIf="item.company.socials.lnk.is_shown">
+                            <a
+                              href="{{ item.company.socials.lnk.link }}"
+                              target="_blank"
+                              title="Linkedin"
+                              ><i class="fab fa-linkedin"></i
+                            ></a>
+                          </li>
+                          <li *ngIf="item.company.socials.inst.is_shown">
+                            <a
+                              href="{{ item.company.socials.inst.link }}"
+                              target="_blank"
+                              title="instagram"
+                              ><i class="fab fa-instagram"></i
+                            ></a>
+                          </li>
+                          <li *ngIf="item.company.website">
+                            <a
+                              href="{{ item.company.website }}"
+                              target="_blank"
+                              title="website"
+                              ><i class="fas fa-globe"></i
+                            ></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="load-more text-center">
+          <a
+            class="btn btn-primary btn-sm"
+            (click)="loadmore()"
+            *ngIf="nbrpartners > 4"
+            href="javascript:void(0)"
+            >Load More</a
+          >
+        </div>
+        <div class="row align-items-center mb-4" *ngIf="nbrpartners > 0">
+          <div class="col-md-6 col">
+            <h4 *ngIf="nbrpartners > 1">{{ nbrpartners }} partners found</h4>
+            <h4 *ngIf="nbrpartners == 1">{{ nbrpartners }} partner found</h4>
+            <h4 *ngIf="nbrpartners == 0">No partner found</h4>
+          </div>
+
+          <div class="col-md-6 col-auto">
+            <div class="view-icons">
+              <a
+                (click)="mapListClick()"
+                id="list-view"
+                class="list-view active"
+                ><i class="fas fa-bars"></i
+              ></a>
+              <a (click)="mapGridClick()" id="grid-view" class="grid-view"
+                ><i class="fas fa-th-large"></i
+              ></a>
+              <a
+                id="list-vieaezw"
+                class="list-view"
+                (click)="suggservice(suggestservice)"
+                ><i class="fas fa-filter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /content-left-->
+      <div class="col-xl-6 col-lg-11 map-right">
+        <div id="map" class="map-listing">
+          <agm-map [zoom]="5">
+            <agm-marker
+              *ngFor="let item of results"
+              [latitude]="item.destination.lat"
+              [longitude]="item.destination.lng"
+            >
+              <agm-info-window
+                #window
+                class="map-listing"
+                [isOpen]="true"
+                style="width: 100%"
+                class="gm-style-iw gm-style-iw-c"
+              >
+                <!--Card image-->
+                <div class="doc-info-right">
+                  <div class="clini-infos">
+                    <ul>
+                      <!--  <li>
+                        <span style="align-self: center !important"
+                          ><img
+                            class="rounded-circle"
+                            src="assets/img/profile.png"
+                            width="31"
+                            style="margin-bottom: 8"
+                        /></span>
+                      </li>-->
+                      <li>
+                        <div class="media">
+                          <div class="media-img-wrap">
+                            <div class="avatar avatar-online">
+                              <img
+                                src="https://api.aroundorder.com:1337/api/user/{{
+                                  item.company.userId
+                                }}/profilepic.png"
+                                alt="User Image"
+                                class="avatar-img rounded-circle"
+                              />
+                            </div>
+                          </div>
+                          <div class="media-body" style="margin-left: 6px">
+                            <div
+                              class="user-name"
+                              (click)="gotoprofile(item)"
+                              href="javascript:void(0)"
+                              style="cursor: pointer"
+                            >
+                              {{ item.company.company_name }}
+                            </div>
+                            <p class="speciality">
+                              {{ item.company.main_category }}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <i class="fas fa-route"></i>
+                        {{ item.distance }} km away
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
+        </div>
+      </div>
+      <!-- /map-right-->
+    </div>
+  </div>
+  <!-- /row
+  <ngx-loading-x [show]="!loading"></ngx-loading-x>-->
+</div>
+<!-- /Page Content -->
+
+<ng-template #suggestservice>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{
+        "search_result_page_plateform.search_result_page_plateform_6"
+          | translate
+      }}
+    </h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row form-row">
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label
+              >{{ "forms_plateform.forms_plateform_5" | translate }} :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="zipcodefilter"
+              name="speciality"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-12">
+          <div class="form-group">
+            <label>
+              {{
+                "search_result_page_plateform.search_result_page_plateform_7"
+                  | translate
+              }}
+              : {{ distance }} (km)
+            </label>
+            <mat-slider
+              thumbLabel
+              [displayWith]="formatLabel"
+              tickInterval="1"
+              step="1"
+              min="0"
+              (input)="onInputChange($event)"
+              max="10000"
+              style="margin-top: 3px"
+              aria-label="units"
+            ></mat-slider>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12">
+          <div class="form-group form-focus">
+            <label>
+              {{
+                "search_result_page_plateform.search_result_page_plateform_8"
+                  | translate
+              }}
+              :
+            </label>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <button
+                    type="button"
+                    style="width: inherit"
+                    [ngClass]="
+                      byrating == true
+                        ? 'btn btn-rounded btn-primary'
+                        : 'btn btn-rounded btn-outline-light'
+                    "
+                    (click)="setbyrating()"
+                  >
+                    {{
+                      "search_result_page_plateform.search_result_page_plateform_9"
+                        | translate
+                    }}
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    (click)="setbyprice()"
+                    type="button"
+                    [ngClass]="
+                      byprice == true
+                        ? 'btn btn-rounded btn-primary'
+                        : 'btn btn-rounded btn-outline-light'
+                    "
+                    style="width: inherit"
+                  >
+                    {{
+                      "search_result_page_plateform.search_result_page_plateform_10"
+                        | translate
+                    }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div style="margin-top: 25px" class="text-center">
+      <button
+        type="button"
+        class="btn btn-success si_accept_confirm"
+        (click)="searchfilter()"
+        id="btn-yes"
+      >
+        {{ "buttons_plateform.buttons_plateform_1" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger si_accept_cancel"
+        (click)="decline()"
+      >
+        {{ "buttons_plateform.buttons_plateform_2" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #addAddress>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{ "modals_plateform.modals_plateform_1" | translate }}
+      <i
+        class="fa fa-question-circle"
+        style="cursor: pointer"
+        title="{{ 'help_plateform.help_plateform_1' | translate }}"
+      ></i>
+    </h4>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="font-size: 13px">
+    <div class="row">
+      <div class="col-md-12">
+        <label
+          >{{ "forms_plateform.forms_plateform_1" | translate }} ({{
+            locationmsg.languages[serviceLang2]
+          }}) <span class="label-required">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="{{
+            'forms_plateform.forms_plateform_1' | translate | lowercase
+          }}"
+          (keyup)="checkAddress()"
+        />
+      </div>
+    </div>
+    <br />
+
+    <div class="row" style="margin-top: 12px">
+      <div class="col-md-6">
+        <label
+          >{{ "forms_plateform.forms_plateform_4" | translate }}
+          <span class="label-required">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="{{
+            'forms_plateform.forms_plateform_4' | translate | lowercase
+          }}"
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="latitude"
+          placeholder="latitude"
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="longitude"
+          placeholder="longitude"
+        />
+      </div>
+      <div class="col-md-6">
+        <label>{{ "forms_plateform.forms_plateform_5" | translate }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="zip_code"
+          placeholder="{{
+            'forms_plateform.forms_plateform_5' | translate | lowercase
+          }}"
+        />
+      </div>
+    </div>
+
+    <div style="margin-top: 25px">
+      <button
+        type="button"
+        class="btn btn-primary btn-sm btn-block"
+        (click)="goToSearchPage()"
+        id="btn-yes"
+      >
+        {{ "buttons_plateform.buttons_plateform_1" | translate }}
+        <i class="fa fa-search"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger btn-sm btn-block"
+        (click)="modalRef.hide()"
+      >
+        {{ "buttons_plateform.buttons_plateform_2" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- ADDRESS -->

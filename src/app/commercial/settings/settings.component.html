@@ -1,0 +1,127 @@
+<!-- Basic Information -->
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Basic Information</h4>
+    <div class="row form-row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="change-avatar">
+            <div class="profile-img">
+              <img
+                src="assets/img/doctors/doctor-thumb-02.jpg"
+                alt="User Image"
+              />
+            </div>
+            <div class="upload-img">
+              <div class="change-photo-btn">
+                <span><i class="fa fa-upload"></i> Upload Photo</span>
+                <input type="file" class="upload" />
+              </div>
+              <small class="form-text text-muted"
+                >Allowed JPG, GIF or PNG. Max size of 2MB</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Email <span class="text-danger">*</span></label>
+          <input
+            *ngIf="user"
+            type="email"
+            class="form-control"
+            [(ngModel)]="user.email"
+            disabled
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Password <span class="text-danger">*</span></label>
+          <input
+            type="password"
+            *ngIf="infos"
+            [(ngModel)]="infos.password"
+            class="form-control"
+            disabled
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>First Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            *ngIf="user"
+            [(ngModel)]="user.first_name"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Last Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            *ngIf="infos"
+            [(ngModel)]="infos.user.last_name"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="infos.phone"
+            *ngIf="infos"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="submit-section submit-btn-bottom" (click)="changeinfos()">
+      <button type="submit" class="btn btn-primary submit-btn">
+        Save Changes
+      </button>
+    </div>
+  </div>
+</div>
+<!-- /Basic Information -->
+
+<div class="card">
+  <div class="card-body">
+    <form>
+      <h4 class="card-title">Change Password</h4>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Passowrd <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" [(ngModel)]="oldpassword" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>New password <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" [(ngModel)]="newpass1" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Confirm new password <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" [(ngModel)]="newpass2" />
+        </div>
+        <div class="submit-section submit-btn-bottom">
+          <button
+            type="submit"
+            class="btn btn-primary submit-btn"
+            (click)="resetpassword()"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
